@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <link href="../Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="../../Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="../../../Css/estilos.css" rel="stylesheet" type="text/css" />                   
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>                                                
+                <title>Gestion Documental</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <img src="resources/images/bannerDocumental.png" align="center" width="1270" height="85" alt="cabezote"/>                                                            
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Footer
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Sistema Documental" collapsible="true">
+                    <h:form>
+                        <p:panelMenu style="width:165px">
+                            <p:submenu label="Radicacion">                                                                  
+                                <p:menuitem value="Entrada" icon="caracterizacion" rendered="#{beanUsuario.asPermission('pMenuRadicEntrada')}" />                                  
+                                <p:menuitem value="Salida" icon="cambio" rendered="#{beanUsuario.asPermission('pMenuRadicCambio')}" />                                                               
+                                <p:menuitem value="Memorando" icon="documento" rendered="#{beanUsuario.asPermission('pMenuRadicDocumento')}" />                                                               
+                            </p:submenu>
+                            <p:submenu label="Gestión">                                                                  
+                                <p:menuitem value="Bandeja" icon="caracterizacion" action="#{beanGestion.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />                                  
+                                <p:menuitem value="Tramites" icon="cambio" rendered="#{beanUsuario.asPermission('pMenuGestCambio')}" />                                                                                               
+                            </p:submenu>
+                            <p:submenu label="Consulta">                                                                  
+                                <p:menuitem value="Planilla Radicados" icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsRadicados')}" />                                  
+                                <p:menuitem value="Planilla Reasignados" icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsReasignados')}" />                                                                                                                                                           
+                            </p:submenu>
+                            <p:submenu label="Administrador">
+                                <p:menuitem value="Nivel Acceso" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true"  />                                
+                                <p:menuitem value="Tarea" action="#{beanTarea.prepareList()}" icon="configurar" />                                
+                                <p:menuitem value="Tipo Usuario" action="#{beanTipoUsuario.prepareList()}" icon="configurar"  />                                
+                                <p:menuitem value="Tareas Usuario" action="#{beanTusuarioTarea.prepareList()}" icon="configurar"  />                                                                
+                            </p:submenu>
+                            <p:submenu label="Mi cuenta">                                                                  
+                                <p:menuitem value="Cambiar Contraseña" action="#{beanNivelAcceso.prepareList()}" icon="contrasena" rendered="#{beanUsuario.asPermission('pMenuGralContrasena')}" />                                  
+                                <p:menuitem value="Cerrar Sesión" icon="cancelar" action="#{beanGeneral.prepareCerrarSesion()}" rendered="#{beanUsuario.asPermission('pMenuGralCancelar')}" />                                                                                               
+                            </p:submenu>
+                        </p:panelMenu>   
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="bodyJR">Sistema de Gestión Documental</ui:insert>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

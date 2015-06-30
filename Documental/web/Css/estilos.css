@@ -1,0 +1,100 @@
+*{     font-family: Arial, Helvetica, sans-serif;
+       font-size: small;           
+}
+.ui-state-default .icon-nuevo{
+    background-image: url(../resources/images/Nuevo.png)
+}
+
+.nuevo {background:url("../resources/images/Nuevo.png") no-repeat !important;
+        width:20px;
+        height:16px;
+}
+.consultar {background:url("../resources/images/Consultar.png") no-repeat !important;
+            width:20px;
+            height:16px;
+}
+.ayuda {background:url("../resources/images/Ayuda.png") no-repeat !important;
+        width:20px;
+        height:16px;
+}
+.guardar {background:url("../resources/images/Guardar.png") no-repeat !important;
+          width:20px;
+          height:16px;
+}
+.volver {background:url("../resources/images/Volver.png") no-repeat !important;
+         width:20px;
+         height:16px;
+}
+.editar {background:url("../resources/images/editar.png") no-repeat !important;
+         width:20px;
+         height:16px;
+}
+.cancelar {background:url("../resources/images/Cancelar.png") no-repeat !important;
+           width:20px;
+           height:16px;
+}
+.eliminar {background:url("../resources/images/Delete.png") no-repeat !important;
+           width:20px;
+           height:16px;
+}
+
+.aceptar {background:url("../resources/images/Aceptar.png") no-repeat !important;
+          width:20px;
+          height:16px;
+}
+
+.caracterizacion {background:url("../resources/images/Caracterizacion.png") no-repeat !important;
+                  width:20px;
+                  height:16px;
+}
+
+.cambio {background:url("../resources/images/Cambiar.png") no-repeat !important;
+         width:20px;
+         height:16px;
+}
+
+.configurar {background:url("../resources/images/Configurar.png") no-repeat !important;
+             width:20px;
+             height:16px;
+}
+
+.tareas {background:url("../resources/images/Tareas.png") no-repeat !important;
+         width:20px;
+         height:16px;
+}
+
+.deshacer {background:url("../resources/images/Deshacer.png") no-repeat !important;
+           width:20px;
+           height:16px;
+}
+
+.finalizar {background:url("../resources/images/Finalizar.png") no-repeat !important;
+            width:20px;
+            height:16px;
+}
+
+.foto {background:url("../resources/images/Foto.png") no-repeat !important;
+       width:20px;
+       height:16px;
+}
+
+.contrasena {background: url("../resources/images/Contrasena.png") no-repeat !important;
+            width:20px;
+            height:16px;
+}
+
+.documento {background: url("../resources/images/Documento.png") no-repeat !important;
+            width:20px;
+            height:16px;
+}
+
+
+
+
+
+
+
+
+
+
+

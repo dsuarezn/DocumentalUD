@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">    
+    <ui:define name="bodyJR">
+        <h:panelGroup id="messagePanel" layout="block">                            
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+        </h:panelGroup>        
+        <p:panel >
+            <h:form id="cabezote">
+                <h:panelGrid columns="10" cellpadding="10">
+                    <h:outputText
+                        value="#{bundle.Administrador_GUITarea_TituloCabezote}" />                                                     
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel>
+            <h:form id="CreateNivel">
+                <p:panelGrid style="margin-top:10px" >
+                    <p:row>
+                        <p:column  colspan="400"  styleClass="ui-widget-header">
+                            <p:spacer height="0"/>Tarea
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUITarea_Id}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 300px" readonly="true" value=""></p:inputText></p:column> 
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUITarea_Descripcion}"/></p:column>
+                        <p:column colspan="50"><p:inputText id="pApellido" style="width: 300px" value="#{beanTarea.selected.nombreTarea}" required="true"  requiredMessage="#{bundle.simi_GUITarea_Messages_Descripcion}"></p:inputText></p:column>                              
+                    </p:row>                                                                                                     
+                </p:panelGrid>
+                <br></br>
+                <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanTarea.create()}"  icon="guardar" >
+                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                </p:commandButton>                                                    
+                <p:commandButton  value="&nbsp;Volver" action="#{beanTarea.volver()}" icon="volver" immediate="true"/>                  
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>               
+        </p:panel>
+    </ui:define>
+</ui:composition>
+

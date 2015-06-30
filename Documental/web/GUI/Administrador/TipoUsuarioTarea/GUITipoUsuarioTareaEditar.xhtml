@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">    
+    <ui:define name="bodyJR">
+        <h:panelGroup id="messagePanel" layout="block">                            
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+        </h:panelGroup>        
+        <p:panel >
+            <h:form id="cabezote">
+                <h:panelGrid columns="10" cellpadding="10">
+                    <h:outputText
+                        value="#{bundle.documental_GUITipoUsuarioTarea_TituloCabezote}" />                                                     
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel>
+            <h:form id="CreateTUEtapa">
+                <p:panelGrid style="margin-top:10px" >
+                    <p:row>
+                        <p:column  colspan="400"  styleClass="ui-widget-header">
+                            <p:spacer height="0"/>TAREAS ASIGNADAS A UN TIPO DE USUARIO
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;width: 200px"><h:outputText value="#{bundle.documental_GUITuEtapaTareaCreate_SeleccionTareas}"/></p:column>
+                        <p:column colspan="150"  >
+                            <p:pickList id="pkLEtapasTareas" value="#{beanTusuarioTarea.tarea}" var="tarea" itemLabel="#{tarea.nombreTarea}" itemValue="#{tarea.idTarea}" />
+                        </p:column>                          
+                    </p:row>
+                                                                                                                                                                                                                                               
+                </p:panelGrid>
+                <br></br>
+                <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanTusuarioTarea.setEntityTareasList()}"  icon="guardar" >
+                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                </p:commandButton>                                                    
+                <p:commandButton  value="&nbsp;Volver" action="#{beanTusuarioTarea.volver()}" icon="volver" immediate="true"/>                  
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>               
+        </p:panel>
+    </ui:define>
+</ui:composition>
+

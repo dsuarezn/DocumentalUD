@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">  
+
+    <ui:define name="bodyJR">
+        <p:panel id="cabezote">            
+            <h:panelGrid columns="10" cellpadding="10">
+                <h:outputText
+                    value="#{bundle.Administrador_GUITarea_TituloCabezote}" />                                       
+            </h:panelGrid>  
+        </p:panel>        
+        <p:panel header="" footer="">
+            <h:form id="frmNiveles">
+                <p:dataTable id="nivelAcceso" var="tarea" value="#{beanTarea.items}"
+                             emptyMessage="No Se Han Filtrado Resultados"
+                             filteredValue="#{beanTarea.listTarea}"
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  
+                             scrollable="true">
+                    <p:column sortBy="#{tarea.idTarea}" filterBy="#{tarea.idTarea}" headerText="Id">
+                        <h:outputText value="#{tarea.idTarea}" />
+                    </p:column>
+
+                    <p:column sortBy="#{tarea.nombreTarea}" filterBy="#{tarea.nombreTarea}" headerText="Descripción">
+                        <h:outputText value="#{tarea.nombreTarea}" />
+                    </p:column>
+
+                    <p:column id="button">
+                        <f:facet name="header">
+                        </f:facet>                                             
+                        <p:commandButton id="editar" icon="editar" value="&nbsp;Editar" action="#{beanTarea.prepareEdit(tarea)}">
+                            <f:ajax render="@form"/>
+                        </p:commandButton> 
+                    </p:column>
+
+                    <p:column id="buttonE">
+                        <f:facet name="header">
+                        </f:facet>
+                        <p:commandButton id="Eliminar" onclick="PF('dlg2').show();"  value="&nbsp;Eliminar" icon="eliminar" action="#{beanTarea.prepareDelete(tarea)}"/>                                                                            
+                    </p:column>
+
+                </p:dataTable>
+                <!-- Formulario emergente para eliminiar-->                                                       
+                <p:dialog header="Eliminar Registro" widgetVar="dlg2"  minHeight="40">
+
+                    <h:outputText value="Desea Eliminar este Registro?"/>
+                    <br></br>                                
+                    <p:separator/>
+                    <p:commandButton icon="aceptar" update="@([id$=frmNiveles])" oncomplete="PF('dlg2').hide();" action="#{beanTarea.delete()}"  value="&nbsp;Aceptar"/>
+                    <p:commandButton icon="cancelar" oncomplete="PF('dlg2').hide();" value="&nbsp;Cancelar"/>
+
+                </p:dialog>  
+                <br/>
+                <p:commandButton id="bNuevo"  value="&nbsp;Nuevo"  action="#{beanTarea.prepareCreate()}"  icon="nuevo" />                
+            </h:form>
+        </p:panel>        
+    </ui:define>
+</ui:composition>
+

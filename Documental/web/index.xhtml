@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login</title>
+        <link href="Css/login.css" rel="stylesheet" type="text/css" /> 
+        
+    </h:head>
+    <h:body>
+	<div class="container">
+		<h:form id="formLogin">
+			<p:growl id="growl" showDetail="true" life="3000" />
+			<p:panel header="Ingresar Usuario y Contraseña">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="usuario" value="usuario:" />
+                                        <p:inputText id="usuario" value="#{beanUsuario.usuario}"  label="usuario" />
+
+					<h:outputLabel for="contraseña" value="contraseña:" />
+					<p:password  id="password" value="#{beanUsuario.contrasena}" label="contraseña" />
+
+					<f:facet name="footer">
+						<p:commandButton id="loginButton" value="Login"
+							action="#{beanUsuario.autenticar()}" icon="icon-login"
+							update="growl" />
+					</f:facet>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			if (args.validationFailed || !args.loggedIn) {
+				PF('dlg').jq.effect("shake", {
+					times : 5
+				}, 100);
+			} else {
+				PF('dlg').hide();
+				$('#loginLink').fadeOut();
+			}
+		}
+	</script>
+</h:body>
+</html>
+
