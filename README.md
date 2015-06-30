@@ -6,11 +6,11 @@ IDE: netbeans 8.0.1
 Base de datos: mysql
 en el archivo persistence.xml pueden cambiar la siguiente linea:
 
-<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
+\<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
 
 por la siguiente linea:
 
-<property name="javax.persistence.jdbc.url" value="jdbc:mysql://http://200.69.101.174:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
+\<property name="javax.persistence.jdbc.url" value="jdbc:mysql://http://200.69.101.174:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
 
 esto con el fin de centralizar la base de datos.
 
