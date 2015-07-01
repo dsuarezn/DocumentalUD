@@ -10,7 +10,7 @@ en el archivo persistence.xml pueden cambiar la siguiente linea:
 
 por la siguiente linea:
 
-\<property name="javax.persistence.jdbc.url" value="jdbc:mysql://http://200.69.101.174:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
+\<property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.69.101.174:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
 
 esto con el fin de centralizar la base de datos.
 
