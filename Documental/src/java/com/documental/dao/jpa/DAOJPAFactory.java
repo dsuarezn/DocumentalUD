@@ -6,6 +6,7 @@
 package com.documental.dao.jpa;
 
 import com.documental.dao.DAOFactory;
+import com.documental.dao.DependenciaDAO;
 import com.documental.dao.LoginDAO;
 import com.documental.dao.NivelAccesoDAO;
 import com.documental.dao.TareaDAO;
@@ -35,6 +36,11 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public TipoUsuarioDAO getTipoUsuarioDAO() {
         return new TipoUsuarioDAOJPAImpl();
+    }
+
+    @Override
+    public DependenciaDAO getDependenciaDAO() {
+       return new DependenciaDAOJPAImpl();
     }
     
 }

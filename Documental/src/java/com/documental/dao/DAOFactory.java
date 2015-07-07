@@ -14,4 +14,5 @@ public interface DAOFactory {
     public NivelAccesoDAO getNivelAccesoDAO();
     public TareaDAO getTareaDAO();
     public TipoUsuarioDAO getTipoUsuarioDAO();
+    public DependenciaDAO getDependenciaDAO();
 }
