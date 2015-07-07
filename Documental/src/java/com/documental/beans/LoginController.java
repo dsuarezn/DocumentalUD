@@ -8,8 +8,11 @@ package com.documental.beans;
 import com.documental.bo.Login;
 import com.documental.bo.NivelAcceso;
 import com.documental.bo.Tarea;
+import com.documental.bo.TipoUsuario;
 import com.documental.servicios.ServicioLogin;
+import com.documental.servicios.ServicioTipoUsuario;
 import com.documental.servicios.impl.ServicioLoginImpl;
+import com.documental.servicios.impl.ServicioTipoUsuarioImpl;
 import com.documental.util.EncripcionUtil;
 import com.documental.util.JsfUtil;
 import java.io.IOException;
@@ -32,11 +35,14 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     private Login current;
+    private Login currentC;
     private ServicioLogin servicio;
+    private ServicioTipoUsuario servicioT;
     private NivelAcceso nivelAcceso;
     private List<String> listaPermisosUsuario;
     private static String usuario;
     private String contrasena;
+    private Integer tipoUsuario;
     //Variables de sesion
     static ExternalContext ectx;
     static HttpServletRequest request;
@@ -60,12 +66,31 @@ public class LoginController {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-        
+
+    public List<TipoUsuario> getListTipoUsuarios() {
+        return getServicioT().buscarTodosTipoUsuario();
+    }
+
+    public Integer getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(Integer tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public Login getSelected() {
         if (current == null) {
             current = new Login();
         }
         return current;
+    }
+
+    public Login getSelectedC() {
+        if (currentC == null) {
+            currentC = new Login();
+        }
+        return currentC;
     }
 
     public ServicioLogin getServicio() {
@@ -75,6 +100,13 @@ public class LoginController {
         return servicio;
     }
 
+    public ServicioTipoUsuario getServicioT() {
+        if (servicioT == null) {
+            servicioT = new ServicioTipoUsuarioImpl();
+        }
+        return servicioT;
+    }
+
     private void cargarNivelAcceso() {
         try {
             nivelAcceso = current.getTipoUsuario().getIdNivelAcceso();
@@ -82,6 +114,10 @@ public class LoginController {
             e.printStackTrace();
             nivelAcceso = null;
         }
+    }
+
+    public String prepareCreate() {
+        return "/GUI/Administrador/Usuarios/GUIUsuarioCrear";
     }
 
     private boolean cargarPermisos() {
@@ -101,15 +137,14 @@ public class LoginController {
         }
     }
 
-    public boolean asPermission(String nombreTarea) {
-        System.out.println(listaPermisosUsuario.contains(nombreTarea));
+    public boolean asPermission(String nombreTarea) {        
         return listaPermisosUsuario.contains(nombreTarea);
     }
 
     public String autenticar() throws IOException {
         Login login = null;
         try {
-            login = getServicio().buscarPorClave(usuario);
+            login = getServicio().buscarPorClave(1);
         } catch (javax.persistence.NoResultException ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
@@ -126,7 +161,7 @@ public class LoginController {
             return null;
         } else {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
-        }        
+        }
         return "index_MenuPrincipal";
     }
 
@@ -150,6 +185,26 @@ public class LoginController {
         request = (HttpServletRequest) ectx.getRequest();
         session = request.getSession();
         session.setAttribute("user", usuario);
+    }
+    
+    public void create() {
+        String respuesta = "";
+        try {
+            Integer id = getServicio().getMaxId();
+            id++;
+            currentC.setIdLogin(id);
+            currentC.setTipoUsuario(new TipoUsuario(tipoUsuario));
+            currentC.setContrasena("678");
+            respuesta = getServicio().salvarLogin(currentC);             
+            if (respuesta.equals("Operación Exitosa")) {
+                currentC = null;
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
+            } else {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioErroneo"));
+            }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUINivelAcceso_Messages_pCreateNivelErroneo") + " " + e.toString());
+        }
     }
 
 }

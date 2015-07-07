@@ -26,8 +26,8 @@ public class ServicioLoginImpl implements ServicioLogin{
     }
         
     @Override
-    public void salvarLogin(Login login) {
-        loginDAO.salvar(login);
+    public String salvarLogin(Login login) {
+        return loginDAO.salvar(login);
     }
 
     @Override
@@ -41,8 +41,13 @@ public class ServicioLoginImpl implements ServicioLogin{
     }
 
     @Override
-    public Login buscarPorClave(String usuario) {
+    public Login buscarPorClave(Integer usuario) {
         return loginDAO.buscarPorClave(usuario);
+    }
+
+    @Override
+    public int getMaxId() {
+        return loginDAO.getMaxId();
     }
     
 }

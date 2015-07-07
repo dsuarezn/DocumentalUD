@@ -46,10 +46,18 @@
                                 <p:menuitem value="Planilla Reasignados" icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsReasignados')}" />                                                                                                                                                           
                             </p:submenu>
                             <p:submenu label="Administrador">
-                                <p:menuitem value="Nivel Acceso" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true" />                                
-                                <p:menuitem value="Tarea" action="#{beanTarea.prepareList()}" icon="configurar"  />                                
-                                <p:menuitem value="Tipo Usuario" action="#{beanTipoUsuario.prepareList()}" icon="configurar"  />                                
-                                <p:menuitem value="Tareas Usuario" action="#{beanTusuarioTarea.prepareList()}" icon="configurar"  />                                                                
+                                <p:submenu label="Permisos Usuario">                                    
+                                    <p:menuitem value="Nivel Acceso" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true" />                                
+                                    <p:menuitem value="Tarea" action="#{beanTarea.prepareList()}" icon="configurar"  />                                
+                                    <p:menuitem value="Tipo Usuario" action="#{beanTipoUsuario.prepareList()}" icon="configurar"  />                                
+                                    <p:menuitem value="Tareas Usuario" action="#{beanTusuarioTarea.prepareList()}" icon="configurar"  />                                                                
+                                </p:submenu>
+                                <p:submenu label="Usuarios">
+                                    <p:menuitem value="Listar Usuarios" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true"  />                                
+                                    <p:menuitem value="Crear Usuario" action="#{beanUsuario.prepareCreate()}" icon="configurar" />  
+                                    <p:menuitem value="Modificar Usuario" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true"  />                                
+                                    <p:menuitem value="Desactivar Usuario" action="#{beanTarea.prepareList()}" icon="configurar" />                                
+                                </p:submenu>
                             </p:submenu>
                             <p:submenu label="Mi cuenta">                                                                  
                                 <p:menuitem value="Cambiar Contraseña" action="#{beanNivelAcceso.prepareList()}" icon="contrasena" rendered="#{beanUsuario.asPermission('pMenuGralContrasena')}" />                                  
@@ -58,7 +66,7 @@
                         </p:panelMenu>                        
                     </h:form>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="center">
                     <ui:insert name="bodyJR">Sistema de Gestión Documental</ui:insert>
                 </p:layoutUnit>

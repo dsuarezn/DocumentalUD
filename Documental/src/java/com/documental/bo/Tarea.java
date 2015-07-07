@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author DiegoM
+ * @author Diego
  */
 @Entity
 @Table(name = "tarea")
@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tarea.findByIdTarea", query = "SELECT t FROM Tarea t WHERE t.idTarea = :idTarea"),
     @NamedQuery(name = "Tarea.findByNombreTarea", query = "SELECT t FROM Tarea t WHERE t.nombreTarea = :nombreTarea")})
 public class Tarea implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -107,5 +108,5 @@ public class Tarea implements Serializable {
     public String toString() {
         return "com.documental.bo.Tarea[ idTarea=" + idTarea + " ]";
     }
-    
+
 }

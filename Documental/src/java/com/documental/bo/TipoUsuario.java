@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author DiegoM
+ * @author Diego
  */
 @Entity
 @Table(name = "tipo_usuario")
