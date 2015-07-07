@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author DiegoM
+ * @author Diego
  */
 @Entity
 @Table(name = "nivel_acceso")

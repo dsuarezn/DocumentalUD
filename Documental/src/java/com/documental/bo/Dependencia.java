@@ -6,18 +6,22 @@
 package com.documental.bo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author enrique
+ * @author Diego
  */
 @Entity
 @Table(name = "dependencia")
@@ -39,6 +43,12 @@ public class Dependencia implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dependencia")
+    private Collection<DependenciaEmpleado> dependenciaEmpleadoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dependencia")
+    private Collection<DependenciaDocumento> dependenciaDocumentoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dependencia")
+    private Collection<DependenciaDirector> dependenciaDirectorCollection;
 
     public Dependencia() {
     }
@@ -77,6 +87,33 @@ public class Dependencia implements Serializable {
         this.estado = estado;
     }
 
+    @XmlTransient
+    public Collection<DependenciaEmpleado> getDependenciaEmpleadoCollection() {
+        return dependenciaEmpleadoCollection;
+    }
+
+    public void setDependenciaEmpleadoCollection(Collection<DependenciaEmpleado> dependenciaEmpleadoCollection) {
+        this.dependenciaEmpleadoCollection = dependenciaEmpleadoCollection;
+    }
+
+    @XmlTransient
+    public Collection<DependenciaDocumento> getDependenciaDocumentoCollection() {
+        return dependenciaDocumentoCollection;
+    }
+
+    public void setDependenciaDocumentoCollection(Collection<DependenciaDocumento> dependenciaDocumentoCollection) {
+        this.dependenciaDocumentoCollection = dependenciaDocumentoCollection;
+    }
+
+    @XmlTransient
+    public Collection<DependenciaDirector> getDependenciaDirectorCollection() {
+        return dependenciaDirectorCollection;
+    }
+
+    public void setDependenciaDirectorCollection(Collection<DependenciaDirector> dependenciaDirectorCollection) {
+        this.dependenciaDirectorCollection = dependenciaDirectorCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -101,7 +138,6 @@ public class Dependencia implements Serializable {
     public String toString() {
         return "com.documental.bo.Dependencia[ idDependencia=" + idDependencia + " ]";
     }
-
     /**
      * Establecer el estado a partir de un atributo booleano
      * @param activo 

@@ -12,6 +12,6 @@ import java.util.List;
  *
  * @author DiegoM
  */
-public interface LoginDAO extends GenericDAO<Login, String>{
+public interface LoginDAO extends GenericDAO<Login, Integer>{
     public  List<Login> buscarPorClave(Login login);
 }
