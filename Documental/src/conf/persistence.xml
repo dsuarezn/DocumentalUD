@@ -6,12 +6,20 @@
     <class>com.documental.bo.Login</class>
     <class>com.documental.bo.TipoUsuario</class>
     <class>com.documental.bo.Tarea</class>
+    <class>com.documental.bo.Documento</class>
+    <class>com.documental.bo.Anexo</class>
+    <class>com.documental.bo.DependenciaEmpleado</class>
+    <class>com.documental.bo.DependenciaDocumento</class>
+    <class>com.documental.bo.Dependencia</class>
+    <class>com.documental.bo.Tipo</class>
+    <class>com.documental.bo.Historico</class>
+    <class>com.documental.bo.DependenciaDirector</class>    
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>        
+    <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://200.69.101.174:3306/Documental?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="root"/>      
+      <property name="javax.persistence.jdbc.password" value="root"/>
       <!--<property name="javax.persistence.schema-generation.database.action" value="create"/>      
       Este es un comentario      
       -->
