@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
  */
 public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implements LoginDAO {
 
-    @Override
+    @Override    
     public List<Login> buscarPorClave(Login login) {
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
         EntityManager manager = factoriaSession.createEntityManager();

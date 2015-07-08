@@ -5,12 +5,22 @@
  */
 package com.documental.beans;
 
+import com.documental.bo.Tipo;
+import com.documental.bo.Documento;
 import com.documental.bo.Login;
 import com.documental.dto.LoginDTO;
 import com.documental.enums.EstadosDocumentoEnum;
+import com.documental.enums.FinalidadDocumentoEnum;
 import com.documental.enums.PrioridadDocumentoEnum;
+import com.documental.enums.VisibilidadDocumentoEnum;
+import com.documental.servicios.ServicioAnexo;
+import com.documental.servicios.ServicioDocumento;
 import com.documental.servicios.ServicioLogin;
+import com.documental.servicios.ServicioTipo;
+import com.documental.servicios.impl.ServicioAnexoImpl;
+import com.documental.servicios.impl.ServicioDocumentoImpl;
 import com.documental.servicios.impl.ServicioLoginImpl;
+import com.documental.servicios.impl.ServicioTipoImpl;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,13 +42,25 @@ public class RadicacionController {
     private List<UploadedFile> uploadAttachment;
     private String idUsuarioOrigen;
     private String idUsuarioDestino;
-    private ServicioLogin servicio;
+    
+    private Integer tipoDocumento;
     private Integer estadoDocumento;
     private Integer prioridadDocumento;
+    private Integer finalidadDocumento;
+    private Integer visibilidadDocumento;
+    
     private String palabrasClaves;
     private String finDocumento;
     private String firmaDocumento;
     private UploadedFile uploadFile;
+    
+    private String asunto;
+    private String descripcion;
+    
+    private ServicioLogin servicioLogin;
+    private ServicioDocumento servicioDocumento;
+    private ServicioTipo servicioTipo;
+    private ServicioAnexo servicioAnexo;
     
     /**
      * Creates a new instance of GestionController
@@ -57,13 +79,39 @@ public class RadicacionController {
     }
     
     public List<LoginDTO> getListaUsuarios(){
-        return getLoginDTO(getServicio().buscarTodosLogin());
+        return getLoginDTO(getServicioLogin().buscarTodosLogin());
     }
-   public ServicioLogin getServicio() {
-        if (servicio == null) {
-            servicio = new ServicioLoginImpl();
+    
+    public List<Tipo> getListaTipos(){
+        return servicioTipo.consultarTodosTipos();
+    }
+    
+   public ServicioLogin getServicioLogin() {
+        if (servicioLogin == null) {
+            servicioLogin = new ServicioLoginImpl();
         }
-        return servicio;
+        return servicioLogin;
+    }
+   
+    public ServicioDocumento getServicioDocumento() {
+        if (servicioDocumento == null) {
+            servicioDocumento = new ServicioDocumentoImpl();
+        }
+        return servicioDocumento;
+    }
+    
+    public ServicioTipo getServicioTipo() {
+        if (servicioTipo == null) {
+            servicioTipo = new ServicioTipoImpl();
+        }
+        return servicioTipo;
+    }
+    
+    public ServicioAnexo getServicioAnexo() {
+        if (servicioAnexo == null) {
+            servicioAnexo = new ServicioAnexoImpl();
+        }
+        return servicioAnexo;
     }
     
    private List<LoginDTO> getLoginDTO(List<Login> listaUsuarios){
@@ -82,6 +130,13 @@ public class RadicacionController {
        return PrioridadDocumentoEnum.values();
    }
    
+    public FinalidadDocumentoEnum[] getFinalidadesDocumento(){
+       return FinalidadDocumentoEnum.values();
+   }
+    
+    public VisibilidadDocumentoEnum[] getVisibilidadesDocumento(){
+       return VisibilidadDocumentoEnum.values();
+   }
 
    public void addFileToAttachment(FileUploadEvent event) {
       uploadAttachment.add(event.getFile());
@@ -150,26 +205,88 @@ public class RadicacionController {
       public String volver() {
         return "/";
     }
+
+    public String getAsunto() {
+        return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getFinalidadDocumento() {
+        return finalidadDocumento;
+    }
+
+    public void setFinalidadDocumento(Integer finalidadDocumento) {
+        this.finalidadDocumento = finalidadDocumento;
+    }
+
+    public Integer getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(Integer tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
       
-      
+    public Tipo obtenerTipoDocumento(Integer id){
+        return servicioTipo.consultarTipoPorId(id);
+    }
+    
+//    public String guardarAnexos(Integer idDocumento, List<UploadedFile> listaArchivos){
+//        for (UploadedFile listaArchivo : listaArchivos) {
+//            
+//        }
+//    }
+
+    public Integer getVisibilidadDocumento() {
+        return visibilidadDocumento;
+    }
+
+    public void setVisibilidadDocumento(Integer visibilidadDocumento) {
+        this.visibilidadDocumento = visibilidadDocumento;
+    }
+    
+    
       
        public void create() {
-//        String respuesta = "";
-//        try {
-//            Integer id = getServicio().getMaxId();
-//            id++;
-//            current.setIdTipoUsuario(id);
-//            current.setIdNivelAcceso(new NivelAcceso(idNivelAcceso));
-//            respuesta = getServicio().salvarTipoUsuario(current);
-//            items = null;
-//            if (respuesta.equals("Operación Exitosa")) {
-////                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioExitoso"));
-//            } else {
-////                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioErroneo"));
-//            }
-//        } catch (Exception e) {
-////            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioErroneo") + " " + e.toString());
-//        }
+        String respuesta = "";
+        try {
+            Integer id = getServicioDocumento().getMaxId();
+            id++;
+            Documento documento=new Documento();
+            documento.setAsunto(this.getAsunto());
+            documento.setDescripcion(this.getDescripcion());
+            documento.setEstado(EstadosDocumentoEnum.getNombrePorCodigo(this.getEstadoDocumento()));
+            documento.setPrioridad(PrioridadDocumentoEnum.getNombrePorCodigo(this.getPrioridadDocumento()));
+            documento.setFinalidad(FinalidadDocumentoEnum.getNombrePorCodigo(this.getFinalidadDocumento()));
+            documento.setFechaCreacion(new Date());
+            documento.setIdDocumento(id);
+            documento.setTipoId(obtenerTipoDocumento(this.getTipoDocumento()));
+            documento.setVisibilidad(VisibilidadDocumentoEnum.getNombrePorCodigo(this.getVisibilidadDocumento()));
+            respuesta = getServicioDocumento().salvarDocumento(documento);            
+            if (respuesta.equals("Operación Exitosa")) {
+                for (UploadedFile archivoCargado : uploadAttachment) {
+                    
+                }
+                
+                
+//                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioExitoso"));
+            } else {
+//                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioErroneo"));
+            }
+        } catch (Exception e) {
+//            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUITipoUsuario_Messages_pCreateTipoUsuarioErroneo") + " " + e.toString());
+        }
     }
    
 }

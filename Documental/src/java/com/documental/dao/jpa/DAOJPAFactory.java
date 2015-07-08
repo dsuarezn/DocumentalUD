@@ -5,10 +5,13 @@
  */
 package com.documental.dao.jpa;
 
+import com.documental.dao.AnexoDAO;
 import com.documental.dao.DAOFactory;
+import com.documental.dao.DocumentoDAO;
 import com.documental.dao.LoginDAO;
 import com.documental.dao.NivelAccesoDAO;
 import com.documental.dao.TareaDAO;
+import com.documental.dao.TipoDAO;
 import com.documental.dao.TipoUsuarioDAO;
 
 /**
@@ -35,6 +38,21 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public TipoUsuarioDAO getTipoUsuarioDAO() {
         return new TipoUsuarioDAOJPAImpl();
+    }
+
+    @Override
+    public DocumentoDAO getDocumentoDAO() {
+        return new DocumentoDAOJPAImpl();
+    }
+
+    @Override
+    public TipoDAO getTipoDAO() {
+        return new TipoDAOJPAImpl();
+    }
+
+    @Override
+    public AnexoDAO getAnexoDAO() {
+        return new AnexoDAOJPAImpl();
     }
     
 }

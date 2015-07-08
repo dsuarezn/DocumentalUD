@@ -10,17 +10,27 @@ package com.documental.enums;
  * @author Alexander
  */
 public enum PrioridadDocumentoEnum {
-    NORMAL("Normal",1), URGENTE("Urgente",2), CRITICO("Critico",3);
+    NORMAL("NORMAL",1), URGENTE("URGENTE",2), CRITICO("CRITICO",3);
     
     
     PrioridadDocumentoEnum(String nombre, Integer codigo){
-        this.nombrePrioridad=nombre;
-        this.codigoPrioridad=codigo;
+        this.nombre=nombre;
+        this.codigo=codigo;
     }
     
-    private String nombrePrioridad;
-    private Integer codigoPrioridad;
+    private String nombre;
+    private Integer codigo;
     
-    public Integer getCodigo(){return this.codigoPrioridad;}
-    public String  getNombreEstado(){return this.nombrePrioridad;}
+    public Integer getCodigo(){return this.codigo;}
+    public String  getNombreEstado(){return this.nombre;}
+    
+     public static String getNombrePorCodigo(Integer codigo){        
+        for (PrioridadDocumentoEnum item : PrioridadDocumentoEnum.values()) {
+            if(item.codigo == codigo){
+                return item.getNombreEstado();
+            }
+        }
+        return null;
+    }
+    
 }
