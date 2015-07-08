@@ -17,4 +17,6 @@ public interface DAOFactory {
     public DocumentoDAO getDocumentoDAO();
     public AnexoDAO getAnexoDAO();
     public TipoDAO getTipoDAO();
+    public DependenciaDAO getDependenciaDAO();
+
 }

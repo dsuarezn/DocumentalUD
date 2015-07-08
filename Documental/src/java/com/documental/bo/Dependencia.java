@@ -138,5 +138,23 @@ public class Dependencia implements Serializable {
     public String toString() {
         return "com.documental.bo.Dependencia[ idDependencia=" + idDependencia + " ]";
     }
+    /**
+     * Establecer el estado a partir de un atributo booleano
+     * @param activo 
+     */
+    public void setBooleanEstado(boolean activo) {
+        if(activo){
+        this.estado = "Activo";
+        }else{
+        this.estado = "Inactivo";
+        }
+    }
+    /**
+     * Obtener el estado en un retorno de tipo booleano
+     * @return estado de la dependencia
+     */
+    public boolean getBooleanEstado(){
+    return "Activo".equals(this.estado);
+    }
     
 }

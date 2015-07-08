@@ -8,6 +8,7 @@ package com.documental.dao.jpa;
 import com.documental.dao.AnexoDAO;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
+import com.documental.dao.DependenciaDAO;
 import com.documental.dao.LoginDAO;
 import com.documental.dao.NivelAccesoDAO;
 import com.documental.dao.TareaDAO;
@@ -53,6 +54,8 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public AnexoDAO getAnexoDAO() {
         return new AnexoDAOJPAImpl();
+    public DependenciaDAO getDependenciaDAO() {
+       return new DependenciaDAOJPAImpl();
     }
     
 }

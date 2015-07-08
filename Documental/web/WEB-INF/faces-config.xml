@@ -38,7 +38,12 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>tuEtapaTareaController</managed-bean-name>
-        <managed-bean-class>com.documental.beans.TipoUsuarioTareaController</managed-bean-class>    
+        <managed-bean-class>com.documental.beans.TipoUsuarioTareaController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>DependenciaController</managed-bean-name>
+        <managed-bean-class>com.documental.beans.DependenciaController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>
