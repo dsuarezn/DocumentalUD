@@ -54,6 +54,8 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public AnexoDAO getAnexoDAO() {
         return new AnexoDAOJPAImpl();
+    }
+    
     public DependenciaDAO getDependenciaDAO() {
        return new DependenciaDAOJPAImpl();
     }
