@@ -10,26 +10,36 @@
         <p:panel id="cabezote">            
             <h:panelGrid columns="10" cellpadding="10">
                 <h:outputText
-                    value="#{bundle.Administrador_GUINivelAcceso_TituloCabezote}" />                                       
+                    value="#{bundle.Administrador_GUIUsuarioConsultar_TituloCabezote}" />                                       
             </h:panelGrid>  
         </p:panel>        
         <p:panel header="" footer="">
             <h:form id="frmNiveles">
-                <p:dataTable id="nivelAcceso" var="nivel" value="#{beanNivelAcceso.items}"
+                <p:dataTable id="nivelAcceso" var="usuario" value="#{beanUsuario.items}"
                              emptyMessage="No Se Han Filtrado Resultados"
-                             filteredValue="#{beanNivelAcceso.listNivelAcceso}"
+                             filteredValue="#{beanUsuario.listLogin}"
                              paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  
                              scrollable="true">
-                    <p:column sortBy="#{nivel.id}" filterBy="#{nivel.id}" headerText="Id">
-                        <h:outputText value="#{nivel.id}" />
+                    <p:column sortBy="#{usuario.usuario}" filterBy="#{usuario.usuario}" headerText="Usuario">
+                        <h:outputText value="#{usuario.usuario}" />
                     </p:column>
 
-                    <p:column sortBy="#{nivel.descripcion}" filterBy="#{nivel.descripcion}" headerText="Descripción">
-                        <h:outputText value="#{nivel.descripcion}" />
+                    <p:column sortBy="#{usuario.nombre}" filterBy="#{usuario.nombre}" headerText="Nombre">
+                        <h:outputText value="#{usuario.nombre}" />
                     </p:column>
 
+                    
+                    <p:column sortBy="#{usuario.apellido}" filterBy="#{usuario.apellido}" headerText="Usuario">
+                        <h:outputText value="#{usuario.apellido}" />
+                    </p:column>
+                    
+                    <p:column sortBy="#{usuario.usuario}" filterBy="#{usuario.usuario}" headerText="Usuario">
+                        <h:outputText value="#{usuario.usuario}" />
+                    </p:column>
+                    
+                    
                     <p:column id="button">
                         <f:facet name="header">
                         </f:facet>                                             

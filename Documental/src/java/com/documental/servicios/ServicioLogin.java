@@ -14,9 +14,10 @@ import java.util.List;
  */
 public interface ServicioLogin {
 
+    public int getCount();
     public int getMaxId();
     public String salvarLogin(Login login);
-    public void borrarLogin(Login libro);
+    public void borrarLogin(Login login);
     public List<Login> buscarTodosLogin();    
     public Login buscarPorClave(Integer login);    
     
