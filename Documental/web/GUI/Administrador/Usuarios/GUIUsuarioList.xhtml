@@ -35,15 +35,20 @@
                         <h:outputText value="#{usuario.apellido}" />
                     </p:column>
                     
-                    <p:column sortBy="#{usuario.usuario}" filterBy="#{usuario.usuario}" headerText="Usuario">
-                        <h:outputText value="#{usuario.usuario}" />
+                    <p:column sortBy="#{usuario.estado}" filterBy="#{usuario.estado}" headerText="Usuario">
+                        <h:outputText value="#{usuario.estado}" />
+                    </p:column>
+                    
+                    
+                    <p:column sortBy="#{usuario.correo}" filterBy="#{usuario.correo}" headerText="Usuario">
+                        <h:outputText value="#{usuario.correo}" />
                     </p:column>
                     
                     
                     <p:column id="button">
                         <f:facet name="header">
                         </f:facet>                                             
-                        <p:commandButton id="editar" value="&nbsp;Editar" icon="editar" action="#{beanNivelAcceso.prepareEdit(nivel)}">
+                        <p:commandButton id="editar" value="&nbsp;Editar" icon="editar" action="#{beanUsuario.prepareEdit(usuario)}">
                             <f:ajax render="@form"/>
                         </p:commandButton> 
                     </p:column>
@@ -51,7 +56,7 @@
                     <p:column id="buttonE">
                         <f:facet name="header">
                         </f:facet>
-                        <p:commandButton id="Eliminar" onclick="PF('dlg2').show();"  value="&nbsp;Eliminar" icon="eliminar" action="#{beanNivelAcceso.prepareDelete(nivel)}"/>                                                                            
+                        <p:commandButton id="Eliminar" onclick="PF('dlg2').show();"  value="&nbsp;Eliminar" icon="eliminar" action="#{beanUsuario.prepareDelete(usuario)}"/>                                                                            
                     </p:column>
 
                 </p:dataTable>
@@ -61,12 +66,12 @@
                     <h:outputText value="Desea Eliminar este Registro?"/>
                     <br></br>                                
                     <p:separator/>
-                    <p:commandButton icon="aceptar" update="@([id$=frmNiveles])" oncomplete="PF('dlg2').hide();" action="#{beanNivelAcceso.delete()}"  value="&nbsp;Aceptar"/>
+                    <p:commandButton icon="aceptar" update="@([id$=frmNiveles])" oncomplete="PF('dlg2').hide();" action="#{beanUsuario.delete()}"  value="&nbsp;Aceptar"/>
                     <p:commandButton icon="cancelar" oncomplete="PF('dlg2').hide();" value="&nbsp;Cancelar"/>
 
                 </p:dialog>  
                 <br/>
-                <p:commandButton id="bNuevo"  value="&nbsp;Nuevo"  action="#{beanNivelAcceso.prepareCreate()}"  icon="nuevo" />                
+                <p:commandButton id="bNuevo"  value="&nbsp;Nuevo"  action="#{beanUsuario.prepareCreate()}"  icon="nuevo" />                
             </h:form>
         </p:panel>        
     </ui:define>
