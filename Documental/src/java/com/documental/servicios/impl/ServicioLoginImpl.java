@@ -49,5 +49,10 @@ public class ServicioLoginImpl implements ServicioLogin{
     public int getMaxId() {
         return loginDAO.getMaxId();
     }
+
+    @Override
+    public Login obtenerDirectorDependencia(Integer dependencia) {
+        return loginDAO.obtenerDirectorDependencia(dependencia);
+    }
     
 }

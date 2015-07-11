@@ -10,7 +10,7 @@ package com.documental.enums;
  * @author Alexander
  */
 public enum EstadosDocumentoEnum {
-    RADICADO("RADICADO",1), ENTRAMITE("ENTRAMITE",2), CERRADO("CERRADO",3);
+    RADICADO("Radicado",1), ENTRAMITE("Entramite",2), CERRADO("Cerrado",3);
     
     
     EstadosDocumentoEnum(String nombre, Integer codigo){

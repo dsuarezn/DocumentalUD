@@ -188,7 +188,7 @@ public class GenericDAOJPAImpl<T, Id extends Serializable> implements GenericDAO
         Integer idpk = 0;
         try {
             TypedQuery<T> consulta = manager.createQuery("select o from "
-                    + claseDePersistencia.getSimpleName() + " o", claseDePersistencia);
+                    + claseDePersistencia.getSimpleName() + " o", claseDePersistencia);            
             if (consulta.getResultList().get(0) == null) {
                 idpk = 0;
             } else {

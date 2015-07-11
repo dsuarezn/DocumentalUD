@@ -39,7 +39,7 @@ public class ServicioDocumentoImpl implements ServicioDocumento{
 
     @Override
     public Documento consultarDocumentoPorId(Integer Id) {
-        return documentoDAO.buscarPorEntity(Id);
+        return documentoDAO.buscarPorClave(Id);
     }
 
     @Override

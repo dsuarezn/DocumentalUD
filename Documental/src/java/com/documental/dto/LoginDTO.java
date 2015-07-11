@@ -26,6 +26,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class LoginDTO implements Serializable {
     private static final long serialVersionUID = 1L;
    
+    private Integer Id;
+    
+    private String nombre;
+ 
+    private String apellido;
+    
     private String usuario;
  
     private String correo;
@@ -35,10 +41,21 @@ public class LoginDTO implements Serializable {
     public LoginDTO() {
     }
 
-    public LoginDTO(String usuario, String correo, TipoUsuario tipoUsuario) {
+    public LoginDTO(Integer id,String nombre, String apellido, String usuario, String correo, TipoUsuario tipoUsuario) {
+        this.Id=id;
         this.usuario = usuario;
         this.correo = correo;
         this.tipoUsuario = tipoUsuario;
+        this.nombre=nombre;
+        this.apellido = apellido;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer Id) {
+        this.Id = Id;
     }
 
   
@@ -66,6 +83,27 @@ public class LoginDTO implements Serializable {
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
+    public String getNombreCompleto(){
+        return this.nombre+" "+this.apellido;
+    }
+    
 
     @Override
     public int hashCode() {

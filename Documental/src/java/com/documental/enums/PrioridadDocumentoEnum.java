@@ -10,7 +10,7 @@ package com.documental.enums;
  * @author Alexander
  */
 public enum PrioridadDocumentoEnum {
-    NORMAL("NORMAL",1), URGENTE("URGENTE",2), CRITICO("CRITICO",3);
+    NORMAL("Normal",1), URGENTE("Urgente",2), CRITICO("Critico",3);
     
     
     PrioridadDocumentoEnum(String nombre, Integer codigo){

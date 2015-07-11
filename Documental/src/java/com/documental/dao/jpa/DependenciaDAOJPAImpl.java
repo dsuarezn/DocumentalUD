@@ -7,6 +7,7 @@ package com.documental.dao.jpa;
 
 import com.documental.bo.Dependencia;
 import com.documental.dao.DependenciaDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -32,5 +33,14 @@ public class DependenciaDAOJPAImpl extends GenericDAOJPAImpl<Dependencia, Intege
         } finally {
             manager.close();
         }
+    }
+
+    @Override
+    public List<Dependencia> buscarDependenciasConDirector() {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();        
+        Query query = manager.createNamedQuery("Dependencia.findAllWithDirector",Dependencia.class);		        
+	List<Dependencia> listadependencia =  query.getResultList();
+	return listadependencia; 
     }
 }

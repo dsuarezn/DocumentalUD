@@ -14,4 +14,7 @@ import java.util.List;
  */
 public interface LoginDAO extends GenericDAO<Login, Integer>{
     public  List<Login> buscarPorClave(Login login);
+    
+    public Login obtenerDirectorDependencia(Integer idDependencia);
+    
 }

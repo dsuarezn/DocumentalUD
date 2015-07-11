@@ -36,7 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByNombre", query = "SELECT l FROM Login l WHERE l.nombre = :nombre"),
     @NamedQuery(name = "Login.findByApellido", query = "SELECT l FROM Login l WHERE l.apellido = :apellido"),
     @NamedQuery(name = "Login.findByEstado", query = "SELECT l FROM Login l WHERE l.estado = :estado"),
-    @NamedQuery(name = "Login.findByCorreo", query = "SELECT l FROM Login l WHERE l.correo = :correo")})
+    @NamedQuery(name = "Login.findByCorreo", query = "SELECT l FROM Login l WHERE l.correo = :correo"),
+    @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia")
+})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,7 +61,7 @@ public class Login implements Serializable {
     private String estado;
     @Column(name = "correo")
     private String correo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loginDestinatario")
     private Collection<Historico> historicoCollection;    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
     private Collection<DependenciaEmpleado> dependenciaEmpleadoCollection;

@@ -9,6 +9,7 @@ import com.documental.dao.AnexoDAO;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
 import com.documental.dao.DependenciaDAO;
+import com.documental.dao.HistoricoDAO;
 import com.documental.dao.LoginDAO;
 import com.documental.dao.NivelAccesoDAO;
 import com.documental.dao.TareaDAO;
@@ -58,6 +59,11 @@ public class DAOJPAFactory implements DAOFactory{
     
     public DependenciaDAO getDependenciaDAO() {
        return new DependenciaDAOJPAImpl();
+    }
+
+    @Override
+    public HistoricoDAO getHistoricoDAO() {
+        return new HistoricoDAOJPAImpl();
     }
     
 }

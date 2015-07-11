@@ -55,5 +55,10 @@ public class ServicioDependenciaImpl implements ServicioDependencia {
     public Dependencia buscarPorClave(Integer id) {
         return dependenciaDAO.buscarPorClave(id);
     }
+
+    @Override
+    public List<Dependencia> buscarTodosDependenciaConDirector() {
+        return dependenciaDAO.buscarDependenciasConDirector();
+    }
     
 }

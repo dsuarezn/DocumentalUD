@@ -5,15 +5,14 @@
  */
 package com.documental.dao;
 
-import com.documental.bo.Dependencia;
-import java.util.List;
 
+import java.io.Serializable;
+import com.documental.bo.Historico;
+import com.documental.bo.HistoricoPK;
 /**
  *
- * @author enrique
+ * @author Alexander
  */
-public interface DependenciaDAO extends GenericDAO<Dependencia, Integer>{
-    
-    public List<Dependencia> buscarDependenciasConDirector();
+public interface HistoricoDAO extends GenericDAO<Historico, HistoricoPK>{
     
 }

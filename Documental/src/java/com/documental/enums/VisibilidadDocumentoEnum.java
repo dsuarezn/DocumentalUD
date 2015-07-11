@@ -10,7 +10,7 @@ package com.documental.enums;
  * @author Alexander
  */
 public enum VisibilidadDocumentoEnum {
-    INTERNO("INTERNO",1), EXTERNO("EXTERNO",2);
+    INTERNO("Interno",1), EXTERNO("Externo",2);
     
     
     VisibilidadDocumentoEnum(String nombre, Integer codigo){

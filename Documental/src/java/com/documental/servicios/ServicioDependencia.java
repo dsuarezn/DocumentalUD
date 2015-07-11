@@ -18,5 +18,6 @@ public interface ServicioDependencia {
     public String salvarDependencia(Dependencia dependencia);
     public String borrarDependencia(Dependencia dependencia);
     public List<Dependencia> buscarTodosDependencia();    
+    public List<Dependencia> buscarTodosDependenciaConDirector();    
     public Dependencia buscarPorClave(Integer id); 
 }

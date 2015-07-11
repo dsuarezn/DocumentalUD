@@ -19,5 +19,6 @@ public interface ServicioLogin {
     public void borrarLogin(Login libro);
     public List<Login> buscarTodosLogin();    
     public Login buscarPorClave(Integer login);    
+    public Login obtenerDirectorDependencia(Integer dependencia);    
     
 }

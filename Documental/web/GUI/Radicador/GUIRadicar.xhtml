@@ -16,7 +16,7 @@
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
         </h:panelGroup>        
         <p:panel header="" footer="">
-            <h:form id="RadicarFormulario" enctype="multipart/form-data">
+            <h:form id="RadicarFormulario">
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
                         <p:column  colspan="400"  styleClass="ui-widget-header">
@@ -27,96 +27,121 @@
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_hora}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;"><h:outputText value="#{beanRadicacion.currentDate}"/></p:column>
                     </p:row>
-                    
                     <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_archivo}"/></p:column> 
+                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_asunto}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:fileUpload value="#{beanRadicacion.uploadFile}" id="fileupload" dragDropSupport="true" fileUploadListener="#{beanRadicacion.addFileToAttachment}" mode="advanced" sizeLimit="3145728" multiple="true" auto="true" allowTypes="/(\.|\/)(pdf)$/"/>                            
-                                 <p:panelGrid>
-                                     <ui:repeat var="file" value="#{beanRadicacion.uploadAttachment}" varStatus="status">
-                                         <p:row>
-                                             <p:column>#{file}</p:column>
-                                         </p:row>
-                                    </ui:repeat>
-                                 </p:panelGrid>
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputText required="true" id="asunto" value="#{beanRadicacion.docTrabajo.asunto}" maxlength="10" />
+                                    </p:column>  
+                                    <p:column>
+                                        <p:message for="asunto" />
+                                    </p:column>                                    
+                                </p:row>                                
+                            </p:panelGrid>                        
                         </p:column>
-                    </p:row>
+                    </p:row> 
+                    <p:row>
+                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_descripcion}"/></p:column> 
+                        <p:column colspan="80" style="font-weight: bold;">
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column>
+                                        <p:inputTextarea id="desc" required="true" value="#{beanRadicacion.docTrabajo.descripcion}" rows="5" cols="30" counter="display2" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
+                                    </p:column>  
+                                    <p:column>
+                                        <p:message for="desc" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <h:outputText id="display2" />                                   
+                                    </p:column>                                                                        
+                                </p:row>
 
-                     <p:row>
+                            </p:panelGrid>                        
+                        </p:column>
+                    </p:row> 
+                    <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_emisor}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
                             <p:selectOneMenu id="usuarioOrigen" value="#{beanRadicacion.idUsuarioOrigen}">
-                                <f:selectItems value="#{beanRadicacion.listaUsuarios}" var="user" itemLabel="#{user.usuario}" itemValue="#{user.usuario}"/>
+                                <f:selectItems value="#{beanRadicacion.listaUsuarios}" var="usersel" itemLabel="#{usersel.nombreCompleto}" itemValue="#{usersel.id}" />
                             </p:selectOneMenu> 
                         </p:column>
                     </p:row>
-                    
+                                        
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_destinatario}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="usuarioDest" value="#{beanRadicacion.idUsuarioDestino}">
-                                <f:selectItems value="#{beanRadicacion.listaUsuarios}" var="user" itemLabel="#{user.usuario}" itemValue="#{user.usuario}"/>
+                            <p:selectOneMenu id="dependenciaDest" value="#{beanRadicacion.idDependenciaDestino}">
+                                <f:selectItems value="#{beanRadicacion.listaDependencias}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
                             </p:selectOneMenu> 
                         </p:column>
                     </p:row>
-                    
+
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_estado}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="estadoDoc" value="#{beanRadicacion.estadoDocumento}">
-                                <f:selectItems value="#{beanRadicacion.estadosDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.codigo}"/>
+                            <p:selectOneMenu id="estadoDoc" value="#{beanRadicacion.docTrabajo.estado}">
+                                <f:selectItems value="#{beanRadicacion.estadosDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_prioridad}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="prioridadDoc" value="#{beanRadicacion.prioridadDocumento}">
-                                <f:selectItems value="#{beanRadicacion.prioridadesDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.codigo}"/>
+                            <p:selectOneMenu id="prioridadDoc" value="#{beanRadicacion.docTrabajo.prioridad}">
+                                <f:selectItems value="#{beanRadicacion.prioridadesDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
                     </p:row>
                     <p:row>
+                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_tipodocumento}"/></p:column> 
+                        <p:column colspan="80" style="font-weight: bold;">
+                            <p:selectOneMenu id="tipoDocumento" value="#{beanRadicacion.idTipo}">
+                                <f:selectItems value="#{beanRadicacion.listaTipos}" var="tipoDoc" itemLabel="#{tipoDoc.nombre}" itemValue="#{tipoDoc.idTipo}"/>
+                            </p:selectOneMenu> 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_findocumento}"/></p:column> 
+                        <p:column colspan="80" style="font-weight: bold;">
+                            <p:selectOneMenu id="finalidadDocumento" value="#{beanRadicacion.docTrabajo.finalidad}">
+                                <f:selectItems value="#{beanRadicacion.finalidadesDocumento}" var="finalidades" itemLabel="#{finalidades.nombreEstado}" itemValue="#{finalidades.nombreEstado}"/>
+                            </p:selectOneMenu> 
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_visualizacion}"/></p:column> 
+                        <p:column colspan="80" style="font-weight: bold;">
+                            <p:selectOneMenu id="visibilidadDocumento" value="#{beanRadicacion.docTrabajo.visibilidad}">
+                                <f:selectItems value="#{beanRadicacion.visibilidadesDocumento}" var="visible" itemLabel="#{visible.nombreEstado}" itemValue="#{visible.nombreEstado}"/>
+                            </p:selectOneMenu> 
+                        </p:column>
+                    </p:row>                  
+                    <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_palabrasclaves}"/></p:column> 
-                        
                         <p:column colspan="80" style="font-weight: bold;">
                             <p:panelGrid>
                                 <p:row>
                                     <p:column>
-                                        <p:inputTextarea value="#{beanRadicacion.palabrasClaves}" rows="5" cols="30" counter="display" maxlength="10" counterTemplate="{0} characters remaining." autoResize="false" />
-                                    </p:column>                                    
+                                        <p:inputTextarea id="words" required="true" value="#{beanRadicacion.docTrabajo.palabrasClave}" rows="5" cols="30" counter="display" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
+                                    </p:column>   
+                                    <p:column>
+                                        <p:message for="words" />
+                                    </p:column>
                                 </p:row>
                                 <p:row>
                                     <p:column>
                                         <h:outputText id="display" />                                   
                                     </p:column>
                                 </p:row>
-
                             </p:panelGrid>                        
                         </p:column>
-                    </p:row>
-                    
-                     <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_findocumento}"/></p:column> 
-                        <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneRadio id="finDocumento" value="#{beanRadicacion.finDocumento}">
-                                <f:selectItem itemValue="aprobar" itemLabel="#{bundle.documental_GUIRadicar_formulario_aprobacion}" />
-                                <f:selectItem itemValue="ver" itemLabel="#{bundle.documental_GUIRadicar_formulario_visualizacion}" />                                
-                            </p:selectOneRadio>
-                          
-                        </p:column>
-                    </p:row>
-                    
-                    <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_firmadoc}"/></p:column> 
-                        <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneRadio id="firmadoc" value="#{beanRadicacion.finDocumento}">
-                                <f:selectItem itemValue="SI" itemLabel="#{bundle.documental_GUIRadicar_formulario_firmado}" />
-                                <f:selectItem itemValue="NO" itemLabel="#{bundle.documental_GUIRadicar_formulario_sinfirma}" />                                
-                            </p:selectOneRadio>                          
-                        </p:column>
-                    </p:row>
-                                                                                         
+                    </p:row>                    
+                                                                       
                 </p:panelGrid>
                 <br></br>
                

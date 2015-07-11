@@ -54,4 +54,14 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
         }
      }
 
+    @Override
+    public Login obtenerDirectorDependencia(Integer idDependencia) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();        
+        Query query = manager.createNamedQuery("Login.findDirectorByDependencia",Login.class);		
+        query.setParameter("idDependencia", idDependencia);
+	Login listauser = (Login) query.getSingleResult();
+	return listauser;        
+    }
+
 }

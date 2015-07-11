@@ -9,11 +9,11 @@ package com.documental.enums;
  *
  * @author Alexander
  */
-public enum FinalidadDocumentoEnum {
-    APROBACION("Aprobar",1), VISUALIZACION("Ver",2);
+public enum FirmadoDocumentoEnum {
+    FIRMADO("Firmado",1), NOFIRMADO("NoFirmado",2);
     
     
-    FinalidadDocumentoEnum(String nombre, Integer codigo){
+    FirmadoDocumentoEnum(String nombre, Integer codigo){
         this.nombre=nombre;
         this.codigo=codigo;
     }
@@ -25,7 +25,7 @@ public enum FinalidadDocumentoEnum {
     public String  getNombreEstado(){return this.nombre;}
     
     public static String getNombrePorCodigo(Integer codigo){        
-        for (FinalidadDocumentoEnum item : FinalidadDocumentoEnum.values()) {
+        for (FirmadoDocumentoEnum item : FirmadoDocumentoEnum.values()) {
             if(item.codigo == codigo){
                 return item.getNombreEstado();
             }

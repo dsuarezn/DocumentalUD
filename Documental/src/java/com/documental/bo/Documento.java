@@ -60,6 +60,9 @@ public class Documento implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
     @Basic(optional = false)
+    @Column(name = "palabras_clave")
+    private String palabrasClave;
+    @Basic(optional = false)
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
@@ -84,7 +87,7 @@ public class Documento implements Serializable {
         this.idDocumento = idDocumento;
     }
 
-    public Documento(Integer idDocumento, String prioridad, String estado, String visibilidad, String descripcion, Date fechaCreacion, String asunto, String finalidad) {
+    public Documento(Integer idDocumento, String prioridad, String estado, String visibilidad, String descripcion, Date fechaCreacion, String asunto, String finalidad, String palabrasClave) {
         this.idDocumento = idDocumento;
         this.prioridad = prioridad;
         this.estado = estado;
@@ -93,6 +96,7 @@ public class Documento implements Serializable {
         this.fechaCreacion = fechaCreacion;
         this.asunto = asunto;
         this.finalidad = finalidad;
+        this.palabrasClave = palabrasClave;
     }
 
     public Integer getIdDocumento() {
@@ -159,6 +163,16 @@ public class Documento implements Serializable {
         this.finalidad = finalidad;
     }
 
+    public String getPalabrasClave() {
+        return palabrasClave;
+    }
+
+    public void setPalabrasClave(String palabrasClave) {
+        this.palabrasClave = palabrasClave;
+    }
+
+    
+    
     @XmlTransient
     public Collection<Anexo> getAnexoCollection() {
         return anexoCollection;
