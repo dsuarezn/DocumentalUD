@@ -13,7 +13,7 @@
             <h:form id="cabezote">
                 <h:panelGrid columns="10" cellpadding="10">
                     <h:outputText
-                        value="#{bundle.Administrador_GUINivelAcceso_TituloCabezote}" />                                                     
+                        value="#{bundle.Administrador_GUIUsuarioEditar_TituloCabezote}" />                                                     
                 </h:panelGrid>
             </h:form>
         </p:panel>
@@ -22,22 +22,43 @@
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
                         <p:column  colspan="400"  styleClass="ui-widget-header">
-                            <p:spacer height="0"/>Nivel de Acceso
+                            <p:spacer height="0"/>Usuarios
                         </p:column>
                     </p:row>
 
                     <p:row>
-                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUINivelAcceso_Id}"/></p:column>
-                        <p:column colspan="50"><p:inputText style="width: 300px" readonly="true" value="#{beanNivelAcceso.selected.id}"></p:inputText></p:column> 
-                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUINivelAcceso_Descripcion}"/></p:column>
-                        <p:column colspan="50"><p:inputText id="pApellido" style="width: 300px" value="#{beanNivelAcceso.selected.descripcion}" required="true"  requiredMessage="#{bundle.simi_GUINivelAcceso_Messages_Descripcion}"></p:inputText></p:column>                              
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Nombre}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.nombre}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pNombre}"></p:inputText></p:column> 
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Apellido}"/></p:column>
+                        <p:column colspan="50"><p:inputText id="pApellido" style="width: 400px" value="#{beanUsuario.selected.apellido}" required="true"  requiredMessage="#{bundle.documental_GUIUsuario_Messages_pApellido}"></p:inputText></p:column>                              
+                    </p:row>      
+                    
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Correo}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.correo}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pCorreo}"></p:inputText></p:column> 
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Estado}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu value="#{beanUsuario.selected.estado}" style="width: 400px">
+                                <f:selectItem itemLabel="Activo" itemValue="A"/>
+                                <f:selectItem itemLabel="Inactivo" itemValue="I"/>
+                            </p:selectOneMenu>
+                        </p:column>                              
+                    </p:row>                                                                                                     
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_TipoUsuario}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu style="width: 400px" value="#{beanUsuario.tipoUsuario}">
+                                <f:selectItems value="#{beanUsuario.listTipoUsuarios}" var="tipo" itemLabel="#{tipo.tipoUsuario}" itemValue="#{tipo.idTipoUsuario}"/>
+                            </p:selectOneMenu>
+                        </p:column>    
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Login}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
                     </p:row>                                                                                                     
                 </p:panelGrid>
                 <br></br>
-                <p:commandButton id="bNuevo"  value="&nbsp;Editar"  action="#{beanNivelAcceso.edit()}"  icon="guardar" >
+                <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanUsuario.edit()}"  icon="guardar" >
                     <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
-                </p:commandButton>                                                    
-                <p:commandButton  value="&nbsp;Volver" action="#{beanNivelAcceso.volver()}" icon="volver" immediate="true"/>                  
+                </p:commandButton>                                                                    
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

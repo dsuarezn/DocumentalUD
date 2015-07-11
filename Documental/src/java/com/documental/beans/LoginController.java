@@ -141,6 +141,13 @@ public class LoginController {
         return "/GUI/Administratdor/Usuarios/GUIUsuarioList";
     }
 
+    public String prepareEdit (Login usuario) {
+        current = usuario;
+        return "/GUI/Administratdor/Usuarios/GUIUsuarioEditar";
+    }
+    
+    
+    
     private boolean cargarPermisos() {
         try {
             if (current.getTipoUsuario().getTareaCollection().size() <= 0) {
@@ -225,6 +232,21 @@ public class LoginController {
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUINivelAcceso_Messages_pCreateNivelErroneo") + " " + e.toString());
+        }
+    }
+    
+    public void edit (){
+        String respuesta = "";
+                try {
+            respuesta = getServicio().salvarLogin(current);
+            items = null;
+            if (respuesta.equals("Operación Exitosa")) {
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioExitoso"));
+            } else {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioErroneo"));
+            }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioErroneo") + " " + e.toString());
         }
     }
     
