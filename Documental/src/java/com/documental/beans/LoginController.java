@@ -135,6 +135,11 @@ public class LoginController {
     public String prepareCreate() {
         return "/GUI/Administrador/Usuarios/GUIUsuarioCrear";
     }
+    
+    public String prepareList () {
+   
+        return "/GUI/Administratdor/Usuarios/GUIUsuarioList";
+    }
 
     private boolean cargarPermisos() {
         try {
