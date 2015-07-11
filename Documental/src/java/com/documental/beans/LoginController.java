@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.documental.beans;
 
 import com.documental.bo.Login;
@@ -15,6 +10,7 @@ import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.servicios.impl.ServicioTipoUsuarioImpl;
 import com.documental.util.EncripcionUtil;
 import com.documental.util.JsfUtil;
+import com.documental.util.PaginationHelper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -36,10 +34,13 @@ public class LoginController {
 
     private Login current;
     private Login currentC;
+    private DataModel items = null;
+    private PaginationHelper pagination;
     private ServicioLogin servicio;
     private ServicioTipoUsuario servicioT;
     private NivelAcceso nivelAcceso;
     private List<String> listaPermisosUsuario;
+    private List<Login> listLogin = null;
     private static String usuario;
     private String contrasena;
     private Integer tipoUsuario;
@@ -71,6 +72,14 @@ public class LoginController {
         return getServicioT().buscarTodosTipoUsuario();
     }
 
+    public List<Login> getListLogin() {
+        return listLogin;
+    }
+
+    public void setListLogin(List<Login> listLogin) {
+        this.listLogin = listLogin;
+    }
+        
     public Integer getTipoUsuario() {
         return tipoUsuario;
     }
@@ -91,6 +100,13 @@ public class LoginController {
             currentC = new Login();
         }
         return currentC;
+    }
+    
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
     }
 
     public ServicioLogin getServicio() {
@@ -205,6 +221,24 @@ public class LoginController {
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUINivelAcceso_Messages_pCreateNivelErroneo") + " " + e.toString());
         }
+    }
+    
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper((10)) {
+                @Override
+                public int getItemsCount() {
+                    return getServicio().getCount();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    setListLogin(getServicio().buscarTodosLogin());
+                    return new ListDataModel(getListLogin());
+                }
+            };
+        }
+        return pagination;
     }
 
 }
