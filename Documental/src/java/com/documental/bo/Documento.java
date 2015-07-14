@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Documento.findByAsunto", query = "SELECT d FROM Documento d WHERE d.asunto = :asunto"),
     @NamedQuery(name = "Documento.findByFinalidad", query = "SELECT d FROM Documento d WHERE d.finalidad = :finalidad")})
 public class Documento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -73,7 +74,7 @@ public class Documento implements Serializable {
     @Column(name = "finalidad")
     private String finalidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
-    private Collection<Anexo> anexoCollection;
+    private Collection<Anexo> anexoCollection;    
     @JoinColumn(name = "tipo_id", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
     private Tipo tipoId;
@@ -171,8 +172,6 @@ public class Documento implements Serializable {
         this.palabrasClave = palabrasClave;
     }
 
-    
-    
     @XmlTransient
     public Collection<Anexo> getAnexoCollection() {
         return anexoCollection;
@@ -199,6 +198,8 @@ public class Documento implements Serializable {
         this.dependenciaDocumentoCollection = dependenciaDocumentoCollection;
     }
 
+    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -223,5 +224,5 @@ public class Documento implements Serializable {
     public String toString() {
         return "com.documental.bo.Documento[ idDocumento=" + idDocumento + " ]";
     }
-    
+
 }

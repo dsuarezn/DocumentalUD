@@ -6,7 +6,7 @@
 package com.documental.dao;
 
 
-import java.io.Serializable;
+
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
 /**

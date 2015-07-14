@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Historico.findByFecha", query = "SELECT h FROM Historico h WHERE h.fecha = :fecha"),
     @NamedQuery(name = "Historico.findByActivo", query = "SELECT h FROM Historico h WHERE h.activo = :activo")})
 public class Historico implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected HistoricoPK historicoPK;
@@ -48,7 +49,7 @@ public class Historico implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @Column(name = "activo")
-    private boolean activo;
+    private boolean activo;    
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id_login", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Login loginDestinatario;
@@ -112,7 +113,7 @@ public class Historico implements Serializable {
 
     public void setLoginDestinatario(Login login) {
         this.loginDestinatario = login;
-    }
+    } 
 
     public Login getLoginOrigen() {
         return loginOrigen;
@@ -146,5 +147,5 @@ public class Historico implements Serializable {
     public String toString() {
         return "com.documental.bo.Historico[ historicoPK=" + historicoPK + " ]";
     }
-    
+
 }

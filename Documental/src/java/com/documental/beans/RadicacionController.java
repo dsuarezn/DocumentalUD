@@ -14,7 +14,6 @@ import com.documental.bo.Login;
 import com.documental.dto.LoginDTO;
 import com.documental.enums.EstadosDocumentoEnum;
 import com.documental.enums.FinalidadDocumentoEnum;
-import com.documental.enums.FirmadoDocumentoEnum;
 import com.documental.enums.PrioridadDocumentoEnum;
 import com.documental.enums.VisibilidadDocumentoEnum;
 import com.documental.servicios.ServicioDependencia;
@@ -36,7 +35,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 
 /**

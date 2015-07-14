@@ -42,18 +42,18 @@
                     
                     <p:column sortBy="#{usuario.correo}" filterBy="#{usuario.correo}" headerText="Correo">
                         <h:outputText value="#{usuario.correo}" />
-                    </p:column>                                                           
-                </p:dataTable>
-                <!-- Formulario emergente para eliminiar-->                                                       
-                <p:dialog header="Eliminar Registro" widgetVar="dlg2"  minHeight="40">
-
-                    <h:outputText value="Desea Eliminar este Registro?"/>
-                    <br></br>                                
-                    <p:separator/>
-                    <p:commandButton icon="aceptar" update="@([id$=frmNiveles])" oncomplete="PF('dlg2').hide();" action="#{beanUsuario.delete()}"  value="&nbsp;Aceptar"/>
-                    <p:commandButton icon="cancelar" oncomplete="PF('dlg2').hide();" value="&nbsp;Cancelar"/>
-
-                </p:dialog>                 
+                    </p:column>
+                    
+                    
+                    <p:column id="button">
+                        <f:facet name="header">
+                        </f:facet>                                             
+                        <p:commandButton id="editar" value="&nbsp;Editar" icon="editar" action="#{beanUsuario.prepareEdit(usuario)}">
+                            <f:ajax render="@form"/>
+                        </p:commandButton> 
+                    </p:column>                    
+                </p:dataTable>           
+                <br/>                
             </h:form>
         </p:panel>        
     </ui:define>

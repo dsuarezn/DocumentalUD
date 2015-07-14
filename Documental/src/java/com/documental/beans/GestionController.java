@@ -5,6 +5,8 @@
  */
 package com.documental.beans;
 
+import com.documental.bo.Documento;
+import com.documental.servicios.ServicioDocumento;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -15,6 +17,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "beanGestion")
 @SessionScoped
 public class GestionController {
+    
+    private Documento current;
+    private ServicioDocumento servicio;
 
     /**
      * Creates a new instance of GestionController

@@ -15,7 +15,7 @@
         <h:panelGroup id="messagePanel" layout="block">                            
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
         </h:panelGroup>        
-        <p:panel header="" footer="">
+        <p:panel footer="">
             <h:form id="RadicarFormulario">
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
@@ -33,7 +33,7 @@
                             <p:panelGrid>
                                 <p:row>
                                     <p:column>
-                                        <p:inputText required="true" id="asunto" value="#{beanRadicacion.docTrabajo.asunto}" maxlength="10" />
+                                        <p:inputText required="true" style="width: 400px" id="asunto" value="#{beanRadicacion.docTrabajo.asunto}" maxlength="10" />
                                     </p:column>  
                                     <p:column>
                                         <p:message for="asunto" />
@@ -48,7 +48,7 @@
                             <p:panelGrid>
                                 <p:row>
                                     <p:column>
-                                        <p:inputTextarea id="desc" required="true" value="#{beanRadicacion.docTrabajo.descripcion}" rows="5" cols="30" counter="display2" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
+                                        <p:inputTextarea id="desc" required="true" style="width: 400px" value="#{beanRadicacion.docTrabajo.descripcion}" rows="5" cols="30" counter="display2" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
                                     </p:column>  
                                     <p:column>
                                         <p:message for="desc" />
@@ -66,7 +66,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_emisor}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="usuarioOrigen" value="#{beanRadicacion.idUsuarioOrigen}">
+                            <p:selectOneMenu id="usuarioOrigen" style="width: 400px" value="#{beanRadicacion.idUsuarioOrigen}">
                                 <f:selectItems value="#{beanRadicacion.listaUsuarios}" var="usersel" itemLabel="#{usersel.nombreCompleto}" itemValue="#{usersel.id}" />
                             </p:selectOneMenu> 
                         </p:column>
@@ -75,7 +75,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_destinatario}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="dependenciaDest" value="#{beanRadicacion.idDependenciaDestino}">
+                            <p:selectOneMenu id="dependenciaDest" style="width: 400px" value="#{beanRadicacion.idDependenciaDestino}">
                                 <f:selectItems value="#{beanRadicacion.listaDependencias}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -84,7 +84,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_estado}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="estadoDoc" value="#{beanRadicacion.docTrabajo.estado}">
+                            <p:selectOneMenu id="estadoDoc" style="width: 400px" value="#{beanRadicacion.docTrabajo.estado}">
                                 <f:selectItems value="#{beanRadicacion.estadosDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -92,7 +92,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_prioridad}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="prioridadDoc" value="#{beanRadicacion.docTrabajo.prioridad}">
+                            <p:selectOneMenu id="prioridadDoc" style="width: 400px" value="#{beanRadicacion.docTrabajo.prioridad}">
                                 <f:selectItems value="#{beanRadicacion.prioridadesDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -100,7 +100,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_tipodocumento}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="tipoDocumento" value="#{beanRadicacion.idTipo}">
+                            <p:selectOneMenu id="tipoDocumento" style="width: 400px" value="#{beanRadicacion.idTipo}">
                                 <f:selectItems value="#{beanRadicacion.listaTipos}" var="tipoDoc" itemLabel="#{tipoDoc.nombre}" itemValue="#{tipoDoc.idTipo}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -108,7 +108,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_findocumento}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="finalidadDocumento" value="#{beanRadicacion.docTrabajo.finalidad}">
+                            <p:selectOneMenu id="finalidadDocumento" style="width: 400px" value="#{beanRadicacion.docTrabajo.finalidad}">
                                 <f:selectItems value="#{beanRadicacion.finalidadesDocumento}" var="finalidades" itemLabel="#{finalidades.nombreEstado}" itemValue="#{finalidades.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -116,7 +116,7 @@
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_visualizacion}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="visibilidadDocumento" value="#{beanRadicacion.docTrabajo.visibilidad}">
+                            <p:selectOneMenu id="visibilidadDocumento" style="width: 400px" value="#{beanRadicacion.docTrabajo.visibilidad}">
                                 <f:selectItems value="#{beanRadicacion.visibilidadesDocumento}" var="visible" itemLabel="#{visible.nombreEstado}" itemValue="#{visible.nombreEstado}"/>
                             </p:selectOneMenu> 
                         </p:column>
@@ -127,7 +127,7 @@
                             <p:panelGrid>
                                 <p:row>
                                     <p:column>
-                                        <p:inputTextarea id="words" required="true" value="#{beanRadicacion.docTrabajo.palabrasClave}" rows="5" cols="30" counter="display" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
+                                        <p:inputTextarea id="words" style="width: 400px" required="true" value="#{beanRadicacion.docTrabajo.palabrasClave}" rows="5" cols="30" counter="display" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
                                     </p:column>   
                                     <p:column>
                                         <p:message for="words" />

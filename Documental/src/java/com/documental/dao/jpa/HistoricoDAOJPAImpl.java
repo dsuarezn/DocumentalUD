@@ -8,6 +8,7 @@ package com.documental.dao.jpa;
 import com.documental.dao.HistoricoDAO;
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
+import java.util.List;
 /**
  *
  * @author Alexander

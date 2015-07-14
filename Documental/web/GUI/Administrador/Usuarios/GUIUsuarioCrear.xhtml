@@ -18,7 +18,7 @@
             </h:form>
         </p:panel>
         <p:panel>
-            <h:form id="CreateNivel">
+            <h:form id="CreateUsuario">
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
                         <p:column  colspan="400"  styleClass="ui-widget-header">
@@ -53,7 +53,11 @@
                         </p:column>    
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Login}"/></p:column>
                         <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
-                    </p:row>                                                                                                     
+                    </p:row>    
+                    <p:row>                           
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Contrasena}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.contrasena}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pContrasena}"></p:inputText></p:column> 
+                    </p:row>    
                 </p:panelGrid>
                 <br></br>
                 <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanUsuario.create()}"  icon="guardar" >

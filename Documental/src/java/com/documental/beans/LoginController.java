@@ -79,7 +79,7 @@ public class LoginController {
     public void setListLogin(List<Login> listLogin) {
         this.listLogin = listLogin;
     }
-        
+
     public Integer getTipoUsuario() {
         return tipoUsuario;
     }
@@ -101,7 +101,7 @@ public class LoginController {
         }
         return currentC;
     }
-    
+
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -135,19 +135,26 @@ public class LoginController {
     public String prepareCreate() {
         return "/GUI/Administrador/Usuarios/GUIUsuarioCrear";
     }
-    
-    public String prepareList () {
-   
-        return "/GUI/Administratdor/Usuarios/GUIUsuarioList";
+
+    public String prepareList() {
+
+        return "/GUI/Administrador/Usuarios/GUIUsuarioList";
     }
 
-    public String prepareEdit (Login usuario) {
+    public String prepareListEdit() {
+
+        return "/GUI/Administrador/Usuarios/GUIUsuarioListEdit";
+    }
+
+    public String prepareEdit(Login usuario) {
         current = usuario;
-        return "/GUI/Administratdor/Usuarios/GUIUsuarioEditar";
+        return "/GUI/Administrador/Usuarios/GUIUsuarioEditar";
     }
     
-    
-    
+    public String volver() {
+        return "/GUI/Administrador/Usuarios/GUIUsuarioListEdit";
+    }
+
     private boolean cargarPermisos() {
         try {
             if (current.getTipoUsuario().getTareaCollection().size() <= 0) {
@@ -165,7 +172,7 @@ public class LoginController {
         }
     }
 
-    public boolean asPermission(String nombreTarea) {        
+    public boolean asPermission(String nombreTarea) {
         return listaPermisosUsuario.contains(nombreTarea);
     }
 
@@ -214,7 +221,7 @@ public class LoginController {
         session = request.getSession();
         session.setAttribute("user", usuario);
     }
-    
+
     public void create() {
         String respuesta = "";
         try {
@@ -222,8 +229,8 @@ public class LoginController {
             id++;
             currentC.setIdLogin(id);
             currentC.setTipoUsuario(new TipoUsuario(tipoUsuario));
-            currentC.setContrasena("678");
-            respuesta = getServicio().salvarLogin(currentC);             
+            currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
+            respuesta = getServicio().salvarLogin(currentC);
             if (respuesta.equals("Operación Exitosa")) {
                 currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
@@ -231,13 +238,13 @@ public class LoginController {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioErroneo"));
             }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUINivelAcceso_Messages_pCreateNivelErroneo") + " " + e.toString());
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExcepcion") + " " + e.toString());
         }
     }
-    
-    public void edit (){
+
+    public void edit() {
         String respuesta = "";
-                try {
+        try {
             respuesta = getServicio().salvarLogin(current);
             items = null;
             if (respuesta.equals("Operación Exitosa")) {

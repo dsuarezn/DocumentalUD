@@ -53,12 +53,17 @@
                         </p:column>    
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Login}"/></p:column>
                         <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
-                    </p:row>                                                                                                     
+                    </p:row>    
+                    <p:row>                           
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Contrasena}"/></p:column>
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.contrasena}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pContrasena}"></p:inputText></p:column> 
+                    </p:row>  
                 </p:panelGrid>
                 <br></br>
-                <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanUsuario.edit()}"  icon="guardar" >
+                <p:commandButton id="bNuevo"  value="&nbsp;Modificar"  action="#{beanUsuario.edit()}"  icon="guardar" >
                     <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
-                </p:commandButton>                                                                    
+                </p:commandButton>       
+                <p:commandButton  value="&nbsp;Volver" action="#{beanUsuario.volver()}" icon="volver" immediate="true"/>                  
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
