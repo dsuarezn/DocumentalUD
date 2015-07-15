@@ -18,55 +18,43 @@
         </h:head>
         <body>
         <ui:composition>
-            id del usuario: #{beanUsuario.selected.idLogin}
+            nombre del usuario: #{beanUsuario.usuario}
 
-            <h:panelGrid columns="2" styleClass="panelGrid" style="border:none;margin:0">
-                <p:column>
-                <p:dataTable id="documentosPU" var="documento" value="#{beanBandeja.listDocumento}"
-                             emptyMessage="No Se Han Filtrado Resultados"
-                             filteredValue="#{beanBandeja.listDocumento}"
-                             paginator="true" rows="15"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15"  
-                             scrollable="true">
-                    <p:column sortBy="#{documento.idDocumento}" filterBy="#{documento.idDocumento}" headerText="Codigo">
-                        <h:outputText value="#{documento.idDocumento}" />
-                    </p:column>
-
-                    <p:column sortBy="#{documento.fechaCreacion}" filterBy="#{documento.fechaCreacion}" headerText="Fecha">
-                        <h:outputText value="#{documento.fechaCreacion}" />
-                    </p:column>
-
-                    <p:column sortBy="#{documento.tipoId.nombre}" filterBy="#{documento.tipoId.nombre}" headerText="Tipo">
-                        <h:outputText value="#{documento.tipoId.nombre}" />
-                    </p:column>
-
-                    <p:column sortBy="#{documento.asunto}" filterBy="#{documento.asunto}" headerText="Asunto">
-                        <h:outputText value="#{documento.asunto}" />
-                    </p:column>
-                    <p:column id="button">
-                        <f:facet name="header">
-                        </f:facet>                                             
-                        <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(documento)}">
-                            <f:ajax render="@form"/>
-                        </p:commandButton> 
-                    </p:column>
-                </p:dataTable> 
+            <p:dataTable id="documentosPU" var="documento" value="#{beanBandeja.consolidado}"
+                         emptyMessage="No Se Han Filtrado Resultados"
+                         filteredValue="#{beanBandeja.consolidado}"
+                         paginator="true" rows="15"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"  
+                         scrollable="true">
+                <p:column sortBy="#{documento[0].idDocumento}" filterBy="#{documento[0].idDocumento}" headerText="Codigo">
+                    <h:outputText value="#{documento[0].idDocumento}" />
                 </p:column>
-                <p:column>
-                <p:dataTable id="OrigenesPU" var="origen" value="#{beanBandeja.listOrigen}"
-                             emptyMessage="No Se Han Filtrado Resultados"
-                             filteredValue="#{beanBandeja.listOrigen}"
-                             paginator="true" rows="15"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15"  
-                             scrollable="true">
-                    <p:column sortBy="#{origen.nombre}" filterBy="#{origen.nombre}" headerText="Usuario Anterior">
-                        <h:outputText value="#{origen.nombre.concat(' ').concat(origen.apellido)}" />
-                    </p:column>
-                </p:dataTable>
+
+                <p:column sortBy="#{documento[0].fechaCreacion}" filterBy="#{documento[0].fechaCreacion}" headerText="Fecha">
+                    <h:outputText value="#{documento[0].fechaCreacion}" />
                 </p:column>
-            </h:panelGrid>
+
+                <p:column sortBy="#{documento[2]}" filterBy="#{documento[2]}" headerText="Tipo">
+                    <h:outputText value="#{documento[2]}" />
+                </p:column>
+
+                <p:column sortBy="#{documento[0].asunto}" filterBy="#{documento[0].asunto}" headerText="Asunto">
+                    <h:outputText value="#{documento[0].asunto}" />
+                </p:column>
+
+                <p:column sortBy="#{documento[1].nombre}" filterBy="#{documento[1].nombre}" headerText="Usuario Anterior">
+                    <h:outputText value="#{documento[1].nombre.concat(' ').concat(documento[1].apellido)}" />
+                </p:column>
+
+                <p:column id="button">
+                    <f:facet name="header">
+                    </f:facet>                                             
+                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(documento[0])}">
+                        <f:ajax render="@form"/>
+                    </p:commandButton> 
+                </p:column>
+            </p:dataTable> 
         </ui:composition>
     </body>
 </f:view>

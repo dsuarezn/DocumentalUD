@@ -19,4 +19,5 @@ public interface ServicioHistorico {
     public Historico consultarHistoricoPorId(HistoricoPK Id);
     public List<Historico> consultarTodosHistoricos();
     public void borrarHistorico(Historico historico);
+    public List<Historico> buscarDestinatarioActivo(int id);
 }

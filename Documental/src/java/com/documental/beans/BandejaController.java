@@ -20,6 +20,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -32,13 +33,16 @@ public class BandejaController {
     private Documento current;
     private DataModel items = null;
     private PaginationHelper pagination;
-    private List<Documento> listDocumento = null;
     private List<Historico> listHistorico = null;
-    private List<Login> listOrigen = null;
-    private boolean activo;
+    private List<Object[]> consolidado;
+
     private ServicioDocumento servicioDocumento;
     private ServicioHistorico servicioHistorico;
     private ServicioLogin servicioLogin;
+
+    public List<Object[]> getConsolidado() {
+        return consolidado;
+    }
 
     public BandejaController() {
     }
@@ -49,28 +53,6 @@ public class BandejaController {
 
     public void setCurrent(Documento current) {
         this.current = current;
-    }
-
-    public List<Documento> getListDocumento() {
-        if (listDocumento == null) {
-            prepareDocuments();
-        }
-        return listDocumento;
-    }
-
-    public List<Login> getListOrigen() {
-        if (listOrigen == null) {
-            listOrigen = new ArrayList<Login>();
-        }
-        return listOrigen;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
     }
 
     public ServicioDocumento getServicioDocumento() {
@@ -94,48 +76,57 @@ public class BandejaController {
         return servicioLogin;
     }
 
+    public String prepareList(Login login) {
+        return prepareDocuments(login);
+        
+    }
+
     /**
      * Lista todos los documentos activos asociados a un usuario como destino
      *
+     * @param login
+     * @return 
      */
-    public void prepareDocuments() {
-        Login login = getServicioLogin().buscarPorClave(3);
-        listHistorico = getServicioHistorico().consultarTodosHistoricos();
-        listDocumento = new ArrayList<Documento>();
-        listOrigen = new ArrayList<Login>();
+    public String prepareDocuments(Login login) {
+        listHistorico = getServicioHistorico().buscarDestinatarioActivo(login.getIdLogin());
+        System.out.println(listHistorico);
+        consolidado = new ArrayList<Object[]>();
         Documento tmp = null;
         for (Historico h : listHistorico) {
-            //verificar el destinatario y la bandera activo del historico
-            if (h.getLoginDestinatario().equals(login) && h.getActivo()) {
-                tmp = getServicioDocumento().consultarDocumentoPorId(h.getHistoricoPK().getDocumentoId());
-                    listDocumento.add(tmp);
-                    // obtener el ultimo usuario
-                    listOrigen.add(h.getLoginOrigen());
-            }
+            tmp = getServicioDocumento().consultarDocumentoPorId(h.getHistoricoPK().getDocumentoId());
+            Object[] con = {tmp, h.getLoginOrigen(), tmp.getTipoId().getNombre()};
+            consolidado.add(con);
         }
+        return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntradaList";
     }
 
-//    public DataModel getItems() {
-//        if (items == null) {
-//            items = getPagination().createPageDataModel();
-//        }
-//        return items;
-//    }
-//    public PaginationHelper getPagination() {
-//        if (pagination == null) {
-//            pagination = new PaginationHelper((10)) {
-//                @Override
-//                public int getItemsCount() {
-//                    return getServicioDocumento().getCount();
-//                }
-//
-//                @Override
-//                public DataModel createPageDataModel() {
-//                    setListDependencia(getServicio().buscarTodosDependencia());
-//                    return new ListDataModel(getListDependencia());
-//                }
-//            };
-//        }
-//        return pagination;
-//    }
+    public DataModel getItems() {
+        if (items == null) {
+            items = getPagination().createPageDataModel();
+        }
+        return items;
+    }
+
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper((10)) {
+                @Override
+                public int getItemsCount() {
+                    return getConsolidado().size();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+
+                    return new ListDataModel(getConsolidado());
+                }
+            };
+        }
+        return pagination;
+    }
+
+    public void detalle(Documento d) {
+        //System.out.println("no soportado aun");
+    }
+
 }
