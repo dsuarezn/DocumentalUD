@@ -9,10 +9,11 @@
     <ui:define name="bodyJR">
         <p:tabView orientation="left">
             <p:tab title="Entrada()">
-                <h:panelGrid columns="2" cellpadding="10">                
-                    <h:outputText
-                        value="Esto es una prueba de Bandeja de Entrada" />
-                </h:panelGrid>
+                <div id="content">
+                    <ui:insert name="content" >
+                        <ui:include src="GUIBandejaEntrada.xhtml" />
+                    </ui:insert>
+                </div>
             </p:tab>
             <p:tab title="Salida()">
                 <h:panelGrid columns="2" cellpadding="10">                
@@ -44,7 +45,7 @@
                     <h:outputText value="Esto es una prueba de Bandeja de Prioritarios" />
                 </h:panelGrid>
             </p:tab>
-            
+
         </p:tabView>  
     </ui:define>
 </ui:composition>

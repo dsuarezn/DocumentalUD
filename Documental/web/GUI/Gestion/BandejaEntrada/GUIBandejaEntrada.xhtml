@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <link href="../Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="../../Css/estilos.css" rel="stylesheet" type="text/css" />        
+                <link href="../../../Css/estilos.css" rel="stylesheet" type="text/css" />                   
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>                                                
+                <title>Gestion Documental</title>
+            </f:facet>
+        </h:head>
+        <body>
+        <ui:composition>
+            id del usuario: #{beanUsuario.selected.idLogin}
+
+            <h:panelGrid columns="2" styleClass="panelGrid" style="border:none;margin:0">
+                <p:column>
+                <p:dataTable id="documentosPU" var="documento" value="#{beanBandeja.listDocumento}"
+                             emptyMessage="No Se Han Filtrado Resultados"
+                             filteredValue="#{beanBandeja.listDocumento}"
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  
+                             scrollable="true">
+                    <p:column sortBy="#{documento.idDocumento}" filterBy="#{documento.idDocumento}" headerText="Codigo">
+                        <h:outputText value="#{documento.idDocumento}" />
+                    </p:column>
+
+                    <p:column sortBy="#{documento.fechaCreacion}" filterBy="#{documento.fechaCreacion}" headerText="Fecha">
+                        <h:outputText value="#{documento.fechaCreacion}" />
+                    </p:column>
+
+                    <p:column sortBy="#{documento.tipoId.nombre}" filterBy="#{documento.tipoId.nombre}" headerText="Tipo">
+                        <h:outputText value="#{documento.tipoId.nombre}" />
+                    </p:column>
+
+                    <p:column sortBy="#{documento.asunto}" filterBy="#{documento.asunto}" headerText="Asunto">
+                        <h:outputText value="#{documento.asunto}" />
+                    </p:column>
+                    <p:column id="button">
+                        <f:facet name="header">
+                        </f:facet>                                             
+                        <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(documento)}">
+                            <f:ajax render="@form"/>
+                        </p:commandButton> 
+                    </p:column>
+                </p:dataTable> 
+                </p:column>
+                <p:column>
+                <p:dataTable id="OrigenesPU" var="origen" value="#{beanBandeja.listOrigen}"
+                             emptyMessage="No Se Han Filtrado Resultados"
+                             filteredValue="#{beanBandeja.listOrigen}"
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  
+                             scrollable="true">
+                    <p:column sortBy="#{origen.nombre}" filterBy="#{origen.nombre}" headerText="Usuario Anterior">
+                        <h:outputText value="#{origen.nombre.concat(' ').concat(origen.apellido)}" />
+                    </p:column>
+                </p:dataTable>
+                </p:column>
+            </h:panelGrid>
+        </ui:composition>
+    </body>
+</f:view>
+</html>
