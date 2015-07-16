@@ -16,5 +16,7 @@ public interface LoginDAO extends GenericDAO<Login, Integer>{
     public  List<Login> buscarPorClave(Login login);
     
     public Login obtenerDirectorDependencia(Integer idDependencia);
+
+    public Login buscarPorUsuario(String login);
     
 }

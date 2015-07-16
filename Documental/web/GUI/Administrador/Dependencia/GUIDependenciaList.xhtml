@@ -29,7 +29,7 @@
                     <p:column sortBy="#{dependencia.nombre}" filterBy="#{dependencia.nombre}" headerText="Nombre">
                         <h:outputText value="#{dependencia.nombre}" />
                     </p:column>
-                    
+
                     <p:column sortBy="#{dependencia.estado}" filterBy="#{dependencia.estado}" headerText="Estado">
                         <h:outputText value="#{dependencia.estado}" />
                     </p:column>
@@ -42,11 +42,11 @@
                         </p:commandButton> 
                     </p:column>
 
-                    <p:column id="buttonE">
-                        <f:facet name="header">
-                        </f:facet>
-                        <p:commandButton id="Eliminar" disabled="true" onclick="PF('dlg2').show();"  value="&nbsp;Eliminar" icon="eliminar" action="#{beanDependencia.prepareDelete(dependencia)}"/>                                                                            
-                    </p:column>
+                    <!--                    <p:column id="buttonE">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <p:commandButton id="Eliminar" disabled="true" onclick="PF('dlg2').show();"  value="&nbsp;Eliminar" icon="eliminar" action="#{beanDependencia.prepareDelete(dependencia)}"/>                                                                            
+                                        </p:column>-->
 
                 </p:dataTable>
                 <!-- Formulario emergente para eliminiar-->                                                       

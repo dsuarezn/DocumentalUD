@@ -58,5 +58,12 @@ public class ServicioLoginImpl implements ServicioLogin{
     public Login obtenerDirectorDependencia(Integer dependencia) {
         return loginDAO.obtenerDirectorDependencia(dependencia);
     }
+
+    @Override
+    public Login buscarPorUsuario(String login) {
+        return loginDAO.buscarPorUsuario(login);
+    }
+    
+    
     
 }

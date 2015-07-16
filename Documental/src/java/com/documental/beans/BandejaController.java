@@ -19,8 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -39,6 +41,17 @@ public class BandejaController {
     private ServicioDocumento servicioDocumento;
     private ServicioHistorico servicioHistorico;
     private ServicioLogin servicioLogin;
+    private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
+            getExternalContext().getRequest()).getSession().getAttribute("user").toString();
+
+    private int usuario = 0;
+
+    public int getUsuario() {
+        if (usuario == 0) {
+            usuario = getServicioLogin().buscarPorUsuario(usuarioActual).getIdLogin();
+        }
+        return usuario;
+    }
 
     public List<Object[]> getConsolidado() {
         return consolidado;
@@ -76,20 +89,8 @@ public class BandejaController {
         return servicioLogin;
     }
 
-    public String prepareList(Login login) {
-        return prepareDocuments(login);
-        
-    }
-
-    /**
-     * Lista todos los documentos activos asociados a un usuario como destino
-     *
-     * @param login
-     * @return 
-     */
-    public String prepareDocuments(Login login) {
-        listHistorico = getServicioHistorico().buscarDestinatarioActivo(login.getIdLogin());
-        System.out.println(listHistorico);
+    public String prepareList() {
+        listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
         consolidado = new ArrayList<Object[]>();
         Documento tmp = null;
         for (Historico h : listHistorico) {
@@ -97,7 +98,7 @@ public class BandejaController {
             Object[] con = {tmp, h.getLoginOrigen(), tmp.getTipoId().getNombre()};
             consolidado.add(con);
         }
-        return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntradaList";
+        return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada";
     }
 
     public DataModel getItems() {

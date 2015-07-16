@@ -1,49 +1,38 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <link href="../Css/estilos.css" rel="stylesheet" type="text/css" />        
-                <link href="Css/estilos.css" rel="stylesheet" type="text/css" />        
-                <link href="../../Css/estilos.css" rel="stylesheet" type="text/css" />        
-                <link href="../../../Css/estilos.css" rel="stylesheet" type="text/css" />                   
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>                                                
-                <title>Gestion Documental</title>
-            </f:facet>
-        </h:head>
-        <body>
-        <ui:composition>
-            nombre del usuario: #{beanUsuario.usuario}
-
+        <ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">  
+            <ui:define name="bodyJR">
+                
             <p:dataTable id="documentosPU" var="documento" value="#{beanBandeja.consolidado}"
                          emptyMessage="No Se Han Filtrado Resultados"
-                         filteredValue="#{beanBandeja.consolidado}"
+                         
                          paginator="true" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15"  
                          scrollable="true">
-                <p:column sortBy="#{documento[0].idDocumento}" filterBy="#{documento[0].idDocumento}" headerText="Codigo">
+                <p:column sortBy="#{documento[0].idDocumento}" headerText="Codigo">
                     <h:outputText value="#{documento[0].idDocumento}" />
                 </p:column>
 
-                <p:column sortBy="#{documento[0].fechaCreacion}" filterBy="#{documento[0].fechaCreacion}" headerText="Fecha">
-                    <h:outputText value="#{documento[0].fechaCreacion}" />
+                <p:column sortBy="#{documento[0].fechaCreacion}" headerText="Fecha">
+                    <h:outputText value="#{documento[0].fechaCreacion}" >
+                     <f:convertDateTime pattern="MM-dd-yyyy" />
+                    </h:outputText>
                 </p:column>
 
-                <p:column sortBy="#{documento[2]}" filterBy="#{documento[2]}" headerText="Tipo">
+                <p:column sortBy="#{documento[2]}" headerText="Tipo">
                     <h:outputText value="#{documento[2]}" />
                 </p:column>
 
-                <p:column sortBy="#{documento[0].asunto}" filterBy="#{documento[0].asunto}" headerText="Asunto">
+                <p:column sortBy="#{documento[0].asunto}" headerText="Asunto">
                     <h:outputText value="#{documento[0].asunto}" />
                 </p:column>
 
-                <p:column sortBy="#{documento[1].nombre}" filterBy="#{documento[1].nombre}" headerText="Usuario Anterior">
+                <p:column sortBy="#{documento[1].nombre}" headerText="Usuario Anterior">
                     <h:outputText value="#{documento[1].nombre.concat(' ').concat(documento[1].apellido)}" />
                 </p:column>
 
@@ -55,7 +44,5 @@
                     </p:commandButton> 
                 </p:column>
             </p:dataTable> 
+            </ui:define>
         </ui:composition>
-    </body>
-</f:view>
-</html>
