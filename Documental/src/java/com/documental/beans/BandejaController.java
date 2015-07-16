@@ -127,7 +127,7 @@ public class BandejaController {
     }
 
     public void detalle(Documento d) {
-        //System.out.println("no soportado aun");
+        //por implementar
     }
 
 }
