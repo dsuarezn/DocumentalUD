@@ -7,7 +7,6 @@ package com.documental.beans;
 
 import com.documental.bo.Documento;
 import com.documental.bo.Historico;
-import com.documental.bo.Login;
 import com.documental.servicios.ServicioDocumento;
 import com.documental.servicios.ServicioHistorico;
 import com.documental.servicios.ServicioLogin;

@@ -22,15 +22,15 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  
                              scrollable="true">
-                    <p:column sortBy="#{dependencia.idDependencia}" filterBy="#{dependencia.idDependencia}" headerText="Id">
+                    <p:column sortBy="#{dependencia.idDependencia}" filterBy="#{dependencia.idDependencia}" headerText="Id" filterMatchMode="contains">
                         <h:outputText value="#{dependencia.idDependencia}" />
                     </p:column>
 
-                    <p:column sortBy="#{dependencia.nombre}" filterBy="#{dependencia.nombre}" headerText="Nombre">
+                    <p:column sortBy="#{dependencia.nombre}" filterBy="#{dependencia.nombre}" headerText="Nombre" filterMatchMode="contains">
                         <h:outputText value="#{dependencia.nombre}" />
                     </p:column>
 
-                    <p:column sortBy="#{dependencia.estado}" filterBy="#{dependencia.estado}" headerText="Estado">
+                    <p:column sortBy="#{dependencia.estado}" filterBy="#{dependencia.estado}" headerText="Estado" filterMatchMode="contains">
                         <h:outputText value="#{dependencia.estado}" />
                     </p:column>
 
