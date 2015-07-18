@@ -21,5 +21,6 @@ public interface ServicioLogin {
     public List<Login> buscarTodosLogin();    
     public Login buscarPorClave(Integer login);    
     public Login obtenerDirectorDependencia(Integer dependencia);    
-    
+    public Login buscarPorUsuario(String login);
+    public Login obtenerLogin(String usuario);
 }

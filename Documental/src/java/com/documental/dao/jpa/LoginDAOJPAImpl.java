@@ -64,4 +64,30 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
 	return listauser;        
     }
 
+    @Override
+    public Login buscarPorUsuario(String login) {
+         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();        
+        Query query = manager.createNamedQuery("Login.findByUsuario", Login.class);		
+        query.setParameter("usuario", login);
+	Login listauser = (Login) query.getSingleResult();
+	return listauser;     
+    }
+
+    @Override
+    public Login obtenerLogin(String usuario) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();
+        TypedQuery<Login> consulta = manager.createQuery(
+                "Select l from Login l where l.usuario=?1", Login.class);
+        consulta.setParameter(1, usuario);
+        Login login = null;
+        try {
+            login = consulta.getSingleResult();
+        } finally {
+            manager.close();
+        }
+        return login;
+    }
+
 }

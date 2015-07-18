@@ -38,7 +38,7 @@
                                 <p:menuitem value="Memorando" icon="documento" rendered="#{beanUsuario.asPermission('pMenuRadicDocumento')}" />                                                               
                             </p:submenu>
                             <p:submenu label="Gestión">                                                                  
-                                <p:menuitem value="Bandeja" icon="caracterizacion" action="#{beanGestion.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />                                  
+                                <p:menuitem value="Bandeja de entrada" icon="caracterizacion" action="#{beanBandeja.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />                                  
                                 <p:menuitem value="Tramites" icon="cambio" rendered="#{beanUsuario.asPermission('pMenuGestCambio')}" />                                                                                               
                             </p:submenu>
                             <p:submenu label="Consulta">                                                                  

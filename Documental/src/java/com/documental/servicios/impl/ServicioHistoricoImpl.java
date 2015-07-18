@@ -45,5 +45,10 @@ public class ServicioHistoricoImpl implements ServicioHistorico{
     public void borrarHistorico(Historico historico) {
         historicoDAO.borrar(historico);
     }
+
+    @Override
+    public List<Historico> buscarDestinatarioActivo(int id) {
+        return historicoDAO.buscarDestinatarioActivo(id);
+    }
     
 }

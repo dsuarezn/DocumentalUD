@@ -9,10 +9,12 @@ package com.documental.dao;
 
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
+import java.util.List;
 /**
  *
  * @author Alexander
  */
 public interface HistoricoDAO extends GenericDAO<Historico, HistoricoPK>{
-    
+   
+    public List<Historico> buscarDestinatarioActivo(int id);
 }
