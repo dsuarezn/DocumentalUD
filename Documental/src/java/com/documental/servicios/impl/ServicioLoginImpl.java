@@ -63,6 +63,11 @@ public class ServicioLoginImpl implements ServicioLogin{
     public Login buscarPorUsuario(String login) {
         return loginDAO.buscarPorUsuario(login);
     }
+
+    @Override
+    public Login obtenerLogin(String usuario) {
+        return loginDAO.obtenerLogin(usuario);
+    }
     
     
     

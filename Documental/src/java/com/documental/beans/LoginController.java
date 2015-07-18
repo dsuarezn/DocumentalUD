@@ -179,7 +179,7 @@ public class LoginController {
     public String autenticar() throws IOException {
         Login login = null;
         try {
-            login = getServicio().buscarPorClave(1);
+            login = getServicio().obtenerLogin(usuario);
         } catch (javax.persistence.NoResultException ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
