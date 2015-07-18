@@ -80,6 +80,7 @@ public class Documento implements Serializable {
     private Tipo tipoId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
     private Collection<DependenciaDocumento> dependenciaDocumentoCollection;
+    private Date fechaAuxiliar;
 
     public Documento() {
     }
@@ -170,6 +171,14 @@ public class Documento implements Serializable {
 
     public void setPalabrasClave(String palabrasClave) {
         this.palabrasClave = palabrasClave;
+    }
+
+    public Date getFechaAuxiliar() {
+        return fechaAuxiliar;
+    }
+
+    public void setFechaAuxiliar(Date fechaAuxiliar) {
+        this.fechaAuxiliar = fechaAuxiliar;
     }
 
     @XmlTransient

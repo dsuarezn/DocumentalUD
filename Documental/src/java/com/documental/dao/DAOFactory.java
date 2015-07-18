@@ -19,4 +19,6 @@ public interface DAOFactory {
     public TipoDAO getTipoDAO();
     public DependenciaDAO getDependenciaDAO();
     public HistoricoDAO getHistoricoDAO();
+    public DirectorDAO getDirectorDAO();
+    public EmpleadoDAO getEmpleadoDAO();
 }

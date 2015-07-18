@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 @SessionScoped
 public class BandejaController {
 
-    private Documento current;
+    private Documento docTrabajo;
     private DataModel items = null;
     private PaginationHelper pagination;
     private List<Historico> listHistorico = null;
@@ -59,12 +59,12 @@ public class BandejaController {
     public BandejaController() {
     }
 
-    public Documento getCurrent() {
-        return current;
+     public Documento getDocTrabajo() {
+        return docTrabajo;
     }
 
-    public void setCurrent(Documento current) {
-        this.current = current;
+    public void setDocTrabajo(Documento docTrabajo) {
+        this.docTrabajo = docTrabajo;
     }
 
     public ServicioDocumento getServicioDocumento() {
@@ -125,8 +125,9 @@ public class BandejaController {
         return pagination;
     }
 
-    public void detalle(Documento d) {
-        //por implementar
+    public String detalle(Documento d) {
+        setDocTrabajo(d);
+        return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
 
 }

@@ -52,4 +52,9 @@ public class ServicioDocumentoImpl implements ServicioDocumento{
         documentoDAO.borrar(documento);
     }
     
+    @Override
+    public int getCount() {
+        return documentoDAO.getCount();
+    }
+    
 }

@@ -12,6 +12,9 @@ import java.util.List;
  *
  * @author DiegoM
  */
-public interface DocumentoDAO extends GenericDAO<Documento, Integer>{
-    public  List<Documento> buscarPorClave(Documento login);
+public interface DocumentoDAO extends GenericDAO<Documento, Integer> {
+
+    public List<Documento> buscarPorClave(Documento login);
+    public List<Documento> buscarFiltro(Documento documento);
+
 }

@@ -42,8 +42,7 @@
                                 <p:menuitem value="Tramites" icon="cambio" rendered="#{beanUsuario.asPermission('pMenuGestCambio')}" />                                                                                               
                             </p:submenu>
                             <p:submenu label="Consulta">                                                                  
-                                <p:menuitem value="Planilla Radicados" icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsRadicados')}" />                                  
-                                <p:menuitem value="Planilla Reasignados" icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsReasignados')}" />                                                                                                                                                           
+                                <p:menuitem value="Consultas" action="#{beanConsulta.prepareList()}"  icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsRadicados')}" />                                                                                                                                                           
                             </p:submenu>
                             <p:submenu label="Administrador">
                                 <p:submenu label="Permisos Usuario">                                    

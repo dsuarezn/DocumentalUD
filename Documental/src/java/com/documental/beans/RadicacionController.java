@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 
 /**
@@ -62,7 +61,6 @@ public class RadicacionController {
     private ServicioTipo servicioTipo;
     private ServicioHistorico servicioHistorico;
     private ServicioDependencia servicioDependencia;
-    private AnexoController controladorAnexo;
     
     /**
      * Creates a new instance of GestionController
@@ -254,25 +252,10 @@ public class RadicacionController {
         return null;
     }
       
-    public String create() {
+    public void create() {
         Documento documento=this.crearRegistroDocumento();
         crearRegistroHistoricoInicial(documento);
         cleanSessionVars();
-        System.out.println("PASANDO DOCUMENTO CON CODIGO:"+documento.getIdDocumento());
-        return getControllerAnexo().prepareCreate(documento, "","");
-    }
-    
-     private AnexoController getControllerAnexo(){
-        if(controladorAnexo==null){
-//            controladorAnexo  = (AnexoController) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("beanAnexo");        
-            
-            FacesContext context = FacesContext.getCurrentInstance();
-	  controladorAnexo = (AnexoController) context.getApplication().getExpressionFactory()
-            .createValueExpression(context.getELContext(), "#{beanAnexo}", AnexoController.class)
-              .getValue(context.getELContext());
-            
-        }        
-        return controladorAnexo;
     }
     
     public void cleanSessionVars(){
