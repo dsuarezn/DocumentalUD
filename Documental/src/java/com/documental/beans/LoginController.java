@@ -1,20 +1,11 @@
 package com.documental.beans;
 
-import com.documental.bo.Dependencia;
-import com.documental.bo.DependenciaDirector;
-import com.documental.bo.DependenciaEmpleado;
 import com.documental.bo.Login;
 import com.documental.bo.NivelAcceso;
 import com.documental.bo.Tarea;
 import com.documental.bo.TipoUsuario;
-import com.documental.servicios.ServicioDependencia;
-import com.documental.servicios.ServicioDirector;
-import com.documental.servicios.ServicioEmpleado;
 import com.documental.servicios.ServicioLogin;
 import com.documental.servicios.ServicioTipoUsuario;
-import com.documental.servicios.impl.ServicioDependenciaImpl;
-import com.documental.servicios.impl.ServicioDirectorImpl;
-import com.documental.servicios.impl.ServicioEmpleadoImpl;
 import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.servicios.impl.ServicioTipoUsuarioImpl;
 import com.documental.util.EncripcionUtil;
@@ -22,7 +13,6 @@ import com.documental.util.JsfUtil;
 import com.documental.util.PaginationHelper;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
@@ -44,18 +34,13 @@ public class LoginController {
 
     private Login current;
     private Login currentC;
-    private int currentDep;
     private DataModel items = null;
     private PaginationHelper pagination;
     private ServicioLogin servicio;
     private ServicioTipoUsuario servicioT;
-    private ServicioDependencia servicioDependencia;
-    private ServicioDirector servicioDirector;
-    private ServicioEmpleado servicioEmpleado;
     private NivelAcceso nivelAcceso;
     private List<String> listaPermisosUsuario;
     private List<Login> listLogin = null;
-    private List<Dependencia> listDependencia;
     private static String usuario;
     private String contrasena;
     private Integer tipoUsuario;
@@ -65,21 +50,6 @@ public class LoginController {
     static HttpSession session;
 
     public LoginController() {
-    }
-
-    public int getCurrentDep() {
-        return currentDep;
-    }
-
-    public void setCurrentDep(int currentDep) {
-        this.currentDep = currentDep;
-    }
-
-    public ServicioEmpleado getServicioEmpleado() {
-        if (servicioEmpleado == null) {
-            servicioEmpleado = new ServicioEmpleadoImpl();
-        }
-        return servicioEmpleado;
     }
 
     public String getUsuario() {
@@ -153,24 +123,6 @@ public class LoginController {
         return servicioT;
     }
 
-    public ServicioDependencia getServicioDependencia() {
-        if (servicioDependencia == null) {
-            servicioDependencia = new ServicioDependenciaImpl();
-        }
-        return servicioDependencia;
-    }
-
-    public List<Dependencia> getListDependencia() {
-        return getServicioDependencia().buscarTodosDependencia();
-    }
-
-    public ServicioDirector getServicioDirector() {
-        if (servicioDirector == null) {
-            return new ServicioDirectorImpl();
-        }
-        return servicioDirector;
-    }
-
     private void cargarNivelAcceso() {
         try {
             nivelAcceso = current.getTipoUsuario().getIdNivelAcceso();
@@ -198,7 +150,7 @@ public class LoginController {
         current = usuario;
         return "/GUI/Administrador/Usuarios/GUIUsuarioEditar";
     }
-
+    
     public String volver() {
         return "/GUI/Administrador/Usuarios/GUIUsuarioListEdit";
     }
@@ -245,8 +197,7 @@ public class LoginController {
         } else {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
-        //return "index_MenuPrincipal";
-        return null;
+        return "index_MenuPrincipal";
     }
 
     public void cerrarSesion() throws IOException {
@@ -279,9 +230,7 @@ public class LoginController {
             currentC.setIdLogin(id);
             currentC.setTipoUsuario(new TipoUsuario(tipoUsuario));
             currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
-            //salvar primero el usuario para evitar errores de consistencia
             respuesta = getServicio().salvarLogin(currentC);
-            setDependencia(id);
             if (respuesta.equals("Operación Exitosa")) {
                 currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
@@ -293,29 +242,10 @@ public class LoginController {
         }
     }
 
-    public void setDependencia(int id) {
-    // salvar en directores o empleados
-        //director de Area
-        if (tipoUsuario == 3) {
-            //Asginar Dependencia
-            DependenciaDirector director = new DependenciaDirector(currentDep, id);
-            director.setFecha(new Date());
-            getServicioDirector().salvarDirector(director);
-        }
-        //Empleado    
-        if (tipoUsuario == 4) {
-            //Asignar Dependencia
-            DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
-            empleado.setFecha(new Date());
-            getServicioEmpleado().salvarEmpleado(empleado);
-        }
-    }
-
     public void edit() {
         String respuesta = "";
         try {
             respuesta = getServicio().salvarLogin(current);
-            setDependencia(current.getIdLogin());
             items = null;
             if (respuesta.equals("Operación Exitosa")) {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioExitoso"));
@@ -326,7 +256,7 @@ public class LoginController {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioErroneo") + " " + e.toString());
         }
     }
-
+    
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper((10)) {

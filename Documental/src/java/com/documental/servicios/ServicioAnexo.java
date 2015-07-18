@@ -14,10 +14,13 @@ import java.util.List;
  */
 public interface ServicioAnexo {
     
-        public int getMaxId();
+    public Integer getCount(Integer documentoId);
+    public int getCount();
+    public int getMaxId();
     public String salvarAnexo(Anexo anexo);
     public Anexo consultarAnexoPorId(Integer Id);
     public List<Anexo> consultarTodosAnexo();
+    public List<Anexo> consultarAnexosPorDocumento(Integer documentoId);
     public void borrarAnexo(Anexo anexo);
     
 }

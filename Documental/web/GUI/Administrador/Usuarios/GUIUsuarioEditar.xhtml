@@ -32,7 +32,7 @@
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Apellido}"/></p:column>
                         <p:column colspan="50"><p:inputText id="pApellido" style="width: 400px" value="#{beanUsuario.selected.apellido}" required="true"  requiredMessage="#{bundle.documental_GUIUsuario_Messages_pApellido}"></p:inputText></p:column>                              
                     </p:row>      
-
+                    
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Correo}"/></p:column>
                         <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.correo}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pCorreo}"></p:inputText></p:column> 
@@ -54,13 +54,7 @@
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Login}"/></p:column>
                         <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
                     </p:row>    
-                    <p:row>
-                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Dependencia}"/></p:column>
-                        <p:column colspan="50">
-                            <p:selectOneMenu style="width: 400px" rendered="true" value="#{beanUsuario.currentDep}">
-                                <f:selectItems value="#{beanUsuario.listDependencia}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
-                            </p:selectOneMenu>
-                        </p:column> 
+                    <p:row>                           
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Contrasena}"/></p:column>
                         <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.contrasena}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pContrasena}"></p:inputText></p:column> 
                     </p:row>  

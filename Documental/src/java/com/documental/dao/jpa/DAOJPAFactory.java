@@ -9,8 +9,6 @@ import com.documental.dao.AnexoDAO;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
 import com.documental.dao.DependenciaDAO;
-import com.documental.dao.DirectorDAO;
-import com.documental.dao.EmpleadoDAO;
 import com.documental.dao.HistoricoDAO;
 import com.documental.dao.LoginDAO;
 import com.documental.dao.NivelAccesoDAO;
@@ -67,16 +65,5 @@ public class DAOJPAFactory implements DAOFactory{
     public HistoricoDAO getHistoricoDAO() {
         return new HistoricoDAOJPAImpl();
     }
-    
-    @Override
-    public DirectorDAO getDirectorDAO() {
-        return new DirectorDAOJPAImpl();
-    }    
-
-    @Override
-    public EmpleadoDAO getEmpleadoDAO() {
-        return new EmpleadoDAOJPAImpl();
-    }
-    
     
 }

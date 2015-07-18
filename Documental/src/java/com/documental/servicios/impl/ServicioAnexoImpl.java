@@ -50,5 +50,20 @@ public class ServicioAnexoImpl implements ServicioAnexo{
     public void borrarAnexo(Anexo anexo) {
         anexoDAO.borrar(anexo);
     }
+
+    @Override
+    public int getCount() {
+        return anexoDAO.getCount();
+    }
+
+    @Override
+    public List<Anexo> consultarAnexosPorDocumento(Integer documentoId) {
+        return anexoDAO.buscarPorDocumentoAsociado(documentoId);
+    }
+
+    @Override
+    public Integer getCount(Integer documentoId) {
+        return anexoDAO.getCountPorDocumento(documentoId);
+    }
     
 }

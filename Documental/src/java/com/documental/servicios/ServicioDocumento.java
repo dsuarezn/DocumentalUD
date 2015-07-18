@@ -15,7 +15,6 @@ import java.util.List;
 public interface ServicioDocumento {
     
     public int getMaxId();
-    public int getCount();
     public String salvarDocumento(Documento documento);
     public Documento consultarDocumentoPorId(Integer Id);
     public List<Documento> consultarTodosDocumentos();
