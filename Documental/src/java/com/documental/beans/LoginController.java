@@ -74,11 +74,10 @@ public class LoginController {
     public void setCurrentDep(int currentDep) {
         this.currentDep = currentDep;
     }
-    
-    
+
     public ServicioEmpleado getServicioEmpleado() {
-        if(servicioEmpleado==null){
-        servicioEmpleado = new ServicioEmpleadoImpl();
+        if (servicioEmpleado == null) {
+            servicioEmpleado = new ServicioEmpleadoImpl();
         }
         return servicioEmpleado;
     }
@@ -164,11 +163,11 @@ public class LoginController {
     public List<Dependencia> getListDependencia() {
         return getServicioDependencia().buscarTodosDependencia();
     }
-    
-        public ServicioDirector getServicioDirector() {
-            if(servicioDirector == null){
+
+    public ServicioDirector getServicioDirector() {
+        if (servicioDirector == null) {
             return new ServicioDirectorImpl();
-            }
+        }
         return servicioDirector;
     }
 
@@ -281,21 +280,7 @@ public class LoginController {
             currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
             //salvar primero el usuario para evitar errores de consistencia
             respuesta = getServicio().salvarLogin(currentC);
-            // salvar en directores o empleados
-            //director de Area
-            if(tipoUsuario == 3){
-            //Asginar Dependencia
-                DependenciaDirector director = new DependenciaDirector(currentDep, id);
-                director.setFecha(new Date());
-                getServicioDirector().salvarDirector(director);
-            }
-            //Empleado    
-            if(tipoUsuario == 4){
-            //Asignar Dependencia
-                DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
-                empleado.setFecha(new Date());
-                getServicioEmpleado().salvarEmpleado(empleado);
-            }    
+            setDependencia(id);
             if (respuesta.equals("Operación Exitosa")) {
                 currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
@@ -307,10 +292,29 @@ public class LoginController {
         }
     }
 
+    public void setDependencia(int id) {
+    // salvar en directores o empleados
+        //director de Area
+        if (tipoUsuario == 3) {
+            //Asginar Dependencia
+            DependenciaDirector director = new DependenciaDirector(currentDep, id);
+            director.setFecha(new Date());
+            getServicioDirector().salvarDirector(director);
+        }
+        //Empleado    
+        if (tipoUsuario == 4) {
+            //Asignar Dependencia
+            DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
+            empleado.setFecha(new Date());
+            getServicioEmpleado().salvarEmpleado(empleado);
+        }
+    }
+
     public void edit() {
         String respuesta = "";
         try {
             respuesta = getServicio().salvarLogin(current);
+            setDependencia(current.getIdLogin());
             items = null;
             if (respuesta.equals("Operación Exitosa")) {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioExitoso"));
