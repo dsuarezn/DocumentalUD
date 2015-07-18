@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">  
+
+    <ui:define name="bodyJR">
+        <p:panel id="cabezote">            
+            <h:panelGrid columns="10" cellpadding="10">
+                <h:outputText
+                    value="#{bundle.documental_GUIDocumento_Consulta_TituloCabezote}" />                                       
+            </h:panelGrid>  
+        </p:panel> 
+        <p:panel id="header">
+            <h:form id="frmBusquedas">
+                 <p:panelGrid style="margin-top:10px" >
+                    <p:row>
+                        <p:column  colspan="400"  styleClass="ui-widget-header">
+                            <p:spacer height="0"/>Consulta Documentos
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Fecha_Inicial}"/></p:column>
+                        <p:column colspan="50"><p:calendar id="german0" value="#{beanConsulta.selected.fechaCreacion}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column> 
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Fecha_Final}"/></p:column>
+                        <p:column colspan="50"><p:calendar id="german1" value="#{beanConsulta.selected.fechaAuxiliar}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column>                              
+                    </p:row>      
+                    
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Estado}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu value="#{beanConsulta.selected.estado}" style="width: 400px">
+                                <f:selectItems value="#{beanConsulta.estadosDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
+                            </p:selectOneMenu>
+                        </p:column> 
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Visibilidad}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu value="#{beanConsulta.selected.visibilidad}" style="width: 400px">
+                                <f:selectItems value="#{beanRadicacion.visibilidadesDocumento}" var="visible" itemLabel="#{visible.nombreEstado}" itemValue="#{visible.nombreEstado}"/>
+                            </p:selectOneMenu>
+                        </p:column>                              
+                    </p:row>
+                     
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Tipo_Documento}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu id="tipoDocumento" style="width: 400px" value="#{beanConsulta.idTipo}">
+                                <f:selectItems value="#{beanConsulta.listaTipos}" var="tipoDoc" itemLabel="#{tipoDoc.nombre}" itemValue="#{tipoDoc.idTipo}"/>
+                            </p:selectOneMenu> 
+                        </p:column>    
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Resposable}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu id="nombreLogin" style="width: 400px" value="#{beanConsulta.selectedA}">
+                                <f:selectItems value="#{beanConsulta.listLogin}" var="login" itemLabel="#{login.nombre}" itemValue="#{login.idLogin}"/>
+                            </p:selectOneMenu> 
+                        </p:column> 
+                    </p:row>  
+                                        
+                </p:panelGrid>
+                <br></br>
+                <p:commandButton id="bNuevo"  value="&nbsp;Buscar"  action="#{beanUsuario.create()}"  icon="guardar" >
+                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                </p:commandButton>                                                                    
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </p:panel>
+        <p:panel  footer="">
+            <h:form id="frmNiveles">
+                <p:dataTable id="buscaDocumento" var="documento" value="#{beanConsulta.items}"
+                             emptyMessage="No Se Han Filtrado Resultados"
+                             filteredValue="#{beanConsulta.listDocumento}"
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  
+                             scrollable="true">
+                    <p:column sortBy="#{documento.idDocumento}" filterBy="#{documento.idDocumento}" headerText="Id Documento">
+                        <h:outputText value="#{documento.idDocumento}" />
+                    </p:column>
+
+                    <p:column sortBy="#{documento.asunto}" filterBy="#{documento.asunto}" headerText="Asunto">
+                        <h:outputText value="#{documento.asunto}" />
+                    </p:column>
+
+                    
+                    <p:column sortBy="#{documento.estado}" filterBy="#{documento.estado}" headerText="Estado">
+                        <h:outputText value="#{documento.estado}" />
+                    </p:column>
+                    
+                    <p:column sortBy="#{documento.fechaCreacion}" filterBy="#{documento.fechaCreacion}" headerText="Fecha de Creacion">
+                        <h:outputText value="#{documento.fechaCreacion}" />
+                    </p:column>                    
+                                                                           
+                </p:dataTable>
+                <!-- Formulario emergente para eliminiar-->                                                       
+                                 
+            </h:form>
+        </p:panel>        
+    </ui:define>
+</ui:composition>
+
