@@ -245,7 +245,8 @@ public class LoginController {
         } else {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
-        return "index_MenuPrincipal";
+        //return "index_MenuPrincipal";
+        return null;
     }
 
     public void cerrarSesion() throws IOException {
