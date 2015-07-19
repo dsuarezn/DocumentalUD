@@ -78,9 +78,12 @@ public class Documento implements Serializable {
     @JoinColumn(name = "tipo_id", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
     private Tipo tipoId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
     private Collection<DependenciaDocumento> dependenciaDocumentoCollection;
-    private Date fechaAuxiliar;
+    
+    @Temporal(TemporalType.DATE)
+    private transient Date fechaAuxiliar;
 
     public Documento() {
     }

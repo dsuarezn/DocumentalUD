@@ -64,13 +64,13 @@ public class AnexoDAOJPAImpl extends GenericDAOJPAImpl<Anexo, Integer> implement
         EntityManager em = factoriaSession.createEntityManager();
         Query consulta = em.createNamedQuery("Anexo.CountByDocumentoId");
         consulta.setParameter("documentoId", documentoId);
-        Integer count = null;
+        Long count = null;
         try {
-            count = (Integer) consulta.getSingleResult();
+            count = (Long) consulta.getSingleResult();
         } finally {
             em.close();
         }
-        return count;
+        return count.intValue();
     }
     
     

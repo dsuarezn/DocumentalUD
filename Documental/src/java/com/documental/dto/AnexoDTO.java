@@ -6,6 +6,7 @@
 package com.documental.dto;
 
 import com.documental.beans.AnexoController;
+import com.documental.util.JsfUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,11 +57,14 @@ public class AnexoDTO {
     
 
     public AnexoDTO(String descripccion, String direccionArchivo, boolean paraEdicion, String idDocumento) {
+         System.out.println("ENTRO A MANEJAR FILE DOWNLOAD");
         this.descripccion = descripccion;
         this.direccionArchivo = direccionArchivo;
         this.paraEdicion = paraEdicion;
         this.idDocumento = idDocumento;
-        setNombreArchivoByPath(this.direccionArchivo);
+        if(!JsfUtil.IsBlank(this.direccionArchivo)){
+            setNombreArchivoByPath(this.direccionArchivo);
+        }
     }
 
     public String getNombreArchivo() {

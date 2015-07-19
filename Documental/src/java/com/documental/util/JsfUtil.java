@@ -64,4 +64,14 @@ public class JsfUtil {
         String theId = JsfUtil.getRequestParameter(requestParameterName);
         return converter.getAsObject(FacesContext.getCurrentInstance(), component, theId);
     }
+    
+    public static boolean IsBlank(String valor){
+        if(valor == null){
+            return true;
+        }
+        else if (valor.trim().length()==0){
+            return true; 
+        }
+        else{return false;}
+    }
 }

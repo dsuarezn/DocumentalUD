@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Anexo.findByFechaCreacion", query = "SELECT a FROM Anexo a WHERE a.fechaCreacion = :fechaCreacion"),
     @NamedQuery(name = "Anexo.findByDescripcion", query = "SELECT a FROM Anexo a WHERE a.descripcion = :descripcion"),
     @NamedQuery(name = "Anexo.findByDireccion", query = "SELECT a FROM Anexo a WHERE a.direccion = :direccion"),
-    @NamedQuery(name = "Anexo.findByDocumentoId", query = "SELECT a FROM Anexo a WHERE a.anexoPK.documentoId = :documentoId")})
+    @NamedQuery(name = "Anexo.findByDocumentoId", query = "SELECT a FROM Anexo a WHERE a.anexoPK.documentoId = :documentoId"),
+    @NamedQuery(name = "Anexo.CountByDocumentoId", query = "SELECT count(a.anexoPK.documentoId) FROM Anexo a WHERE a.anexoPK.documentoId = :documentoId")
+})
 public class Anexo implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

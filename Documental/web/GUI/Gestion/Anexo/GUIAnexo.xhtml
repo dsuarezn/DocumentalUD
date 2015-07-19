@@ -48,10 +48,7 @@
                              rowsPerPageTemplate="5,10,15"  
                              scrollable="true"
                              rowIndexVar="rowIndex"
-                             >                                      
-                    <p:column headerText="Comentario">                                                    
-                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" />                        
-                    </p:column>
+                             >                                                          
                     <p:column headerText="Upload">                                                       
                             <p:fileUpload style="width:200px" fileUploadListener="#{archivo.manejarFileUpload}" mode="advanced"
                                           update="pArchivo"  auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(pdf)$/"  />                                                                                                                                
@@ -59,6 +56,9 @@
                     <p:column id="pArchivo" headerText="Archivo">                                                       
                         <h:inputText style="width:180px" id="nombreArchivo" value="#{archivo.nombreArchivo}" required="true" readonly="true"/>                        
                     </p:column> 
+                    <p:column headerText="Comentario">                                                    
+                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" />                        
+                    </p:column>
                     <p:column headerText="Descarga">   
                         <h:commandButton  immediate="true" id="downloadButton" value="Descargar PDF" action="#{archivo.downloadFile}">                            
                         </h:commandButton>
