@@ -43,4 +43,16 @@ public class DependenciaDAOJPAImpl extends GenericDAOJPAImpl<Dependencia, Intege
 	List<Dependencia> listadependencia =  query.getResultList();
 	return listadependencia; 
     }
+
+    @Override
+    public List<Dependencia> buscarDependenciasActivas(){
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();        
+        Query query = manager.createNamedQuery("Dependencia.findByEstado",Dependencia.class);
+        query.setParameter("estado", "Activo");
+	List<Dependencia> listadependencia =  query.getResultList();
+	return listadependencia; 
+    }
+    
+    
 }

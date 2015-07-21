@@ -61,4 +61,8 @@ public class ServicioDependenciaImpl implements ServicioDependencia {
         return dependenciaDAO.buscarDependenciasConDirector();
     }
     
+    @Override
+    public List<Dependencia> buscarDependenciasActivas(){
+    return dependenciaDAO.buscarDependenciasActivas();
+    }
 }

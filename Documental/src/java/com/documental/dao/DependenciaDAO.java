@@ -15,5 +15,5 @@ import java.util.List;
 public interface DependenciaDAO extends GenericDAO<Dependencia, Integer>{
     
     public List<Dependencia> buscarDependenciasConDirector();
-    
+    public List<Dependencia> buscarDependenciasActivas();
 }

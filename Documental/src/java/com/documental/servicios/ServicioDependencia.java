@@ -20,4 +20,5 @@ public interface ServicioDependencia {
     public List<Dependencia> buscarTodosDependencia();    
     public List<Dependencia> buscarTodosDependenciaConDirector();    
     public Dependencia buscarPorClave(Integer id); 
+    public List<Dependencia> buscarDependenciasActivas();
 }

@@ -161,7 +161,7 @@ public class LoginController {
     }
 
     public List<Dependencia> getListDependencia() {
-        return getServicioDependencia().buscarTodosDependencia();
+        return getServicioDependencia().buscarDependenciasActivas();
     }
 
     public ServicioDirector getServicioDirector() {
@@ -233,7 +233,6 @@ public class LoginController {
         }
         contrasena = EncripcionUtil.codif(contrasena);
         if (contrasena.equals(login.getContrasena())) {
-//        if (true) {
             current = login;
             crearSession();
             if (!cargarPermisos()) {
