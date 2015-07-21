@@ -54,7 +54,7 @@
                              >                                                          
                     <p:column headerText="Upload">                                                       
                             <p:fileUpload style="width:200px" fileUploadListener="#{archivo.manejarFileUpload}" mode="advanced"
-                                          rendered="#{!archivo.persistido}" update="pArchivo"  auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(pdf)$/"  />                                                                                                                                
+                                          rendered="#{!archivo.persistido}" update="pArchivo"  auto="true" sizeLimit="5242880" allowTypes="/(\.|\/)(pdf)$/"  />                                                                                                                                
                     </p:column> 
                     <p:column id="pArchivo" headerText="Archivo">                                                       
                         <h:inputText  style="width:180px" id="nombreArchivo" value="#{archivo.nombreArchivo}" required="true" readonly="true"/>                        
