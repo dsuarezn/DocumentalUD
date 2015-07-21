@@ -8,13 +8,11 @@ package com.documental.dao.jpa;
 import com.documental.dao.HistoricoDAO;
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
-import com.documental.bo.Login;
-import com.documental.bo.Tarea;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+
 /**
  *
  * @author Alexander

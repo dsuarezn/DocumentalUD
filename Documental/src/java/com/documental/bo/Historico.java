@@ -34,10 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Historico.findByOrigenId", query = "SELECT h FROM Historico h WHERE h.historicoPK.origenId = :origenId"),
     @NamedQuery(name = "Historico.findByDestinatarioId", query = "SELECT h FROM Historico h WHERE h.historicoPK.destinatarioId = :destinatarioId"),
     @NamedQuery(name = "Historico.findByFecha", query = "SELECT h FROM Historico h WHERE h.fecha = :fecha"),
-    @NamedQuery(name = "Historico.findByActivo", query = "SELECT h FROM Historico h WHERE h.activo = :activo"),
-    @NamedQuery(name = "Historico.findComentariosDocumento", query = "SELECT h FROM Historico h WHERE h.historicoPK.destinatarioId = :documentoId"),
-    @NamedQuery(name = "Historico.countComentariosDocumento", query = "SELECT count(h.historicoPK.origenId) FROM Historico h WHERE h.historicoPK.destinatarioId = :documentoId")
-})
+    @NamedQuery(name = "Historico.findByActivo", query = "SELECT h FROM Historico h WHERE h.activo = :activo")})
 public class Historico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +45,7 @@ public class Historico implements Serializable {
     private String comentario;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fecha;
     @Basic(optional = false)
     @Column(name = "activo")
@@ -59,6 +56,9 @@ public class Historico implements Serializable {
     @JoinColumn(name = "origen_id", referencedColumnName = "id_login", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Login loginOrigen;
+    @JoinColumn(name = "documento_id", referencedColumnName = "id_documento", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Documento documento;
 
     public Historico() {
     }
@@ -124,6 +124,14 @@ public class Historico implements Serializable {
 
     public void setLoginOrigen(Login login1) {
         this.loginOrigen = login1;
+    }
+    
+     public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
     @Override

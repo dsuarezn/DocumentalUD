@@ -16,6 +16,7 @@ import java.util.List;
 public interface ServicioHistorico {
     
     public String salvarHistorico(Historico historico);
+    public String insertarHistorico(Historico historico);
     public Historico consultarHistoricoPorId(HistoricoPK Id);
     public List<Historico> consultarTodosHistoricos();
     public List<Historico> consultarHistoricosPorDocumento(Integer documentoId);

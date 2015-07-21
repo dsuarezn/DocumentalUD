@@ -38,7 +38,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  *
  * @author DiegoM
@@ -49,14 +48,12 @@ public class RadicacionController {
 
     //Variables usadas en el controlador
     private Documento docTrabajo;
-    
-  
-    
+
     //Destinados para historico
     private Integer idDependenciaDestino;
-    private Integer idUsuarioOrigen;    
+    private Integer idUsuarioOrigen;
     private Integer idTipo;
-    
+
     //Variables usadas en el controlador
     private ServicioLogin servicioLogin;
     private ServicioDocumento servicioDocumento;
@@ -64,21 +61,19 @@ public class RadicacionController {
     private ServicioHistorico servicioHistorico;
     private ServicioDependencia servicioDependencia;
     private AnexoController controladorAnexo;
-    
-    
-    
+
     /**
      * Creates a new instance of GestionController
      */
     public RadicacionController() {
-        
+
     }
-    
-    public String getCurrentDate(){        
+
+    public String getCurrentDate() {
         SimpleDateFormat formato = new SimpleDateFormat("EEEEE, d 'de' MMMMM 'del' yyyy");
         return formato.format(new Date());
     }
-    
+
     public String prepareCreate() {
         return "/GUI/Radicador/GUIRadicar";
     }
@@ -88,62 +83,71 @@ public class RadicacionController {
             servicioLogin = new ServicioLoginImpl();
         }
         return servicioLogin;
-    }   
+    }
+
     private ServicioDocumento getServicioDocumento() {
         if (servicioDocumento == null) {
             servicioDocumento = new ServicioDocumentoImpl();
         }
         return servicioDocumento;
-    }    
+    }
+
     private ServicioTipo getServicioTipo() {
         if (servicioTipo == null) {
             servicioTipo = new ServicioTipoImpl();
         }
         return servicioTipo;
     }
-    private ServicioDependencia getServicioDependencia(){
+
+    private ServicioDependencia getServicioDependencia() {
         if (servicioDependencia == null) {
             servicioDependencia = new ServicioDependenciaImpl();
         }
         return servicioDependencia;
     }
-    private ServicioHistorico getServicioHistorico(){
+
+    private ServicioHistorico getServicioHistorico() {
         if (servicioHistorico == null) {
             servicioHistorico = new ServicioHistoricoImpl();
         }
         return servicioHistorico;
     }
 
-    
-   private List<LoginDTO> getLoginDTO(List<Login> listaUsuarios){
-       List<LoginDTO> listaDTO=new ArrayList<LoginDTO>();
-       for (Login usuarioLogin : listaUsuarios) {
-           LoginDTO dto=new LoginDTO(usuarioLogin.getIdLogin(),usuarioLogin.getNombre(),usuarioLogin.getApellido(),usuarioLogin.getUsuario(), usuarioLogin.getCorreo(),usuarioLogin.getTipoUsuario());           
-           listaDTO.add(dto);
-       }
-       return listaDTO;
-   }
-   
-    public List<Dependencia> getListaDependencias(){
+    private List<LoginDTO> getLoginDTO(List<Login> listaUsuarios) {
+        List<LoginDTO> listaDTO = new ArrayList<LoginDTO>();
+        for (Login usuarioLogin : listaUsuarios) {
+            LoginDTO dto = new LoginDTO(usuarioLogin.getIdLogin(), usuarioLogin.getNombre(), usuarioLogin.getApellido(), usuarioLogin.getUsuario(), usuarioLogin.getCorreo(), usuarioLogin.getTipoUsuario());
+            listaDTO.add(dto);
+        }
+        return listaDTO;
+    }
+
+    public List<Dependencia> getListaDependencias() {
         return getServicioDependencia().buscarTodosDependenciaConDirector();
-    }   
-    public List<LoginDTO> getListaUsuarios(){
+    }
+
+    public List<LoginDTO> getListaUsuarios() {
         return getLoginDTO(getServicioLogin().buscarTodosLogin());
     }
-    public List<Tipo> getListaTipos(){
+
+    public List<Tipo> getListaTipos() {
         return getServicioTipo().consultarTodosTipos();
-    }    
-    public EstadosDocumentoEnum[] getEstadosDocumento(){
-       return EstadosDocumentoEnum.values();
     }
-    public PrioridadDocumentoEnum[] getPrioridadesDocumento(){
-       return PrioridadDocumentoEnum.values();
+
+    public EstadosDocumentoEnum[] getEstadosDocumento() {
+        return EstadosDocumentoEnum.values();
     }
-    public FinalidadDocumentoEnum[] getFinalidadesDocumento(){
-       return FinalidadDocumentoEnum.values();
-    }    
-    public VisibilidadDocumentoEnum[] getVisibilidadesDocumento(){
-       return VisibilidadDocumentoEnum.values();
+
+    public PrioridadDocumentoEnum[] getPrioridadesDocumento() {
+        return PrioridadDocumentoEnum.values();
+    }
+
+    public FinalidadDocumentoEnum[] getFinalidadesDocumento() {
+        return FinalidadDocumentoEnum.values();
+    }
+
+    public VisibilidadDocumentoEnum[] getVisibilidadesDocumento() {
+        return VisibilidadDocumentoEnum.values();
     }
 
     public Integer getIdUsuarioOrigen() {
@@ -162,13 +166,11 @@ public class RadicacionController {
         this.idTipo = idTipo;
     }
 
-    
-    
-      public String volver() {
+    public String volver() {
         return "/";
     }
-      
-    public Tipo obtenerTipoDocumento(Integer id){
+
+    public Tipo obtenerTipoDocumento(Integer id) {
         return getServicioTipo().consultarTipoPorId(id);
     }
 
@@ -180,7 +182,7 @@ public class RadicacionController {
         this.idDependenciaDestino = idDependenciaDestino;
     }
 
-    public Documento getDocTrabajo() {        
+    public Documento getDocTrabajo() {
         if (docTrabajo == null) {
             docTrabajo = new Documento();
         }
@@ -190,38 +192,33 @@ public class RadicacionController {
     public void setDocTrabajo(Documento docTrabajo) {
         this.docTrabajo = docTrabajo;
     }
-    
-    
-    
-    
 
-
-    private Login obtenerDirectorDependencia(){
+    private Login obtenerDirectorDependencia() {
         return getServicioLogin().obtenerDirectorDependencia(idDependenciaDestino);
     }
-    
-    private Login obtenerUsuarioPorCodigo(Integer id){
+
+    private Login obtenerUsuarioPorCodigo(Integer id) {
         return getServicioLogin().buscarPorClave(id);
     }
-    
-    private String crearRegistroHistoricoInicial(Documento documento){
-        if(documento!=null){
+
+    private String crearRegistroHistoricoInicial(Documento documento) {
+        if (documento != null) {
             try {
-                Login origen =  obtenerUsuarioPorCodigo(idUsuarioOrigen); 
+                Login origen = obtenerUsuarioPorCodigo(idUsuarioOrigen);
                 Login directorDest = obtenerDirectorDependencia();
-                HistoricoPK historicoPK=new HistoricoPK();
+                HistoricoPK historicoPK = new HistoricoPK();
                 historicoPK.setDocumentoId(documento.getIdDocumento());
                 historicoPK.setOrigenId(idUsuarioOrigen);
                 historicoPK.setDestinatarioId(directorDest.getIdLogin());
 
-                Historico historico=new Historico();
+                Historico historico = new Historico();
                 historico.setActivo(true);
                 historico.setComentario("Registro inicial");
                 historico.setFecha(new Date());
                 historico.setLoginOrigen(origen);
                 historico.setLoginDestinatario(directorDest);
                 historico.setHistoricoPK(historicoPK);
-                String respuesta =  getServicioHistorico().salvarHistorico(historico);
+                String respuesta = getServicioHistorico().salvarHistorico(historico);
                 if (respuesta.equals("Operación Exitosa")) {
                     JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionHistoricoExitosa"));
                 } else {
@@ -230,56 +227,55 @@ public class RadicacionController {
             } catch (Exception e) {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionHistoricoErroneo") + " " + e.toString());
             }
-        } 
+        }
         return null;
     }
-    
-    
-    private Documento crearRegistroDocumento(){
+
+    private Documento crearRegistroDocumento() {
         String respuesta = "";
         try {
             Integer id = getServicioDocumento().getMaxId();
-            id++;            
+            id++;
             docTrabajo.setFechaCreacion(new Date());
             docTrabajo.setIdDocumento(id);
             docTrabajo.setTipoId(getServicioTipo().consultarTipoPorId(this.idTipo));
-            respuesta = getServicioDocumento().salvarDocumento(docTrabajo);            
+            respuesta = getServicioDocumento().salvarDocumento(docTrabajo);
             if (respuesta.equals("Operación Exitosa")) {
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionRadicacionExitosa"));
             } else {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionRadicacionErroneo"));
             }
             return getServicioDocumento().consultarDocumentoPorId(id);
-            
+
         } catch (Exception e) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionRadicacionErroneo") + " " + e.toString());
         }
         return null;
     }
-      
+
     public String create() {
-        Documento documento=this.crearRegistroDocumento();
+        Documento documento = this.crearRegistroDocumento();
         crearRegistroHistoricoInicial(documento);
         cleanSessionVars();
-        return getAnexoController().prepareCreate(documento, "/menuDocumental.xhtml", null);        
+        return getAnexoController().prepareCreate(documento, "/menuDocumental.xhtml", null);
     }
-    
-    public void cleanSessionVars(){
-        this.docTrabajo=null;
-        idDependenciaDestino=null;
-        idTipo=null;
-        idUsuarioOrigen=null;
+
+    public void cleanSessionVars() {
+        this.docTrabajo = null;
+        idDependenciaDestino = null;
+        idTipo = null;
+        idUsuarioOrigen = null;
     }
-    
-    private AnexoController getAnexoController(){
-        if(controladorAnexo==null){
+
+    private AnexoController getAnexoController() {
+        if (controladorAnexo == null) {
 //            controladorAnexo  = (AnexoController) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("beanAnexo");        
 //            controladorAnexo  = (AnexoController)FacesAccessor.getManagedBean("beanAnexo");
             FacesContext context = FacesContext.getCurrentInstance();
-            controladorAnexo = (AnexoController)context.getApplication().evaluateExpressionGet(context, "#{beanAnexo}", AnexoController.class);
+            controladorAnexo = (AnexoController) context.getApplication().evaluateExpressionGet(context, "#{beanAnexo}", AnexoController.class);
 
-        }        
+        }
         return controladorAnexo;
     }
-   
+
 }
