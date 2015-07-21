@@ -233,6 +233,7 @@ public class LoginController {
         }
         contrasena = EncripcionUtil.codif(contrasena);
         if (contrasena.equals(login.getContrasena())) {
+//        if (true) {
             current = login;
             crearSession();
             if (!cargarPermisos()) {

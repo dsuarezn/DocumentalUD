@@ -21,4 +21,5 @@ public interface DAOFactory {
     public HistoricoDAO getHistoricoDAO();
     public DirectorDAO getDirectorDAO();
     public EmpleadoDAO getEmpleadoDAO();
+    public ComentarioDAO getComentarioDAO();
 }

@@ -36,6 +36,36 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
             return null;
         }
     }
+
+    @Override
+    public List<Historico> buscarComentariosDocumento(Integer documentoId) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager em = factoriaSession.createEntityManager();
+        Query consulta = em.createNamedQuery("Historico.findComentariosDocumento");
+        consulta.setParameter("documentoId", documentoId);
+        List<Historico> listaComentarios = null;
+        try {
+            listaComentarios =  consulta.getResultList();
+        } finally {
+            em.close();
+        }
+        return listaComentarios;
+    }
+
+    @Override
+    public Integer countComentariosPorDocumento(Integer idDocumento) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager em = factoriaSession.createEntityManager();
+        Query consulta = em.createNamedQuery("Historico.countComentariosDocumento");
+        consulta.setParameter("documentoId", idDocumento);
+        Long countComentarios = null;
+        try {
+            countComentarios =  (Long) consulta.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return countComentarios.intValue();
+    }
     
     
 }

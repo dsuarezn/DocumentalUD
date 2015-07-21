@@ -34,8 +34,8 @@
                         <p:panelMenu style="width:165px">
                             <p:submenu label="Radicacion">                                                                  
                                 <p:menuitem value="Entrada" icon="caracterizacion" rendered="#{beanUsuario.asPermission('pMenuRadicEntrada')}" action="#{beanRadicacion.prepareCreate()}" />                                  
-                                <p:menuitem value="Salida" icon="cambio"  action="#{beanAnexo.prepareCreate(1)}"/>  
-                                <p:menuitem value="Memorando" icon="documento" rendered="#{beanUsuario.asPermission('pMenuRadicDocumento')}" />                                                               
+                                <p:menuitem value="Salida" icon="cambio"  action="#{beanComentario.prepareCreate(10)}"/>  
+                                <p:menuitem value="Memorando" icon="documento" action="#{beanAnexo.prepareCreate(10)}"  />                                                               
                             </p:submenu>
                             <p:submenu label="Gestión">                                                                  
                                 <p:menuitem value="Bandeja de entrada" icon="caracterizacion" action="#{beanBandeja.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />                                  

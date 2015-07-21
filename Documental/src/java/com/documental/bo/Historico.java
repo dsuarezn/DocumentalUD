@@ -34,7 +34,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Historico.findByOrigenId", query = "SELECT h FROM Historico h WHERE h.historicoPK.origenId = :origenId"),
     @NamedQuery(name = "Historico.findByDestinatarioId", query = "SELECT h FROM Historico h WHERE h.historicoPK.destinatarioId = :destinatarioId"),
     @NamedQuery(name = "Historico.findByFecha", query = "SELECT h FROM Historico h WHERE h.fecha = :fecha"),
-    @NamedQuery(name = "Historico.findByActivo", query = "SELECT h FROM Historico h WHERE h.activo = :activo")})
+    @NamedQuery(name = "Historico.findByActivo", query = "SELECT h FROM Historico h WHERE h.activo = :activo"),
+    @NamedQuery(name = "Historico.findComentariosDocumento", query = "SELECT h FROM Historico h WHERE h.historicoPK.destinatarioId = :documentoId"),
+    @NamedQuery(name = "Historico.countComentariosDocumento", query = "SELECT count(h.historicoPK.origenId) FROM Historico h WHERE h.historicoPK.destinatarioId = :documentoId")
+})
 public class Historico implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +48,7 @@ public class Historico implements Serializable {
     private String comentario;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @Basic(optional = false)
     @Column(name = "activo")

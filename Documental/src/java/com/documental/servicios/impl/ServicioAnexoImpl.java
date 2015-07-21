@@ -38,7 +38,7 @@ public class ServicioAnexoImpl implements ServicioAnexo{
 
     @Override
     public Anexo consultarAnexoPorId(Integer Id) {
-        return anexoDAO.buscarPorClave(Id);
+        return anexoDAO.buscarPorAnexoIdAsociado(Id);
     }
 
     @Override

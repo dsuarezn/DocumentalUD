@@ -36,6 +36,7 @@ import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -63,6 +64,7 @@ public class RadicacionController {
     private ServicioHistorico servicioHistorico;
     private ServicioDependencia servicioDependencia;
     private AnexoController controladorAnexo;
+    
     
     
     /**

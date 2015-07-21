@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/plantillas/menuDocumental.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">  
+
+    <ui:define name="bodyJR">
+        <p:panel id="cabezote">            
+            <h:panelGrid columns="10" cellpadding="10">
+                <h:outputText
+                    value="#{bundle.documental_GUIComentariosList_TituloCabezote}" />                                       
+            </h:panelGrid>  
+        </p:panel> 
+        <p:panel id="header">
+            <h:form id="frmAgregarComentarios">
+                 <p:panelGrid style="margin-top:10px" >
+                    <p:row>
+                        <p:column  colspan="400"  styleClass="ui-widget-header">
+                            <p:spacer height="0"/>Agregar comentario a documento
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;">
+                            <h:outputText id="comentario" value="#{bundle.documental_GUIComentariosList_Label_Comentario}"/>
+                        </p:column>
+                        <p:column colspan="50">
+                            <p:inputTextarea value="#{beanComentario.comentario}"/>
+                        </p:column>                         
+                    </p:row>                   
+                </p:panelGrid>
+                <br></br>
+                <p:commandButton id="bNuevo"  value="&nbsp;Guardar"  action="#{beanComentario.agregarComentario()}"  icon="guardar" >
+                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                </p:commandButton>                                                                    
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </p:panel>
+        <p:panel  footer="">
+            <h:form id="formListaComentarios">
+                <p:dataTable id="tablaComentarios" var="comentario" value="#{beanComentario.items}"
+                             emptyMessage="No Se Han Filtrado Resultados"
+                             
+                             paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"  
+                             scrollable="true">
+                    <p:column  headerText="Id Documento">
+                        <h:outputText value="#{comentario.documentoID}" />
+                    </p:column>
+
+                    <p:column  headerText="Comentario">
+                        <h:outputText value="#{comentario.comentario}" />
+                    </p:column>
+
+                     <p:column  headerText="Tipo">
+                        <h:outputText value="#{comentario.tipoComentario}" />
+                    </p:column>
+                    
+                    <p:column  headerText="Fecha y hora">
+                        <h:outputText value="#{comentario.fechaComentario}" >
+                            <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' HH:mm" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Usuario que comento">
+                        <h:outputText value="#{comentario.nombreyApellido}" />
+                    </p:column>                    
+                     
+                    <p:column headerText="Eliminar">
+                        <p:commandButton rendered="#{comentario.esComentario and comentario.esPermitido}" id="bEliminar"  value="&nbsp;Eliminar"  action="#{beanComentario.deleteAction(comentario)}"  icon="eliminar" >
+                            <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                        </p:commandButton>                                                                        
+                    </p:column>
+                    
+                </p:dataTable>
+                <!-- Formulario emergente para eliminiar-->                                                       
+                                 
+            </h:form>
+        </p:panel>        
+    </ui:define>
+</ui:composition>

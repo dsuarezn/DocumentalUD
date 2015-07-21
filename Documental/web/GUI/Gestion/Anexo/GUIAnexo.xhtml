@@ -24,7 +24,10 @@
                     <p:spacer width="10" height="10"/>
                     <h:outputText value="#{beanAnexo.documentoSelecciondo.descripcion}" />
                     <p:spacer width="10" height="10"/>
-                    <h:outputText value="#{beanAnexo.documentoSelecciondo.fechaCreacion}"/>
+                    <h:outputText value="#{beanAnexo.documentoSelecciondo.fechaCreacion}">
+                        <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' HH:mm" />
+                    </h:outputText>
+                    
                 </p:column>
             </p:row>
             
@@ -32,18 +35,18 @@
         <p:panel footer="">
             <h:form id="agregarRegistro">
                 <h:commandButton value="Agregar nuevo anexo" action="#{beanAnexo.agregarAnexo()}"  immediate="true">
-                    <f:ajax execute="@form" render="RadicarFormulario:archivosAnexo" />
+                    <f:ajax execute="@form" render="frmListaAnexos:archivosAnexo" />
                 </h:commandButton>                    
             </h:form>
             
             
-            <h:form id="RadicarFormulario" enctype="multipart/form-data">        
+            <h:form id="frmListaAnexos" enctype="multipart/form-data">        
                 
                 
                 <p:dataTable id="archivosAnexo"  var="archivo" value="#{beanAnexo.items}"
                              emptyMessage="No Se Han Filtrado Resultados"                             
                              paginator="true" rows="15"                             
-                             style="width: 80%"
+                             style="width: 100%"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  
                              scrollable="true"
@@ -51,21 +54,33 @@
                              >                                                          
                     <p:column headerText="Upload">                                                       
                             <p:fileUpload style="width:200px" fileUploadListener="#{archivo.manejarFileUpload}" mode="advanced"
-                                          update="pArchivo"  auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(pdf)$/"  />                                                                                                                                
+                                          rendered="#{!archivo.persistido}" update="pArchivo"  auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(pdf)$/"  />                                                                                                                                
                     </p:column> 
                     <p:column id="pArchivo" headerText="Archivo">                                                       
-                        <h:inputText style="width:180px" id="nombreArchivo" value="#{archivo.nombreArchivo}" required="true" readonly="true"/>                        
+                        <h:inputText  style="width:180px" id="nombreArchivo" value="#{archivo.nombreArchivo}" required="true" readonly="true"/>                        
                     </p:column> 
                     <p:column headerText="Comentario">                                                    
-                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" />                        
+                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" readonly="#{archivo.persistido == true and archivo.permitido}" >
+                             <f:ajax execute="@form" render="RadicarFormulario:archivosAnexo" />
+                        </h:inputTextarea>
                     </p:column>
                     <p:column headerText="Descarga">   
                         <h:commandButton  immediate="true" id="downloadButton" value="Descargar PDF" action="#{archivo.downloadFile}">                            
                         </h:commandButton>
                     </p:column>
+                    <p:column headerText="Usuario">
+                        <h:outputText value="#{archivo.nombreyApellido}" />
+                    </p:column>   
+                    <p:column headerText="Eliminar">
+                        <h:commandButton rendered="#{archivo.persistido and archivo.permitido}"  id="bEliminar"  value="&nbsp;Eliminar" action="#{beanAnexo.deleteAction(archivo)}" >                                                        
+                            <f:ajax execute="@form" render="frmListaAnexos:archivosAnexo" />
+                        </h:commandButton>
+                    </p:column>
                 </p:dataTable> 
                
-                <h:commandButton  value="Guardar Anexos" action="#{beanAnexo.create()}" />                                                  
+                <h:commandButton  value="Guardar Anexos" action="#{beanAnexo.create()}" immediate="true" >
+                    <f:ajax execute="@form" render="frmListaAnexos:archivosAnexo" />
+                </h:commandButton>                                                  
                 <p:commandButton  value="&nbsp;Volver" action="#{beanAnexo.volver()}" icon="volver" immediate="true"/>                                                  
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">

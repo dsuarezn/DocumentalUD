@@ -8,11 +8,14 @@ package com.documental.beans;
 import com.documental.bo.Anexo;
 import com.documental.bo.AnexoPK;
 import com.documental.bo.Documento;
+import com.documental.bo.Login;
 import com.documental.dto.AnexoDTO;
 import com.documental.servicios.ServicioAnexo;
 import com.documental.servicios.ServicioDocumento;
+import com.documental.servicios.ServicioLogin;
 import com.documental.servicios.impl.ServicioAnexoImpl;
 import com.documental.servicios.impl.ServicioDocumentoImpl;
+import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.util.JsfUtil;
 import com.documental.util.PaginationHelper;
 import java.io.BufferedReader;
@@ -43,6 +46,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.RowEditEvent;
@@ -63,26 +67,26 @@ public class AnexoController {
     private DataModel items = null;
     private PaginationHelper pagination;
     private ServicioAnexo servicioAnexo;
+    private ServicioLogin servicioLogin;
     private ServicioDocumento servicioDocumento;       
     private List<AnexoDTO> listaDTO=null;
     private String adelante, volver; 
-    
-    
-    private Integer noEspaciosBlancos=0;
+    private String RUTA_VISTA="/GUI/Gestion/Anexo/GUIAnexo";
 
-    public StreamedContent getFile() {
-        try {
-            return new DefaultStreamedContent(new FileInputStream("ArchivoPrueba"), "txt");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AnexoController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    private Login usuario;
+    
+
+    private String getLoggedUserName(){
+        return ((HttpServletRequest) FacesContext.getCurrentInstance().
+            getExternalContext().getRequest()).getSession().getAttribute("user").toString();
     }
-
-
     
-    
-    
+    public Login getUsuario() {
+        if (usuario == null) {
+            usuario = getServicioLogin().buscarPorUsuario(getLoggedUserName());
+        }
+        return usuario;
+    }
     
      public DataModel getItems() {
         if (items == null) {
@@ -107,7 +111,7 @@ public class AnexoController {
         establecerYConsultarDocumento(documentoId);
         System.out.println("devolviendo vista anexo");      
         limpiarElementosTabla();
-        return "/GUI/Gestion/Anexo/GUIAnexo";
+        return RUTA_VISTA;
     }
     
     public String prepareCreate(Integer documentoId, String adelante, String volver) {  
@@ -117,7 +121,7 @@ public class AnexoController {
         this.volver=volver;
         this.adelante=adelante;
         limpiarElementosTabla();
-        return "/GUI/Gestion/Anexo/GUIAnexo";
+        return RUTA_VISTA;
     }
     
      public String prepareCreate(Documento documento, String adelante, String volver) {  
@@ -127,13 +131,14 @@ public class AnexoController {
         this.volver=volver;
         this.adelante=adelante;
         limpiarElementosTabla();        
-        return "/GUI/Gestion/Anexo/GUIAnexo";
+        return RUTA_VISTA;
     }
     
      private void limpiarElementosTabla(){
         this.pagination=null;
         this.items = null;
          calcularBasico();
+         calcularListadoPersistido();
          calcularModelo();
      }
      
@@ -150,6 +155,13 @@ public class AnexoController {
         }
         return servicioAnexo;
     }
+    
+    public ServicioLogin getServicioLogin() {
+        if (servicioLogin == null) {
+            servicioLogin = new ServicioLoginImpl();
+        }
+        return servicioLogin;
+    }
      
     
     private void calcularBasico(){
@@ -157,8 +169,11 @@ public class AnexoController {
         listaAnexo =  getServicioAnexo().consultarAnexosPorDocumento(documentoId);
     }
     
-    private void calcularModelo(){
-        listaDTO = obtenerListadoParaTrabajo(listaAnexo);
+    private void calcularListadoPersistido(){
+       listaDTO = obtenerListadoParaTrabajo(listaAnexo);
+    }
+    
+    private void calcularModelo(){        
         modelo = new ListDataModel(listaDTO);
     }
     
@@ -192,36 +207,43 @@ public class AnexoController {
         this.documentoSelecciondo = documentoSelecciondo;
     }
 
-      
+    
+    public boolean esPermitido(Login usuarioComentario){
+        return usuarioComentario.getIdLogin() == getUsuario().getIdLogin();
+    }
+    
+    
       private List<AnexoDTO> obtenerListadoParaTrabajo(List<Anexo> listaPersistida){
-          List<AnexoDTO> listaDTO=new ArrayList<AnexoDTO>();
-          if(listaDTO==null){
-              listaDTO=new ArrayList<AnexoDTO>();
-          }
-          listaDTO.clear();
-          for (Anexo anexo : listaPersistida) {
-              listaDTO.add(new AnexoDTO(anexo.getDescripcion(),anexo.getDireccion(),false, this.documentoId.toString()));
-          }          
-//          for (int itera = 0; itera < noEspaciosBlancos; itera++) {
-//              listaDTO.add(new AnexoDTO("","",true,this.documentoId.toString()));
-//          }          
-          return listaDTO;
+          List<AnexoDTO> listaAnexoDTO=new ArrayList<AnexoDTO>();
+          for (Anexo anexo : listaPersistida) {              
+              listaAnexoDTO.add(new AnexoDTO(anexo.getAnexoPK().getIdAnexo(),anexo.getDescripcion(),anexo.getDireccion(), this.documentoId,true, esPermitido(anexo.getLoginid()),anexo.getLoginid()));
+          }                  
+          return listaAnexoDTO;
       }
-//      
-//      public void agregarAnexoDTO(){
-//          listaDTO.add(new AnexoDTO("", "", true,this.documentoId.toString()));
-//      }
 
    
+      public AnexoDTO getNuevoAnexoDTO(){
+          AnexoDTO dto = new AnexoDTO();
+          dto.setDescripccion("");
+          dto.setDireccionArchivo("");
+          dto.setIdAnexo(null);
+          dto.setIdDocumento(this.documentoId);
+          dto.setNombreArchivo("");
+          dto.setPermitido(true);
+          dto.setPersistido(false);
+          dto.setUsuarioComentario(getUsuario());
+          return dto;
+      }
     
     public void agregarAnexo(){
         System.out.println("ENTRO A AGREGAR ANEXO");
         //this.create();
-//        this.listaDTO.add(new AnexoDTO("","", true,""));
-        this.listaAnexo.add(new Anexo());        
+        calcularListadoPersistido();
+        this.listaDTO.add(getNuevoAnexoDTO());
+//        this.listaAnexo.add(new Anexo());        
         this.pagination=null;
         this.items = null;
-        calcularModelo();
+        calcularModelo();        
         actualizarDataTable();
     }
     
@@ -233,45 +255,44 @@ public class AnexoController {
     }
       
     public void actualizarDataTable(){
-        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("RadicarFormulario:archivosAnexo");
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmListaAnexos:archivosAnexo");
     }
       
     public String create(){
-        System.out.println("ENTRO A actualizar anexos");        
-        List<Anexo> listaAnexos = new ArrayList<Anexo>();
+        System.out.println("ENTRO A actualizar anexos");                
         try{
             for (AnexoDTO anexoDto : listaDTO) {
-                Anexo anexo = new Anexo();
-                AnexoPK anexopk = new AnexoPK();
-                anexopk.setDocumentoId(this.documentoId);            
-                anexopk.setIdAnexo(getServicioAnexo().getMaxId()+1);
-                anexo.setAnexoPK(anexopk);
-                anexo.setDescripcion(anexoDto.getDescripccion());
-                anexo.setDireccion(anexoDto.getDireccionArchivo());
-                anexo.setDocumento(this.documentoSelecciondo);
-                anexo.setFechaCreacion(new Date());
-                anexo.setFirmado(false);
-                listaAnexos.add(anexo);
-                 if(!JsfUtil.IsBlank(anexo.getDireccion()) && !JsfUtil.IsBlank(anexo.getDescripcion())){
-                    getServicioAnexo().salvarAnexo(anexo);
-                }  
+                if(!anexoDto.isPersistido()){
+                    Anexo anexo = new Anexo();
+                    AnexoPK anexopk = new AnexoPK();
+                    anexopk.setDocumentoId(this.documentoId);            
+                    anexopk.setIdAnexo(getServicioAnexo().getMaxId()+1);
+                    anexo.setAnexoPK(anexopk);
+                    anexo.setDescripcion(anexoDto.getDescripccion());
+                    anexo.setDireccion(anexoDto.getDireccionArchivo());
+                    anexo.setDocumento(this.documentoSelecciondo);
+                    anexo.setFechaCreacion(new Date());
+                    anexo.setFirmado(false);   
+                    anexo.setLoginid(getUsuario());
+                    if(!JsfUtil.IsBlank(anexo.getDireccion()) && !JsfUtil.IsBlank(anexo.getDescripcion())){
+                        getServicioAnexo().salvarAnexo(anexo);
+                    }  
+                }
             }
-//            for (Anexo itemAnexo : listaAnexos) {
-//                if(!JsfUtil.IsBlank(itemAnexo.getDireccion()) && !JsfUtil.IsBlank(itemAnexo.getDescripcion())){
-//                    getServicioAnexo().salvarAnexo(itemAnexo);
-//                }                
-//            }  
             limpiarElementosTabla();
+            actualizarDataTable();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIAnexo_Messages_pActualizacionAnexosExitosa"));
             return adelante();
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIAnexo_Messages_pActualizacionAnexosErroneo") + " " + e.toString());
         }
         return null;
     }
       
       
-    public String manejarFileUpload(String idDocumento,FileUploadEvent event){
+    public String manejarFileUpload(Integer id,FileUploadEvent event){
+        String idDocumento = id.toString();
         ExternalContext extContext=FacesContext.getCurrentInstance().getExternalContext();         
         String basepath=extContext.getRealPath("//resources//anexos");        
         Date now = new Date();        
@@ -305,6 +326,19 @@ public class AnexoController {
         return  result.getAbsolutePath();
     }  
     
+    
+    public void deleteAction(AnexoDTO anexo) {
+        try {            
+            Anexo obtenido = getServicioAnexo().consultarAnexoPorId(anexo.getIdAnexo());
+            getServicioAnexo().borrarAnexo(obtenido);
+            limpiarElementosTabla();
+            actualizarDataTable();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIComentariosList_Messages_pActualizacionAnexosExitosa"));                       
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIComentariosList_Messages_pActualizacionAnexosErroneo") + " " + e.toString());
+        }
+    }
     
     
     public void descargarArchivo(String absolutePath){        

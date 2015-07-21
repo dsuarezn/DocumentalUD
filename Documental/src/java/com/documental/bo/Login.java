@@ -5,8 +5,11 @@
  */
 package com.documental.bo;
 
+
+
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia")
 })
 public class Login implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loginid")
+    private List<Comentario> comentarioList;
+    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -201,5 +207,16 @@ public class Login implements Serializable {
     public String toString() {
         return "com.documental.bo.Login[ idLogin=" + idLogin + " ]";
     }
+
+    @XmlTransient
+    public List<Comentario> getComentarioList() {
+        return comentarioList;
+    }
+
+    public void setComentarioList(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
+    }
+
+  
     
 }

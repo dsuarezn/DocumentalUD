@@ -5,9 +5,11 @@
  */
 package com.documental.bo;
 
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,6 +44,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Documento.findByAsunto", query = "SELECT d FROM Documento d WHERE d.asunto = :asunto"),
     @NamedQuery(name = "Documento.findByFinalidad", query = "SELECT d FROM Documento d WHERE d.finalidad = :finalidad")})
 public class Documento implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoid")
+    private List<Comentario> comentarioList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -235,6 +239,15 @@ public class Documento implements Serializable {
     @Override
     public String toString() {
         return "com.documental.bo.Documento[ idDocumento=" + idDocumento + " ]";
+    }
+
+    @XmlTransient
+    public List<Comentario> getComentarioList() {
+        return comentarioList;
+    }
+
+    public void setComentarioList(List<Comentario> comentarioList) {
+        this.comentarioList = comentarioList;
     }
 
 }
