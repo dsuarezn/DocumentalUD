@@ -39,6 +39,7 @@ import javax.servlet.http.HttpSession;
  * @author DiegoM
  * mysqldump --user=root --password=root acme > copia_seguridad.sql
  * mysql --user=root --password=root < copia_seguridad.sql
+ * 
  */
 @ManagedBean(name = "beanUsuario")
 @SessionScoped
