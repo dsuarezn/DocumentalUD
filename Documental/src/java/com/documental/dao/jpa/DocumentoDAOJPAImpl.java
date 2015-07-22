@@ -6,6 +6,7 @@
 package com.documental.dao.jpa;
 
 import com.documental.bo.Documento;
+import com.documental.bo.Historico;
 import com.documental.dao.DocumentoDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -44,62 +45,68 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
     }
 
     @Override
-    public List<Documento> buscarFiltro(Documento documento) {
+    public List<Historico> buscarFiltro(Historico historico) {
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
         EntityManager manager = factoriaSession.createEntityManager();
-        String query = "SELECT D FROM Documento D "
+        String query = "SELECT H FROM Historico H "+
+                 "JOIN FETCH H.documento D "
                 + "WHERE 1=1 ";
-        if (documento.getTipoId().getIdTipo() != null
-                && !documento.getTipoId().getIdTipo().equals("")) {
-            query = query + "and D.tipoId.idTipo = :pTipo";
+        if (historico.getDocumento().getTipoId().getIdTipo() != null
+                && !historico.getDocumento().getTipoId().getIdTipo().equals("")) {
+            query = query + "and D.tipoId.idTipo = :pTipo ";
         }
-        if (documento.getEstado() != null
-                && !documento.getEstado().equals("")) {
+        if (historico.getDocumento().getEstado() != null
+                && !historico.getDocumento().getEstado().equals("")) {
             query = query + "and D.estado = :pEstado ";
         }
-        if (documento.getFechaCreacion() != null) {
+        if (historico.getDocumento().getFechaCreacion() != null) {
             query = query + "and D.fechaCreacion >= :sFechaD ";
         }
-        if (documento.getFechaAuxiliar() != null) {
+        if (historico.getDocumento().getFechaAuxiliar() != null) {
             query = query + "and D.fechaCreacion < :sFechaH ";
         }
-        if (documento.getVisibilidad() != null) {
-            query = query + "and D.visibilidad < :pVisibilidad ";
+        if (historico.getDocumento().getVisibilidad() != null) {
+            query = query + "and D.visibilidad = :pVisibilidad ";
         }
-        if (documento.getAsunto() != null
-                && !documento.getAsunto().equals("")) {
+        if (historico.getDocumento().getAsunto() != null
+                && !historico.getDocumento().getAsunto().equals("")) {
             query = query + "and D.asunto LIKE :pCriterio ";
             query = query + "or D.descripcion LIKE :pCriterio ";
         }
+        
+        System.out.println("el query es: "+ query);
 
-        TypedQuery<Documento> consulta = manager.createQuery(query,
-                Documento.class);
+        TypedQuery<Historico> consulta = manager.createQuery(query,
+                Historico.class);
 
-        if (documento.getTipoId().getIdTipo() != null
-                && !documento.getTipoId().getIdTipo().equals("")) {
+        if (historico.getDocumento().getTipoId().getIdTipo() != null
+                && !historico.getDocumento().getTipoId().getIdTipo().equals("")) {
             consulta.setParameter("pTipo",
-                    documento.getTipoId().getIdTipo() + "");
+                    historico.getDocumento().getTipoId().getIdTipo());
+            System.out.println("el valor de idTipo es: "+historico.getDocumento().getTipoId().getIdTipo());
         }
-        if (documento.getEstado() != null
-                && !documento.getEstado().equals("")) {
+        if (historico.getDocumento().getEstado() != null
+                && !historico.getDocumento().getEstado().equals("")) {
             consulta.setParameter("pEstado",
-                    documento.getEstado());
+                    historico.getDocumento().getEstado());
+            System.out.println("el valor de estado es: "+historico.getDocumento().getEstado());
         }
  
-        if (documento.getVisibilidad() != null
-                && !documento.getVisibilidad().equals("")) {
+        if (historico.getDocumento().getVisibilidad() != null
+                && !historico.getDocumento().getVisibilidad().equals("")) {
             consulta.setParameter("pVisibilidad",
-                    documento.getVisibilidad());
+                    historico.getDocumento().getVisibilidad());
+            System.out.println("el valor de visibilidad es: "+historico.getDocumento().getVisibilidad());
         }
-        if (documento.getFechaCreacion() != null) {
-            consulta.setParameter("sFechaD", documento.getFechaCreacion());
+        if (historico.getDocumento().getFechaCreacion() != null) {
+            consulta.setParameter("sFechaD", historico.getDocumento().getFechaCreacion());
         }
-        if (documento.getFechaAuxiliar() != null) {
-            consulta.setParameter("sFechaH", documento.getFechaAuxiliar());
+        if (historico.getDocumento().getFechaAuxiliar() != null) {
+            consulta.setParameter("sFechaH", historico.getDocumento().getFechaAuxiliar());
         }
-        if (documento.getAsunto() != null
-                && !documento.getAsunto().equals("")) {
-            consulta.setParameter("pCriterio", "%" + documento.getAsunto() + "%");
+        if (historico.getDocumento().getAsunto() != null
+                && !historico.getDocumento().getAsunto().equals("")) {
+            consulta.setParameter("pCriterio", "%" + historico.getDocumento().getAsunto() + "%");
         }
         return consulta.getResultList();
     }

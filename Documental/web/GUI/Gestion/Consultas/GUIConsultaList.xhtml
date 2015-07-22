@@ -7,15 +7,15 @@
                 xmlns:p="http://primefaces.org/ui">  
 
     <ui:define name="bodyJR">
-        <p:panel id="cabezote">            
-            <h:panelGrid columns="10" cellpadding="10">
-                <h:outputText
-                    value="#{bundle.documental_GUIDocumento_Consulta_TituloCabezote}" />                                       
-            </h:panelGrid>  
-        </p:panel> 
-        <p:panel id="header">
-            <h:form id="frmBusquedas">
-                 <p:panelGrid style="margin-top:10px" >
+        <h:form id="Busqueda">
+            <p:panel id="cabezote">            
+                <h:panelGrid columns="10" cellpadding="10">
+                    <h:outputText
+                        value="#{bundle.documental_GUIDocumento_Consulta_TituloCabezote}" />                                       
+                </h:panelGrid>  
+            </p:panel> 
+            <p:panel id="header">            
+                <p:panelGrid style="margin-top:10px" >
                     <p:row>
                         <p:column  colspan="400"  styleClass="ui-widget-header">
                             <p:spacer height="0"/>Consulta Documentos
@@ -24,11 +24,11 @@
 
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Fecha_Inicial}"/></p:column>
-                        <p:column colspan="50"><p:calendar id="german0" value="#{beanConsulta.selected.fechaCreacion}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column> 
+                        <p:column colspan="50"><p:calendar id="german0" style="width: 400px" value="#{beanConsulta.selected.fechaCreacion}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column> 
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Fecha_Final}"/></p:column>
-                        <p:column colspan="50"><p:calendar id="german1" value="#{beanConsulta.selected.fechaAuxiliar}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column>                              
+                        <p:column colspan="50"><p:calendar id="german1" style="width: 400px" value="#{beanConsulta.selected.fechaAuxiliar}" locale="de" navigator="true" pattern="yyyy-MMM-dd" /></p:column>                              
                     </p:row>      
-                    
+
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Estado}"/></p:column>
                         <p:column colspan="50">
@@ -43,7 +43,7 @@
                             </p:selectOneMenu>
                         </p:column>                              
                     </p:row>
-                     
+
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Tipo_Documento}"/></p:column>
                         <p:column colspan="50">
@@ -53,54 +53,45 @@
                         </p:column>    
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Resposable}"/></p:column>
                         <p:column colspan="50">
-                            <p:selectOneMenu id="nombreLogin" style="width: 400px" value="#{beanConsulta.selectedA}">
+                            <p:selectOneMenu id="nombreLogin" style="width: 400px" >
                                 <f:selectItems value="#{beanConsulta.listLogin}" var="login" itemLabel="#{login.nombre}" itemValue="#{login.idLogin}"/>
                             </p:selectOneMenu> 
                         </p:column> 
                     </p:row>  
-                                        
+
                 </p:panelGrid>
                 <br></br>
-                <p:commandButton id="bNuevo"  value="&nbsp;Buscar"  action="#{beanUsuario.create()}"  icon="guardar" >
-                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
-                </p:commandButton>                                                                    
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>
-            </h:form>
-        </p:panel>
-        <p:panel  footer="">
-            <h:form id="frmNiveles">
-                <p:dataTable id="buscaDocumento" var="documento" value="#{beanConsulta.items}"
+                <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" 
+                                 value="&nbsp;Buscar"  action="#{beanConsulta.buscar()}"  icon="consultar" />                                                
+            </p:panel>
+            <p:panel  footer="">            
+                <p:dataTable id="buscaDocumento" var="historico" value="#{beanConsulta.items}"
                              emptyMessage="No Se Han Filtrado Resultados"
-                             filteredValue="#{beanConsulta.listDocumento}"
+                             filteredValue="#{beanConsulta.listHistorico}"
                              paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  
                              scrollable="true">
-                    <p:column sortBy="#{documento.idDocumento}" filterBy="#{documento.idDocumento}" headerText="Id Documento">
-                        <h:outputText value="#{documento.idDocumento}" />
+                    <p:column sortBy="#{historico.historicoPK.documentoId}" filterBy="#{historico.historicoPK.documentoId}" headerText="Id Documento">
+                        <h:outputText value="#{historico.historicoPK.documentoId}" />
                     </p:column>
 
-                    <p:column sortBy="#{documento.asunto}" filterBy="#{documento.asunto}" headerText="Asunto">
-                        <h:outputText value="#{documento.asunto}" />
+                    <p:column sortBy="#{historico.documento.asunto}" filterBy="#{historico.documento.asunto}" headerText="Asunto">
+                        <h:outputText value="#{historico.documento.asunto}" />
                     </p:column>
 
-                    
-                    <p:column sortBy="#{documento.estado}" filterBy="#{documento.estado}" headerText="Estado">
-                        <h:outputText value="#{documento.estado}" />
+
+                    <p:column sortBy="#{historico.documento.estado}" filterBy="#{historico.documento.estado}" headerText="Estado">
+                        <h:outputText value="#{historico.documento.estado}" />
                     </p:column>
-                    
-                    <p:column sortBy="#{documento.fechaCreacion}" filterBy="#{documento.fechaCreacion}" headerText="Fecha de Creacion">
-                        <h:outputText value="#{documento.fechaCreacion}" />
+
+                    <p:column sortBy="#{historico.documento.fechaCreacion}" filterBy="#{historico.documento.fechaCreacion}" headerText="Fecha de Creacion">
+                        <h:outputText value="#{historico.documento.fechaCreacion}" />
                     </p:column>                    
-                                                                           
-                </p:dataTable>
-                <!-- Formulario emergente para eliminiar-->                                                       
-                                 
-            </h:form>
-        </p:panel>        
+
+                </p:dataTable>                                                                                         
+            </p:panel>  
+        </h:form>
     </ui:define>
 </ui:composition>
 

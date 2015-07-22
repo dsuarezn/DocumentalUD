@@ -6,6 +6,7 @@
 package com.documental.dao;
 
 import com.documental.bo.Documento;
+import com.documental.bo.Historico;
 import java.util.List;
 
 /**
@@ -15,6 +16,6 @@ import java.util.List;
 public interface DocumentoDAO extends GenericDAO<Documento, Integer> {
 
     public List<Documento> buscarPorClave(Documento login);
-    public List<Documento> buscarFiltro(Documento documento);
+    public List<Historico> buscarFiltro(Historico historico);
 
 }

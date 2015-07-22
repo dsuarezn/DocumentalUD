@@ -6,6 +6,7 @@
 package com.documental.servicios;
 
 import com.documental.bo.Documento;
+import com.documental.bo.Historico;
 import java.util.List;
 
 /**
@@ -20,4 +21,5 @@ public interface ServicioDocumento {
     public Documento consultarDocumentoPorId(Integer Id);
     public List<Documento> consultarTodosDocumentos();
     public void borrarDocumento(Documento documento);
+    public List<Historico> buscarFiltro(Historico historico);
 }

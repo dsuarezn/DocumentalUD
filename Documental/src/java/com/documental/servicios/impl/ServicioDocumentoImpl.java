@@ -6,6 +6,7 @@
 package com.documental.servicios.impl;
 
 import com.documental.bo.Documento;
+import com.documental.bo.Historico;
 import com.documental.dao.DAOAbstractFactory;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
@@ -24,8 +25,6 @@ public class ServicioDocumentoImpl implements ServicioDocumento{
         DAOFactory factoria= DAOAbstractFactory.getInstance();
         this.documentoDAO = factoria.getDocumentoDAO();
     }
-    
-    
     
     @Override
     public int getMaxId() {
@@ -55,6 +54,11 @@ public class ServicioDocumentoImpl implements ServicioDocumento{
     @Override
     public int getCount() {
         return documentoDAO.getCount();
+    }
+
+    @Override
+    public List<Historico> buscarFiltro(Historico historico) {
+        return documentoDAO.buscarFiltro(historico);
     }
     
 }
