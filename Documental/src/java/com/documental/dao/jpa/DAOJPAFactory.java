@@ -6,6 +6,7 @@
 package com.documental.dao.jpa;
 
 import com.documental.dao.AnexoDAO;
+import com.documental.dao.ComentarioDAO;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
 import com.documental.dao.DependenciaDAO;
@@ -76,6 +77,11 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public EmpleadoDAO getEmpleadoDAO() {
         return new EmpleadoDAOJPAImpl();
+    }
+
+    @Override
+    public ComentarioDAO getComentarioDAO() {
+        return new ComentarioDAOJPAImpl();
     }
     
     

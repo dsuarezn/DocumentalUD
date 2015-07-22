@@ -57,6 +57,22 @@ public class AnexoDAOJPAImpl extends GenericDAOJPAImpl<Anexo, Integer> implement
         return listaAnexos;
     }
 
+    @Override
+    public Anexo buscarPorAnexoIdAsociado(Integer idAnexo) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager em = factoriaSession.createEntityManager();
+        Query consulta = em.createNamedQuery("Anexo.findByIdAnexo");
+        consulta.setParameter("idAnexo", idAnexo);
+        Anexo anexo = null;
+        try {
+            anexo = (Anexo) consulta.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return anexo;
+    }
+    
+    
     
     @Override
     public Integer getCountPorDocumento(Integer documentoId) {

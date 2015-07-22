@@ -8,13 +8,11 @@ package com.documental.dao.jpa;
 import com.documental.dao.HistoricoDAO;
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
-import com.documental.bo.Login;
-import com.documental.bo.Tarea;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+
 /**
  *
  * @author Alexander
@@ -38,6 +36,36 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
     }
 
     @Override
+    public List<Historico> buscarComentariosDocumento(Integer documentoId) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager em = factoriaSession.createEntityManager();
+        Query consulta = em.createNamedQuery("Historico.findComentariosDocumento");
+        consulta.setParameter("documentoId", documentoId);
+        List<Historico> listaComentarios = null;
+        try {
+            listaComentarios =  consulta.getResultList();
+        } finally {
+            em.close();
+        }
+        return listaComentarios;
+    }
+
+    @Override
+    public Integer countComentariosPorDocumento(Integer idDocumento) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager em = factoriaSession.createEntityManager();
+        Query consulta = em.createNamedQuery("Historico.countComentariosDocumento");
+        consulta.setParameter("documentoId", idDocumento);
+        Long countComentarios = null;
+        try {
+            countComentarios =  (Long) consulta.getSingleResult();
+        } finally {
+            em.close();
+        }
+        return countComentarios.intValue();
+    }
+    
+    
     public List<Historico> buscarHistoricoDocumento(int id) {
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
         EntityManager manager = factoriaSession.createEntityManager();

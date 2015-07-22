@@ -24,7 +24,11 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_hora}"/></p:column> 
+                        <p:column colspan="20" style="font-weight: bold;">                            
+                            <h:outputText value="#{bundle.documental_GUIRadicar_formulario_hora}" >
+                                <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy" />
+                            </h:outputText>                        
+                        </p:column> 
                         <p:column colspan="80" style="font-weight: bold;"><h:outputText value="#{beanRadicacion.currentDate}"/></p:column>
                     </p:row>
                     <p:row>
@@ -33,7 +37,7 @@
                             <p:panelGrid>
                                 <p:row>
                                     <p:column>
-                                        <p:inputText required="true" style="width: 400px" id="asunto" value="#{beanRadicacion.docTrabajo.asunto}" maxlength="10" />
+                                        <p:inputText required="true" style="width: 400px" id="asunto" value="#{beanRadicacion.docTrabajo.asunto}" maxlength="150" />
                                     </p:column>  
                                     <p:column>
                                         <p:message for="asunto" />

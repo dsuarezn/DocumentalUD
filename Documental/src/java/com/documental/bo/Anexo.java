@@ -46,7 +46,7 @@ public class Anexo implements Serializable {
     private boolean firmado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Basic(optional = false)
     @Column(name = "descripcion")
@@ -57,6 +57,9 @@ public class Anexo implements Serializable {
     @JoinColumn(name = "documento_id", referencedColumnName = "id_documento", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Documento documento;
+    @JoinColumn(name = "id_login", referencedColumnName = "id_login")
+    @ManyToOne(optional = false)
+    private Login loginid;
 
     public Anexo() {
     }
@@ -149,5 +152,15 @@ public class Anexo implements Serializable {
     public String toString() {
         return "com.documental.bo.Anexo[ anexoPK=" + anexoPK + " ]";
     }
+
+    public Login getLoginid() {
+        return loginid;
+    }
+
+    public void setLoginid(Login loginid) {
+        this.loginid = loginid;
+    }
+    
+    
     
 }

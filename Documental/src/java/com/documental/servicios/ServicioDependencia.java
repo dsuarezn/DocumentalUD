@@ -6,6 +6,8 @@
 package com.documental.servicios;
 
 import com.documental.bo.Dependencia;
+import com.documental.bo.DependenciaDirector;
+import com.documental.bo.DependenciaEmpleado;
 import java.util.List;
 
 /**
@@ -13,11 +15,15 @@ import java.util.List;
  * @author enrique
  */
 public interface ServicioDependencia {
+
     public int getCount();
     public int getMaxId();
     public String salvarDependencia(Dependencia dependencia);
     public String borrarDependencia(Dependencia dependencia);
-    public List<Dependencia> buscarTodosDependencia();    
-    public List<Dependencia> buscarTodosDependenciaConDirector();    
-    public Dependencia buscarPorClave(Integer id); 
+    public List<Dependencia> buscarTodosDependencia();
+    public List<Dependencia> buscarTodosDependenciaConDirector();
+    public Dependencia buscarPorClave(Integer id);
+    public List<Dependencia> buscarDependenciasActivas();
+    public DependenciaDirector buscarDependenciaDirector(Integer login);
+    public DependenciaEmpleado buscarDependenciaEmpleado(Integer login);
 }

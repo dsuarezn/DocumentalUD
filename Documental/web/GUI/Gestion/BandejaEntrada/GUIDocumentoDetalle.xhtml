@@ -6,157 +6,113 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">    
     <ui:define name="bodyJR">
-          <p:panel id="cabezote">            
-            <h:panelGrid columns="10" cellpadding="10">
-                <h:outputText
-                    value="#{bundle.documental_GUIRadicar_TituloCabezote}" />                                       
-            </h:panelGrid>  
-        </p:panel>   
         <h:panelGroup id="messagePanel" layout="block">                            
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
         </h:panelGroup>        
-        <p:panel footer="">
-            <h:form id="RadicarFormulario">
+        <p:panel >
+            <h:form id="cabezote">
+                <h:panelGrid columns="10" cellpadding="10">
+                    <h:outputText
+                        value="#{bundle.documental_GUIBandeja_Detalle}" />                                                     
+                </h:panelGrid>
+            </h:form>
+        </p:panel>
+        <p:panel>
+            <h:form id="detalleanexo" >
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
                         <p:column  colspan="400"  styleClass="ui-widget-header">
-                            <p:spacer height="0"/>Radicación
+                            <p:spacer height="0"/>Detalle de documento
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_hora}"/></p:column> 
-                        <p:column colspan="80" style="font-weight: bold;"><h:outputText value="#{beanBandeja.currentDate}"/></p:column>
+                        <p:column colspan="80" style="font-weight: bold;"><h:outputText value="#{beanBandeja.selected.documento.fechaCreacion}"/></p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_asunto}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:panelGrid>
-                                <p:row>
-                                    <p:column>
-                                        <p:inputText required="true" style="width: 400px" id="asunto" value="#{beanBandeja.docTrabajo.asunto}" maxlength="10" />
-                                    </p:column>  
-                                    <p:column>
-                                        <p:message for="asunto" />
-                                    </p:column>                                    
-                                </p:row>                                
-                            </p:panelGrid>                        
+                            <h:outputText value="#{beanBandeja.selected.documento.asunto}" />                  
                         </p:column>
                     </p:row> 
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_descripcion}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:panelGrid>
-                                <p:row>
-                                    <p:column>
-                                        <p:inputTextarea id="desc" required="true" style="width: 400px" value="#{beanBandeja.docTrabajo.descripcion}" rows="5" cols="30" counter="display2" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
-                                    </p:column>  
-                                    <p:column>
-                                        <p:message for="desc" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <h:outputText id="display2" />                                   
-                                    </p:column>                                                                        
-                                </p:row>
-
-                            </p:panelGrid>                        
+                            <h:outputText value="#{beanBandeja.selected.documento.descripcion}" />                  
                         </p:column>
                     </p:row> 
                     <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_emisor}"/></p:column> 
-                        <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="usuarioOrigen" style="width: 400px" value="#{beanBandeja.idUsuarioOrigen}">
-                                <f:selectItems value="#{beanBandeja.listaUsuarios}" var="usersel" itemLabel="#{usersel.nombreCompleto}" itemValue="#{usersel.id}" />
-                            </p:selectOneMenu> 
-                        </p:column>
-                    </p:row>
-                                        
-                    <p:row>
-                        <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_destinatario}"/></p:column> 
-                        <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="dependenciaDest" style="width: 400px" value="#{beanBandeja.idDependenciaDestino}">
-                                <f:selectItems value="#{beanBandeja.listaDependencias}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
-                            </p:selectOneMenu> 
-                        </p:column>
-                    </p:row>
-
-                    <p:row>
+    <!--                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_emisor}"/></p:column> 
+                         <p:column colspan="80" style="font-weight: bold;">
+                             <p:selectOneMenu id="usuarioOrigen" style="width: 400px" value="#{beanBandeja.docTrabajo}">
+                                 <f:selectItems value="#{beanRadicacion.listaUsuarios}" var="usersel" itemLabel="#{usersel.nombreCompleto}" itemValue="#{usersel.id}" />
+                             </p:selectOneMenu> 
+                         </p:column>
+                     </p:row>
+                     <p:row>
+                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_destinatario}"/></p:column> 
+                         <p:column colspan="80" style="font-weight: bold;">
+                             <p:selectOneMenu id="dependenciaDest" style="width: 400px" value="#{beanBandeja.docTrabajo.dependenciaDocumentoCollection}">
+                                 <f:selectItems value="#{beanRadicacion.listaDependencias}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
+                             </p:selectOneMenu> 
+                         </p:column>
+                     </p:row>
+                     <p:row>-->
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_estado}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="estadoDoc" style="width: 400px" value="#{beanBandeja.docTrabajo.estado}">
-                                <f:selectItems value="#{beanBandeja.estadosDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
-                            </p:selectOneMenu> 
+                            <h:outputText value="#{beanBandeja.selected.documento.estado}"></h:outputText>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_prioridad}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="prioridadDoc" style="width: 400px" value="#{beanBandeja.docTrabajo.prioridad}">
-                                <f:selectItems value="#{beanBandeja.prioridadesDocumento}" var="estado" itemLabel="#{estado.nombreEstado}" itemValue="#{estado.nombreEstado}"/>
-                            </p:selectOneMenu> 
+                            <h:outputText value="#{beanBandeja.selected.documento.prioridad}"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_tipodocumento}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="tipoDocumento" style="width: 400px" value="#{beanBandeja.idTipo}">
-                                <f:selectItems value="#{beanBandeja.listaTipos}" var="tipoDoc" itemLabel="#{tipoDoc.nombre}" itemValue="#{tipoDoc.idTipo}"/>
-                            </p:selectOneMenu> 
+                            <h:outputText value="#{beanBandeja.selected.documento.tipoId.nombre}" />
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_findocumento}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="finalidadDocumento" style="width: 400px" value="#{beanBandeja.docTrabajo.finalidad}">
-                                <f:selectItems value="#{beanBandeja.finalidadesDocumento}" var="finalidades" itemLabel="#{finalidades.nombreEstado}" itemValue="#{finalidades.nombreEstado}"/>
-                            </p:selectOneMenu> 
+                            <h:outputText value="#{beanBandeja.selected.documento.finalidad}"/>
                         </p:column>
                     </p:row>
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_visualizacion}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:selectOneMenu id="visibilidadDocumento" style="width: 400px" value="#{beanBandeja.docTrabajo.visibilidad}">
-                                <f:selectItems value="#{beanBandeja.visibilidadesDocumento}" var="visible" itemLabel="#{visible.nombreEstado}" itemValue="#{visible.nombreEstado}"/>
-                            </p:selectOneMenu> 
+                            <h:outputText value="#{beanBandeja.selected.documento.visibilidad}"/>
                         </p:column>
                     </p:row>                  
                     <p:row>
                         <p:column colspan="20" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRadicar_formulario_palabrasclaves}"/></p:column> 
                         <p:column colspan="80" style="font-weight: bold;">
-                            <p:panelGrid>
-                                <p:row>
-                                    <p:column>
-                                        <p:inputTextarea id="words" style="width: 400px" required="true" value="#{beanBandeja.docTrabajo.palabrasClave}" rows="5" cols="30" counter="display" maxlength="240" counterTemplate="{0} characters remaining." autoResize="false" />
-                                    </p:column>   
-                                    <p:column>
-                                        <p:message for="words" />
-                                    </p:column>
-                                </p:row>
-                                <p:row>
-                                    <p:column>
-                                        <h:outputText id="display" />                                   
-                                    </p:column>
-                                </p:row>
-                            </p:panelGrid>                        
+                            <h:outputText value="#{beanBandeja.selected.documento.palabrasClave}"/>                       
                         </p:column>
                     </p:row>                    
-                                                                       
                 </p:panelGrid>
-                <br></br>
-               
-                <p:commandButton id="bNuevo"  value="&nbsp;Crear"  action="#{beanBandeja.create()}"  icon="guardar" >
-                    <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
-                </p:commandButton>                                                    
-                
-                <p:commandButton  value="&nbsp;Volver" action="#{beanBandeja.volver()}" icon="volver" immediate="true"/>                  
-                
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
-                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                </p:confirmDialog>
-               
-            </h:form>               
+
+                <p:panelGrid style="margin-top:10px" >
+                    <p:row>
+                        <p:column>
+                            <p:commandButton id="bCerrar"  value="&nbsp;Cerrar"  action="#{beanPorImplementar.close()}"  icon="ui-icon-close" >
+                                <p:confirm header="Confirmation" message="Esta Seguro de Realizar Esta Operación?" icon="ui-icon-alert" />
+                            </p:commandButton>                                                    
+
+                            <p:commandButton  value="&nbsp;Ver historico" action="#{beanPorImplementar.verHistorico()}" icon="volver" immediate="true"/>                  
+                            <p:commandButton  value="&nbsp;Rediriguir" action="#{beanBandeja.prepareRedirigir()}" icon="volver" immediate="true"/>                  
+                            <p:commandButton  value="&nbsp;Agregar Anexo" action="#{beanAnexo.prepareCreate(beanBandeja.docTrabajo.idDocumento)}" icon="volver" immediate="true"/>                  
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </h:form> 
         </p:panel>
     </ui:define>
 </ui:composition>

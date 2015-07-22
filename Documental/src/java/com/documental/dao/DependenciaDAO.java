@@ -6,6 +6,8 @@
 package com.documental.dao;
 
 import com.documental.bo.Dependencia;
+import com.documental.bo.DependenciaDirector;
+import com.documental.bo.DependenciaEmpleado;
 import java.util.List;
 
 /**
@@ -15,5 +17,7 @@ import java.util.List;
 public interface DependenciaDAO extends GenericDAO<Dependencia, Integer>{
     
     public List<Dependencia> buscarDependenciasConDirector();
-    
+    public List<Dependencia> buscarDependenciasActivas();
+    public DependenciaDirector buscarDependenciaDirector(Integer login);
+    public DependenciaEmpleado buscarDependenciaEmpleado(Integer login);
 }

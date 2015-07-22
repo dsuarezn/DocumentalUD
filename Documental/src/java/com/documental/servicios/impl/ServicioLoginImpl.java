@@ -16,15 +16,15 @@ import java.util.List;
  *
  * @author DiegoM
  */
-public class ServicioLoginImpl implements ServicioLogin{
-    
-    private LoginDAO loginDAO=null;
+public class ServicioLoginImpl implements ServicioLogin {
+
+    private LoginDAO loginDAO = null;
 
     public ServicioLoginImpl() {
-        DAOFactory factoria= DAOAbstractFactory.getInstance();
-        loginDAO = factoria.getLoginDAO();        
+        DAOFactory factoria = DAOAbstractFactory.getInstance();
+        loginDAO = factoria.getLoginDAO();
     }
-        
+
     @Override
     public String salvarLogin(Login login) {
         return loginDAO.salvar(login);
@@ -54,7 +54,7 @@ public class ServicioLoginImpl implements ServicioLogin{
     public int getCount() {
         return loginDAO.getCount();
     }
-    
+
     public Login obtenerDirectorDependencia(Integer dependencia) {
         return loginDAO.obtenerDirectorDependencia(dependencia);
     }
@@ -67,5 +67,10 @@ public class ServicioLoginImpl implements ServicioLogin{
     @Override
     public Login obtenerLogin(String usuario) {
         return loginDAO.obtenerLogin(usuario);
+    }
+
+    @Override
+    public List<Login> obtenerEmpleadosDependencia(Integer idDependencia) {
+        return loginDAO.obtenerEmpleadosDependencia(idDependencia);
     }
 }

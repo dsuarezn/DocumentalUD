@@ -37,6 +37,9 @@ import javax.servlet.http.HttpSession;
 /**
  *
  * @author DiegoM
+ * mysqldump --user=root --password=root acme > copia_seguridad.sql
+ * mysql --user=root --password=root < copia_seguridad.sql
+ * 
  */
 @ManagedBean(name = "beanUsuario")
 @SessionScoped
@@ -161,7 +164,7 @@ public class LoginController {
     }
 
     public List<Dependencia> getListDependencia() {
-        return getServicioDependencia().buscarTodosDependencia();
+        return getServicioDependencia().buscarDependenciasActivas();
     }
 
     public ServicioDirector getServicioDirector() {
@@ -195,7 +198,7 @@ public class LoginController {
     }
 
     public String prepareEdit(Login usuario) {
-        current = usuario;
+        currentC = usuario;
         return "/GUI/Administrador/Usuarios/GUIUsuarioEditar";
     }
 
@@ -231,7 +234,7 @@ public class LoginController {
         } catch (javax.persistence.NoResultException ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
-        contrasena = EncripcionUtil.codif(contrasena);
+        contrasena = EncripcionUtil.Encriptar(contrasena);
         if (contrasena.equals(login.getContrasena())) {
             current = login;
             crearSession();
@@ -314,6 +317,10 @@ public class LoginController {
     public void edit() {
         String respuesta = "";
         try {
+            currentC.setTipoUsuario(new TipoUsuario(tipoUsuario));
+            currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
+            respuesta = getServicio().salvarLogin(currentC);
+            setDependencia(currentC.getIdLogin());
             respuesta = getServicio().salvarLogin(current);
             setDependencia(current.getIdLogin());
             items = null;

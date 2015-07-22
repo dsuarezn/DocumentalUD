@@ -90,4 +90,14 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
         return login;
     }
 
+    @Override
+    public List<Login> obtenerEmpleadosDependencia(Integer idDependencia) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();
+        Query query = manager.createNamedQuery("Login.findEmpleadosByDependencia", Login.class);
+        query.setParameter("idDependencia", idDependencia);
+        List<Login> listaEmpleados = query.getResultList();
+        return listaEmpleados;
+    }
+
 }

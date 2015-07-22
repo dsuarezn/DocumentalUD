@@ -75,6 +75,8 @@ public class Documento implements Serializable {
     private String finalidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
     private Collection<Anexo> anexoCollection;    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
+    private Collection<Historico> historicoCollection;
     @JoinColumn(name = "tipo_id", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
     private Tipo tipoId;
@@ -195,6 +197,15 @@ public class Documento implements Serializable {
 
     public Tipo getTipoId() {
         return tipoId;
+    }
+    
+    @XmlTransient
+    public Collection<Historico> getHistoricoCollection() {
+        return historicoCollection;
+    }
+
+    public void setHistoricoCollection(Collection<Historico> historicoCollection) {
+        this.historicoCollection = historicoCollection;
     }
 
     public void setTipoId(Tipo tipoId) {

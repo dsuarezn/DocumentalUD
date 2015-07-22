@@ -17,13 +17,13 @@ import java.util.List;
  *
  * @author Alexander
  */
-public class ServicioHistoricoImpl implements ServicioHistorico{
+public class ServicioHistoricoImpl implements ServicioHistorico {
 
     private HistoricoDAO historicoDAO;
 
     public ServicioHistoricoImpl() {
-        DAOFactory factoria=DAOAbstractFactory.getInstance();
-        historicoDAO=factoria.getHistoricoDAO();
+        DAOFactory factoria = DAOAbstractFactory.getInstance();
+        historicoDAO = factoria.getHistoricoDAO();
     }
 
     @Override
@@ -62,4 +62,23 @@ public class ServicioHistoricoImpl implements ServicioHistorico{
         return historicoDAO.buscarHistoricoDocumento(IdDocumento);
     }
    
+
+//    @Override
+//    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento) {
+//        return historicoDAO.buscarComentariosDocumento(idDocumento);
+//    }
+//    @Override
+//    public Integer countComentariosPorDocumento(Integer idDocumento) {
+//        return historicoDAO.countComentariosPorDocumento(idDocumento);
+//    }
+    @Override
+    public List<Historico> consultarHistoricosPorDocumento(Integer documentoId) {
+        return historicoDAO.buscarComentariosDocumento(documentoId);
+    }
+
+    @Override
+    public String insertarHistorico(Historico historico) {
+        return historicoDAO.insertar(historico);
+    }
+
 }

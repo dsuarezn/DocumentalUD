@@ -56,6 +56,9 @@ public class Historico implements Serializable {
     @JoinColumn(name = "origen_id", referencedColumnName = "id_login", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Login loginOrigen;
+    @JoinColumn(name = "documento_id", referencedColumnName = "id_documento", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Documento documento;
 
     public Historico() {
     }
@@ -121,6 +124,14 @@ public class Historico implements Serializable {
 
     public void setLoginOrigen(Login login1) {
         this.loginOrigen = login1;
+    }
+    
+     public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
     }
 
     @Override

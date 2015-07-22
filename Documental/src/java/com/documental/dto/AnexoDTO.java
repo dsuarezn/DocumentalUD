@@ -6,6 +6,7 @@
 package com.documental.dto;
 
 import com.documental.beans.AnexoController;
+import com.documental.bo.Login;
 import com.documental.util.JsfUtil;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,35 +37,69 @@ import org.primefaces.model.UploadedFile;
  */
 public class AnexoDTO {
     
-    private String idDocumento;
+    private Integer idAnexo;
+    private Integer idDocumento;
     private String descripccion;
     private String direccionArchivo;  
-    private String nombreArchivo;  
+    private String nombreArchivo;      
     
-    private boolean paraEdicion;
+    private boolean persistido;
+    private boolean permitido;
+    private Login usuarioComentario; 
     
+    public AnexoDTO(){
+    }
     
     private AnexoController controlador;
 
-    public String getIdDocumento() {
+    public boolean isPermitido() {
+        return permitido;
+    }
+
+    public void setPermitido(boolean permitido) {
+        this.permitido = permitido;
+    }
+
+    public boolean isPersistido() {      
+        return persistido;
+    }
+
+    public void setPersistido(boolean persistido) {
+        this.persistido = persistido;
+    }    
+    
+    public Integer getIdDocumento() {
         return idDocumento;
     }
 
-    public void setIdDocumento(String idDocumento) {
+    public void setIdDocumento(Integer idDocumento) {
         this.idDocumento = idDocumento;
     }
-    
-    
 
-    public AnexoDTO(String descripccion, String direccionArchivo, boolean paraEdicion, String idDocumento) {
-         System.out.println("ENTRO A MANEJAR FILE DOWNLOAD");
+    public Integer getIdAnexo() {
+        return idAnexo;
+    }
+
+    public void setIdAnexo(Integer idAnexo) {
+        this.idAnexo = idAnexo;
+    }
+    
+    public String getNombreyApellido(){
+        return this.usuarioComentario.getNombre()+" "+this.usuarioComentario.getApellido();
+    }
+
+    public AnexoDTO(Integer idanexo,String descripccion, String direccionArchivo, Integer idDocumento, boolean persistido, boolean permitido, Login usuario) {
+        this.idAnexo=idanexo;
         this.descripccion = descripccion;
         this.direccionArchivo = direccionArchivo;
-        this.paraEdicion = paraEdicion;
+        
         this.idDocumento = idDocumento;
         if(!JsfUtil.IsBlank(this.direccionArchivo)){
-            setNombreArchivoByPath(this.direccionArchivo);
+            setNombreArchivoByPath(this.direccionArchivo);            
         }
+        this.persistido = persistido;
+        this.permitido = permitido;
+        this.usuarioComentario = usuario;
     }
 
     public String getNombreArchivo() {
@@ -91,21 +126,14 @@ public class AnexoDTO {
         this.direccionArchivo = direccionArchivo;
     }
 
-    public boolean getParaEdicion() {
-        return paraEdicion;
-    }
-
-    public void setParaEdicion(boolean paraEdicion) {
-        this.paraEdicion = paraEdicion;
-    }
+ 
 
     private void setNombreArchivoByPath(String direccion){
             Path p = Paths.get(direccion);
             this.nombreArchivo = p.getFileName().toString();        
     }
     
-    public void manejarFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
-        System.out.println("ENTRO A MANEJAR FILE UPLOAD");        
+    public void manejarFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {               
             controlador=getController();
             this.direccionArchivo = controlador.manejarFileUpload(idDocumento, event);   
             setNombreArchivoByPath(this.direccionArchivo);
@@ -119,8 +147,7 @@ public class AnexoDTO {
         this.controlador = controlador;
     }
     
-    public void downloadFile(){        
-        System.out.println("ENTRO A MANEJAR FILE DOWNLOAD");
+    public void downloadFile(){                
         controlador=getController();
         if(this.direccionArchivo!=null && !this.direccionArchivo.trim().equals("")){
             controlador.descargarArchivo(this.direccionArchivo);
@@ -133,5 +160,15 @@ public class AnexoDTO {
         }        
         return controlador;
     }
+
+    public Login getUsuarioComentario() {
+        return usuarioComentario;
+    }
+
+    public void setUsuarioComentario(Login usuarioComentario) {
+        this.usuarioComentario = usuarioComentario;
+    }
+    
+     
     
 }
