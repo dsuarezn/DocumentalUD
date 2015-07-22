@@ -189,8 +189,12 @@ public class BandejaController {
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
     }
     
-        public String prepareRedirigir(Historico historico) {
-        current = historico;
+    public String volver(){
+        return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
+    }
+
+    public String prepareRedirigir() {
+        //current = historico;
         Integer dependencia;
         try {
             if (current.getLoginDestinatario().getTipoUsuario().getIdTipoUsuario() == 3) {
@@ -209,7 +213,6 @@ public class BandejaController {
         }
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoRedirigir";
     }
-
 
     public DataModel getItems() {
         if (items == null) {
@@ -236,12 +239,12 @@ public class BandejaController {
         return pagination;
     }
 
-    public String detalle(Documento d) {
-        setDocTrabajo(d);
+    public String detalle(Historico historico) {
+        current = historico;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
-    
-     public void redirigir() {
+
+    public void redirigir() {
         getSelected().setLoginOrigen(current.getLoginDestinatario());
         if (validate()) {
             if (dependencia != null) {
@@ -257,6 +260,7 @@ public class BandejaController {
         getSelected().setComentario(comentario);
         String respuesta = servicioHistorico.insertarHistorico(current);
         if (respuesta.equals("Operación Exitosa")) {
+            comentario = "";
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoExitosa"));
         } else {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoErroneo"));
@@ -274,6 +278,5 @@ public class BandejaController {
             return true;
         }
     }
-
 
 }

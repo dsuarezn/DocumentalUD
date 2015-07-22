@@ -39,18 +39,18 @@
                 <p:column id="button">
                     <f:facet name="header">
                     </f:facet>                                             
-                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(documento[0])}">
+                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(historico)}">
                         <f:ajax render="@form"/>
                     </p:commandButton> 
                 </p:column>
                 
-                <p:column id="button1">
+              <!--  <p:column id="button1">
                     <f:facet name="header">
                     </f:facet>                                             
                     <p:commandButton id="redirigir" icon="cambio" value="&nbsp;Redirigir" action="#{beanBandeja.prepareRedirigir(historico)}">
                         <f:ajax render="@form"/>
                     </p:commandButton> 
-                </p:column>
+                </p:column> -->
             </p:dataTable> 
             </ui:define>
         </ui:composition>
