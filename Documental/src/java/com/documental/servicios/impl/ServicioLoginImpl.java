@@ -68,7 +68,4 @@ public class ServicioLoginImpl implements ServicioLogin{
     public Login obtenerLogin(String usuario) {
         return loginDAO.obtenerLogin(usuario);
     }
-    
-    
-    
 }

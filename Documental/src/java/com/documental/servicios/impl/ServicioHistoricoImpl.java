@@ -50,5 +50,16 @@ public class ServicioHistoricoImpl implements ServicioHistorico{
     public List<Historico> buscarDestinatarioActivo(int id) {
         return historicoDAO.buscarDestinatarioActivo(id);
     }
+ 
     
+    @Override
+    public int getCountForDocument(Integer IdDocumento) {
+        return historicoDAO.buscarHistoricoDocumento(IdDocumento).size();
+    }
+
+    @Override
+    public List<Historico> consultarHistoricoPorDocumentId(Integer IdDocumento) {
+        return historicoDAO.buscarHistoricoDocumento(IdDocumento);
+    }
+   
 }

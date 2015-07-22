@@ -20,4 +20,8 @@ public interface ServicioHistorico {
     public List<Historico> consultarTodosHistoricos();
     public void borrarHistorico(Historico historico);
     public List<Historico> buscarDestinatarioActivo(int id);
+    
+    public List<Historico> consultarHistoricoPorDocumentId(Integer IdDocumento);
+    public int getCountForDocument(Integer IdDocumento);
+
 }

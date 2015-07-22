@@ -36,6 +36,19 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
             return null;
         }
     }
-    
-    
+
+    @Override
+    public List<Historico> buscarHistoricoDocumento(int id) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();
+        try {
+            String sql = "select * from historico where documento_id = ?";
+            Query q = manager.createNativeQuery(sql, Historico.class);
+            q.setParameter(1, id);
+            return q.getResultList();
+        } catch (Exception e) {
+            System.out.println("el error es: " + e.toString());
+            return null;
+        }
+    }
 }
