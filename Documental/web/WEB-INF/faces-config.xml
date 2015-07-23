@@ -52,6 +52,11 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>ConsultaController</managed-bean-name>
+        <managed-bean-class>com.documental.beans.ConsultaController</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>RadicacionController</managed-bean-name>
         <managed-bean-class>com.documental.beans.RadicacionController</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>

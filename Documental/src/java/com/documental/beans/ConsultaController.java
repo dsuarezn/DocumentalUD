@@ -37,6 +37,15 @@ public class ConsultaController {
     private ServicioTipo servicioTipo;
     private ServicioLogin servicioLogin;
     private Integer idTipo;
+    private Integer loginDestinatario;
+
+    public Integer getLoginDestinatario() {
+        return loginDestinatario;
+    }
+
+    public void setLoginDestinatario(Integer loginDestinatario) {
+        this.loginDestinatario = loginDestinatario;
+    }
 
     public ConsultaController() {
     }
@@ -132,7 +141,7 @@ public class ConsultaController {
 
     public String prepareList() {
 
-        return "GUI/Gestion/Consultas/GUIConsultaList";
+        return "/GUI/Gestion/Consultas/GUIConsultaList";
     }
 
     public PaginationHelper getPagination() {
@@ -158,6 +167,7 @@ public class ConsultaController {
             items = null;
             pagination = null;
             current.setTipoId(new Tipo(idTipo));
+            getSelectedH().setLoginDestinatario(new Login(loginDestinatario));
             getSelectedH().setDocumento(current);
             items = getPagination().createPageDataModel();
         } catch (Exception e) {

@@ -52,7 +52,7 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
                  "JOIN FETCH H.documento D "
                 + "WHERE 1=1 ";
         if (historico.getDocumento().getTipoId().getIdTipo() != null
-                && !historico.getDocumento().getTipoId().getIdTipo().equals("")) {
+                && historico.getDocumento().getTipoId().getIdTipo() != 0) {
             query = query + "and D.tipoId.idTipo = :pTipo ";
         }
         if (historico.getDocumento().getEstado() != null
@@ -65,13 +65,21 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
         if (historico.getDocumento().getFechaAuxiliar() != null) {
             query = query + "and D.fechaCreacion < :sFechaH ";
         }
-        if (historico.getDocumento().getVisibilidad() != null) {
+        if (historico.getDocumento().getVisibilidad() != null
+                && !historico.getDocumento().getVisibilidad().equals("")) {
             query = query + "and D.visibilidad = :pVisibilidad ";
         }
         if (historico.getDocumento().getAsunto() != null
                 && !historico.getDocumento().getAsunto().equals("")) {
             query = query + "and D.asunto LIKE :pCriterio ";
-            query = query + "or D.descripcion LIKE :pCriterio ";
+            query = query + "or D.descripcion LIKE :pCriterio ";            
+        }
+        if (historico.getDocumento().getPalabrasClave() != null
+                && !historico.getDocumento().getPalabrasClave().equals("")){
+            query = query + "and D.palabrasClave LIKE :pPalabras_clave ";
+        }
+        if (historico.getLoginDestinatario().getIdLogin()!= 0){
+            query = query + "and H.historicoPK.destinatarioId LIKE :pDestinatario ";
         }
         
         System.out.println("el query es: "+ query);
@@ -80,7 +88,7 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
                 Historico.class);
 
         if (historico.getDocumento().getTipoId().getIdTipo() != null
-                && !historico.getDocumento().getTipoId().getIdTipo().equals("")) {
+                && historico.getDocumento().getTipoId().getIdTipo() != 0) {
             consulta.setParameter("pTipo",
                     historico.getDocumento().getTipoId().getIdTipo());
             System.out.println("el valor de idTipo es: "+historico.getDocumento().getTipoId().getIdTipo());
@@ -97,6 +105,15 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
             consulta.setParameter("pVisibilidad",
                     historico.getDocumento().getVisibilidad());
             System.out.println("el valor de visibilidad es: "+historico.getDocumento().getVisibilidad());
+        }
+ 
+        if (historico.getDocumento().getPalabrasClave()!= null
+                && !historico.getDocumento().getPalabrasClave().equals("")) {
+            consulta.setParameter("pPalabras_clave","%" + historico.getDocumento().getPalabrasClave() + "%");
+            System.out.println("el valor de palabras_clave es: "+historico.getDocumento().getPalabrasClave());
+        }
+        if (historico.getLoginDestinatario().getIdLogin() != 0) {
+            consulta.setParameter("pDestinatario", historico.getLoginDestinatario().getIdLogin());
         }
         if (historico.getDocumento().getFechaCreacion() != null) {
             consulta.setParameter("sFechaD", historico.getDocumento().getFechaCreacion());

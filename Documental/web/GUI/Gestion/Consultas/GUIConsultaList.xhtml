@@ -17,7 +17,7 @@
             <p:panel id="header">            
                 <p:panelGrid style="margin-top:10px" >
                     <p:row>
-                        <p:column  colspan="400"  styleClass="ui-widget-header">
+                        <p:column  colspan="600"  styleClass="ui-widget-header">
                             <p:spacer height="0"/>Consulta Documentos
                         </p:column>
                     </p:row>
@@ -48,16 +48,25 @@
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Tipo_Documento}"/></p:column>
                         <p:column colspan="50">
                             <p:selectOneMenu id="tipoDocumento" style="width: 400px" value="#{beanConsulta.idTipo}">
+                                <f:selectItem itemLabel="" itemValue=""/>
                                 <f:selectItems value="#{beanConsulta.listaTipos}" var="tipoDoc" itemLabel="#{tipoDoc.nombre}" itemValue="#{tipoDoc.idTipo}"/>
                             </p:selectOneMenu> 
                         </p:column>    
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Resposable}"/></p:column>
                         <p:column colspan="50">
-                            <p:selectOneMenu id="nombreLogin" style="width: 400px" >
+                            <p:selectOneMenu id="nombreLogin" style="width: 400px" value="#{beanConsulta.loginDestinatario}">
+                                <f:selectItem itemLabel="" itemValue=""/>
                                 <f:selectItems value="#{beanConsulta.listLogin}" var="login" itemLabel="#{login.nombre}" itemValue="#{login.idLogin}"/>
                             </p:selectOneMenu> 
                         </p:column> 
-                    </p:row>  
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Palabras_Clave}"/></p:column>
+                        <p:column colspan="50">
+                            <p:inputText value="#{beanConsulta.selected.palabrasClave}"/>
+                        </p:column>
+                    </p:row>
 
                 </p:panelGrid>
                 <br></br>
