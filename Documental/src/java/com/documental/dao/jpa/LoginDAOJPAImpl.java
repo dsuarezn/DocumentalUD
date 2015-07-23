@@ -60,6 +60,7 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
         EntityManager manager = factoriaSession.createEntityManager();        
         Query query = manager.createNamedQuery("Login.findDirectorByDependencia",Login.class);		
         query.setParameter("idDependencia", idDependencia);
+        query.setMaxResults(1);
 	Login listauser = (Login) query.getSingleResult();
 	return listauser;        
     }

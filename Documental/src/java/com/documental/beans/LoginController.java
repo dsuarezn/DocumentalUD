@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -36,10 +38,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author DiegoM
- * mysqldump --user=root --password=root acme > copia_seguridad.sql
- * mysql --user=root --password=root < copia_seguridad.sql
- * 
+ * @author DiegoM mysqldump --user=root --password=root acme >
+ * copia_seguridad.sql mysql --user=root --password=root < copia_seguridad.sql
+ *
  */
 @ManagedBean(name = "beanUsuario")
 @SessionScoped
@@ -199,6 +200,11 @@ public class LoginController {
 
     public String prepareEdit(Login usuario) {
         currentC = usuario;
+        try {
+            currentC.setContrasena(EncripcionUtil.Desencriptar(currentC.getContrasena()));
+        } catch (Exception ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "/GUI/Administrador/Usuarios/GUIUsuarioEditar";
     }
 
@@ -284,8 +290,8 @@ public class LoginController {
             currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
             //salvar primero el usuario para evitar errores de consistencia
             respuesta = getServicio().salvarLogin(currentC);
-            setDependencia(id);
             if (respuesta.equals("Operación Exitosa")) {
+                setDependencia(id);
                 currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
             } else {
@@ -297,7 +303,7 @@ public class LoginController {
     }
 
     public void setDependencia(int id) {
-    // salvar en directores o empleados
+        // salvar en directores o empleados
         //director de Area
         if (tipoUsuario == 3) {
             //Asginar Dependencia
@@ -320,11 +326,11 @@ public class LoginController {
             currentC.setTipoUsuario(new TipoUsuario(tipoUsuario));
             currentC.setContrasena(EncripcionUtil.Encriptar(currentC.getContrasena()));
             respuesta = getServicio().salvarLogin(currentC);
-            setDependencia(currentC.getIdLogin());
-            respuesta = getServicio().salvarLogin(current);
-            setDependencia(current.getIdLogin());
+
             items = null;
             if (respuesta.equals("Operación Exitosa")) {
+                setDependencia(currentC.getIdLogin());
+                currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioExitoso"));
             } else {
                 JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pEditUsuarioErroneo"));

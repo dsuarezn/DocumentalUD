@@ -6,7 +6,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">  
             <ui:define name="bodyJR">
-                
+                <h:outputText value="#{beanBandeja.usuarioActual}" />
+                login id
+                <h:outputText value="#{beanBandeja.usuario}" />
                 <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistorico}"
                          emptyMessage="No Se Han Filtrado Resultados"
                          
