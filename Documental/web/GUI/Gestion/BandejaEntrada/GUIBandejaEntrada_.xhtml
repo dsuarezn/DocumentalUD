@@ -5,11 +5,12 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">  
-            <ui:define name="bodyJR">
-                <h:outputText value="#{beanBandeja.usuarioActual}" />
-                login id
-                <h:outputText value="#{beanBandeja.usuario}" />
-                <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistorico}"
+    <ui:define name="bodyJR">
+        <h:form>
+            <h:outputText value="#{beanBandeja.usuarioActual}" />
+            login id
+            <h:outputText value="#{beanBandeja.usuario}" />
+            <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistorico}"
                          emptyMessage="No Se Han Filtrado Resultados"
                          paginator="true" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

@@ -80,12 +80,9 @@ public class HistoricoController {
     }
 
     public String prepareList(Integer documentId){
-
-        this.documentId = documentId;
-        
+        this.documentId = documentId;        
         pagination = null;
-        items = null;
-        
+        items = null;        
         return "/GUI/Gestion/BandejaEntrada/GUIHistorico";
     }
     
