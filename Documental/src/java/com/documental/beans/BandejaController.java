@@ -5,15 +5,18 @@
  */
 package com.documental.beans;
 
+import com.documental.bo.Comentario;
 import com.documental.bo.Dependencia;
 import com.documental.bo.Documento;
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
 import com.documental.bo.Login;
+import com.documental.servicios.ServicioComentario;
 import com.documental.servicios.ServicioDependencia;
 import com.documental.servicios.ServicioDocumento;
 import com.documental.servicios.ServicioHistorico;
 import com.documental.servicios.ServicioLogin;
+import com.documental.servicios.impl.ServicioComentarioImpl;
 import com.documental.servicios.impl.ServicioDependenciaImpl;
 import com.documental.servicios.impl.ServicioDocumentoImpl;
 import com.documental.servicios.impl.ServicioHistoricoImpl;
@@ -21,7 +24,6 @@ import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.util.JsfUtil;
 import com.documental.util.PaginationHelper;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -40,6 +42,9 @@ import javax.servlet.http.HttpServletRequest;
 public class BandejaController {
 
     private Historico current;
+    private Historico historicoAuxiliar;
+    private HistoricoPK historicoAuxiliarPK;
+    private Comentario currentC;
     private Documento docTrabajo;
     private DataModel items = null;
     private PaginationHelper pagination;
@@ -51,12 +56,19 @@ public class BandejaController {
     private Integer dependencia;
     private Integer empleado;
     private String comentario;
+    private String comentarioAuxiliar;
+    private Date fecha;
     private ServicioDocumento servicioDocumento;
     private ServicioHistorico servicioHistorico;
     private ServicioLogin servicioLogin;
     private ServicioDependencia servicioDependencia;
+    private ServicioComentario servicioComentario;
     private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
+
+    public String getUsuarioActual() {
+        return usuarioActual;
+    }
 
     private int usuario = 0;
 
@@ -93,9 +105,6 @@ public class BandejaController {
     }
 
     public int getUsuario() {
-        if (usuario == 0) {
-            usuario = getServicioLogin().buscarPorUsuario(usuarioActual).getIdLogin();
-        }
         return usuario;
     }
 
@@ -104,6 +113,13 @@ public class BandejaController {
             current = new Historico();
         }
         return current;
+    }
+
+    public Comentario getSelectedC() {
+        if (currentC == null) {
+            currentC = new Comentario();
+        }
+        return currentC;
     }
 
     public List<Object[]> getConsolidado() {
@@ -173,8 +189,16 @@ public class BandejaController {
         return servicioDependencia;
     }
 
+    public ServicioComentario getServicioComentario() {
+        if (servicioComentario == null) {
+            servicioComentario = new ServicioComentarioImpl();
+        }
+        return servicioComentario;
+    }
+
     public String prepareList() {
-        listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
+        usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
+        listHistorico = getServicioHistorico().buscarDestinatarioActivo(usuario);
         /* cambio hecho por Diego Marín
          Se crea la llave foranea de la tabla historico a la tabla documento,
          mediante esta llave foranea es posible alcanzar todos los atributos del Documento
@@ -188,13 +212,44 @@ public class BandejaController {
          }*/
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
     }
-    
-    public String volver(){
+
+    public String volver() {
+        listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
     }
 
+    public void recargar() {
+        this.prepareList();
+    }
+
+    public void cerrarDocumento() {
+        try {
+            getSelectedC().setComentario(comentario);
+            getSelectedC().setFecha(new Date());
+            getSelectedC().setLoginid(new Login(usuario));
+            getSelectedC().setDocumentoid(current.getDocumento());
+            getServicioComentario().salvarComentario(currentC); 
+            cambiarEstado();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIDocumentoDetalle_Messages_pCerrarDocumentoExitoso"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIDocumentoDetalle_Messages_pCerrarDocumentoErroneo") + " " + e.toString());
+        }
+    }
+    
+    public void cambiarEstado(){
+        docTrabajo = getSelected().getDocumento();
+        docTrabajo.setEstado("Cerrado");
+        getServicioDocumento().salvarDocumento(docTrabajo);
+        current.setActivo(false);
+        getServicioHistorico().salvarHistorico(current);
+    }
+        
     public String prepareRedirigir() {
         //current = historico;
+        historicoAuxiliar = current;
+        historicoAuxiliarPK = current.getHistoricoPK();
+        comentarioAuxiliar = historicoAuxiliar.getComentario();
+        fecha = historicoAuxiliar.getFecha();
         Integer dependencia;
         try {
             if (current.getLoginDestinatario().getTipoUsuario().getIdTipoUsuario() == 3) {
@@ -245,8 +300,7 @@ public class BandejaController {
     }
 
     public void redirigir() {
-        Historico historicoAuxiliar = new Historico();
-        historicoAuxiliar = current;
+        String respuesta;
         getSelected().setLoginOrigen(current.getLoginDestinatario());
         if (validate()) {
             if (dependencia != null) {
@@ -255,19 +309,27 @@ public class BandejaController {
                 getSelected().setLoginDestinatario(new Login(empleado));
             }
         }
-        getSelected().setHistoricoPK(new HistoricoPK(current.getDocumento().getIdDocumento(),
-                current.getLoginOrigen().getIdLogin(),
-                current.getLoginDestinatario().getIdLogin()));
-        getSelected().setFecha(new Date());
-        getSelected().setComentario(comentario);
-        String respuesta = servicioHistorico.insertarHistorico(current);
+        try {
+            getSelected().setHistoricoPK(new HistoricoPK(current.getDocumento().getIdDocumento(),
+                    current.getLoginOrigen().getIdLogin(),
+                    current.getLoginDestinatario().getIdLogin()));
+            getSelected().setFecha(new Date());
+            getSelected().setComentario(comentario);
+            respuesta = servicioHistorico.insertarHistorico(current);
+        } catch (Exception e) {
+            respuesta = "Operación Erronea";
+        }
+
         if (respuesta.equals("Operación Exitosa")) {
             comentario = "";
+            historicoAuxiliar.setHistoricoPK(historicoAuxiliarPK);
+            historicoAuxiliar.setFecha(fecha);
+            historicoAuxiliar.setComentario(comentarioAuxiliar);
             historicoAuxiliar.setActivo(false);
             getServicioHistorico().salvarHistorico(historicoAuxiliar);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoExitosa"));
         } else {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoErroneo"));
+            JsfUtil.addErrorMessage("No es posible redirigir el documento a si mismo");
         }
     }
 
