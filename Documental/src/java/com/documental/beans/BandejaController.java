@@ -245,6 +245,8 @@ public class BandejaController {
     }
 
     public void redirigir() {
+        Historico historicoAuxiliar = new Historico();
+        historicoAuxiliar = current;
         getSelected().setLoginOrigen(current.getLoginDestinatario());
         if (validate()) {
             if (dependencia != null) {
@@ -261,6 +263,8 @@ public class BandejaController {
         String respuesta = servicioHistorico.insertarHistorico(current);
         if (respuesta.equals("Operación Exitosa")) {
             comentario = "";
+            historicoAuxiliar.setActivo(false);
+            getServicioHistorico().salvarHistorico(historicoAuxiliar);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoExitosa"));
         } else {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoErroneo"));

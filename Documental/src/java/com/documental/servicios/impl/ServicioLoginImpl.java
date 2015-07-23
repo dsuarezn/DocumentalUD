@@ -55,6 +55,7 @@ public class ServicioLoginImpl implements ServicioLogin {
         return loginDAO.getCount();
     }
 
+    @Override
     public Login obtenerDirectorDependencia(Integer dependencia) {
         return loginDAO.obtenerDirectorDependencia(dependencia);
     }
