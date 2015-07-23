@@ -17,9 +17,7 @@ import java.util.List;
 public interface HistoricoDAO extends GenericDAO<Historico, HistoricoPK>{
    
     public List<Historico> buscarDestinatarioActivo(int id);
-    public List<Historico> buscarHistoricoDocumento(int id);
-
-    public List<Historico> buscarDestinatarioActivo(int id);    
+    public List<Historico> buscarHistoricoDocumento(int id);      
     public List<Historico> buscarComentariosDocumento(Integer id);        
     public Integer countComentariosPorDocumento(Integer idDocumento);
 }
