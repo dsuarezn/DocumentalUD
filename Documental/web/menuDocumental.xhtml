@@ -40,7 +40,7 @@
                             <p:submenu label="Gestión">                                                                  
                                 <p:menuitem value="Bandeja de entrada" icon="caracterizacion" action="#{beanBandeja.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />                                  
                                 <p:menuitem value="Tramites" icon="cambio" rendered="#{beanUsuario.asPermission('pMenuGestCambio')}" />                                                                                               
-                                <p:menuitem value="historico" icon="documento" action="#{beanHistorico.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestCambio')}" />
+                                
                             </p:submenu>
                             <p:submenu label="Consulta">                                                                  
                                 <p:menuitem value="Consultas" action="#{beanConsulta.prepareList()}"  icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsRadicados')}" />                                                                                                                                                           

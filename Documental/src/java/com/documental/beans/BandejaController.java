@@ -66,6 +66,10 @@ public class BandejaController {
     private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
 
+    public String getUsuarioActual() {
+        return usuarioActual;
+    }
+
     private int usuario = 0;
 
     public boolean isOcultarDependencias() {
@@ -101,9 +105,6 @@ public class BandejaController {
     }
 
     public int getUsuario() {
-        if (usuario == 0) {
-            usuario = getServicioLogin().buscarPorUsuario(usuarioActual).getIdLogin();
-        }
         return usuario;
     }
 
@@ -196,7 +197,8 @@ public class BandejaController {
     }
 
     public String prepareList() {
-        listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
+        usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
+        listHistorico = getServicioHistorico().buscarDestinatarioActivo(usuario);
         /* cambio hecho por Diego Marín
          Se crea la llave foranea de la tabla historico a la tabla documento,
          mediante esta llave foranea es posible alcanzar todos los atributos del Documento

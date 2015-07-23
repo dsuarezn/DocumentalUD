@@ -26,6 +26,6 @@ public interface ServicioHistorico {
     public List<Historico> consultarHistoricoPorDocumentId(Integer IdDocumento);
     public int getCountForDocument(Integer IdDocumento);
 
-//    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento);
-//    public Integer countComentariosPorDocumento(Integer idDocumento);
+    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento);
+    public Integer countComentariosPorDocumento(Integer idDocumento);
 }

@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByApellido", query = "SELECT l FROM Login l WHERE l.apellido = :apellido"),
     @NamedQuery(name = "Login.findByEstado", query = "SELECT l FROM Login l WHERE l.estado = :estado"),
     @NamedQuery(name = "Login.findByCorreo", query = "SELECT l FROM Login l WHERE l.correo = :correo"),
-    @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia"),
+    @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia order by dd.fecha DESC"),
     @NamedQuery(name = "Login.findEmpleadosByDependencia", query = "SELECT l FROM Login l, DependenciaEmpleado de WHERE l.idLogin = de.login.idLogin and de.dependencia.idDependencia = :idDependencia")
 })
 public class Login implements Serializable {

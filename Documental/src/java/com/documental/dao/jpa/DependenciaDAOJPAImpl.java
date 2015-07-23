@@ -81,8 +81,9 @@ public class DependenciaDAOJPAImpl extends GenericDAOJPAImpl<Dependencia, Intege
         Integer idpk = 0;
         try {
             TypedQuery<DependenciaEmpleado> consulta = manager.createQuery(
-                    "SELECT D FROM DependenciaEmpleado D JOIN FETCH D.login where D.login.idLogin = ?1", DependenciaEmpleado.class);
+                    "SELECT D FROM DependenciaEmpleado D JOIN FETCH D.login where D.login.idLogin = ?1 order by D.fecha", DependenciaEmpleado.class);
             consulta.setParameter(1, login);
+            consulta.setMaxResults(1);
             DependenciaEmpleado dependenciaEmpleado = null;
             dependenciaEmpleado = consulta.getSingleResult();
             return dependenciaEmpleado;
