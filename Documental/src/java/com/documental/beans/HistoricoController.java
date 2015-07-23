@@ -8,6 +8,7 @@ package com.documental.beans;
 import com.documental.bo.*;
 import com.documental.servicios.ServicioHistorico;
 import com.documental.servicios.impl.ServicioHistoricoImpl;
+import com.documental.util.JsfUtil;
 import com.documental.util.PaginationHelper;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -27,9 +28,9 @@ public class HistoricoController {
     private DataModel items = null;
     private PaginationHelper pagination;
     private ServicioHistorico servicio;
-    private static Documento documento;
+    private Integer documentId;
     private List<Historico> listHistorico;
-
+    
     public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
@@ -49,12 +50,12 @@ public class HistoricoController {
             pagination = new PaginationHelper((10)) {
                 @Override
                 public int getItemsCount() {
-                    return getServicio().getCountForDocument(getDocumento().getIdDocumento());
+                    return getServicio().getCountForDocument(getDocumentId());
                 }
 
                 @Override
                 public DataModel createPageDataModel() {
-                    setListHistorico(getServicio().consultarHistoricoPorDocumentId(getDocumento().getIdDocumento()));
+                    setListHistorico(getServicio().consultarHistoricoPorDocumentId(getDocumentId()));
                     return new ListDataModel(getListHistorico());
                 }
             };
@@ -62,19 +63,12 @@ public class HistoricoController {
         return pagination;
     }
 
-    public static Documento getDocumento() {
-        
-        if (HistoricoController.documento == null) {
-            HistoricoController.documento = new Documento();
-            HistoricoController.documento.setIdDocumento(6);
-        }
- 
-        
-        return documento;
+    public void setDocumentId(Integer documentId) {
+        this.documentId = documentId;
     }
 
-    public static void setDocumento(Documento documento) {
-        HistoricoController.documento = documento;
+    public Integer getDocumentId() {
+        return documentId;
     }
 
     public void setListHistorico(List<Historico> listHistorico) {
@@ -85,8 +79,17 @@ public class HistoricoController {
         return listHistorico;
     }
 
-    public String prepareList(){
-        return "/GUI/Gestion/BandejaEntrada/GUIHistorico";
+    public String prepareList(Integer documentId){
 
+        this.documentId = documentId;
+        
+        pagination = null;
+        items = null;
+        
+        return "/GUI/Gestion/BandejaEntrada/GUIHistorico";
+    }
+    
+    public String volver() {          
+        return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
 }

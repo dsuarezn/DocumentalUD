@@ -63,14 +63,16 @@ public class ServicioHistoricoImpl implements ServicioHistorico {
     }
    
 
-//    @Override
-//    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento) {
-//        return historicoDAO.buscarComentariosDocumento(idDocumento);
-//    }
-//    @Override
-//    public Integer countComentariosPorDocumento(Integer idDocumento) {
-//        return historicoDAO.countComentariosPorDocumento(idDocumento);
-//    }
+    @Override
+    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento) {
+        return historicoDAO.buscarComentariosDocumento(idDocumento);
+    }
+    
+    @Override
+    public Integer countComentariosPorDocumento(Integer idDocumento) {
+        return historicoDAO.countComentariosPorDocumento(idDocumento);
+    }
+    
     @Override
     public List<Historico> consultarHistoricosPorDocumento(Integer documentoId) {
         return historicoDAO.buscarComentariosDocumento(documentoId);
