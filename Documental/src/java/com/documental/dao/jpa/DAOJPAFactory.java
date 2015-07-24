@@ -10,6 +10,8 @@ import com.documental.dao.ComentarioDAO;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DocumentoDAO;
 import com.documental.dao.DependenciaDAO;
+import com.documental.dao.DependenciaDirectorDAO;
+import com.documental.dao.DependenciaEmpleadoDAO;
 import com.documental.dao.DirectorDAO;
 import com.documental.dao.EmpleadoDAO;
 import com.documental.dao.HistoricoDAO;
@@ -82,6 +84,16 @@ public class DAOJPAFactory implements DAOFactory{
     @Override
     public ComentarioDAO getComentarioDAO() {
         return new ComentarioDAOJPAImpl();
+    }
+
+    @Override
+    public DependenciaDirectorDAO getDependenciaDirectorDAO() {
+        return new DependenciaDirectorDAOJPAImpl();
+    }
+
+    @Override
+    public DependenciaEmpleadoDAO getDependenciaEmpleadoDAO() {
+        return new DependenciaEmpleadoDAOJPAImpl();
     }
     
     

@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DependenciaDirector.findByLoginId", query = "SELECT d FROM DependenciaDirector d WHERE d.dependenciaDirectorPK.loginId = :loginId"),
     @NamedQuery(name = "DependenciaDirector.findByFecha", query = "SELECT d FROM DependenciaDirector d WHERE d.fecha = :fecha")})
 public class DependenciaDirector implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DependenciaDirectorPK dependenciaDirectorPK;
@@ -43,6 +44,8 @@ public class DependenciaDirector implements Serializable {
     @JoinColumn(name = "dependencia_id", referencedColumnName = "id_dependencia", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Dependencia dependencia;
+    @Column(name = "estado")
+    private String estado;
     @JoinColumn(name = "login_id", referencedColumnName = "id_login", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Login login;
@@ -95,6 +98,14 @@ public class DependenciaDirector implements Serializable {
         this.login = login;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+        
     @Override
     public int hashCode() {
         int hash = 0;
@@ -119,5 +130,5 @@ public class DependenciaDirector implements Serializable {
     public String toString() {
         return "com.documental.bo.DependenciaDirector[ dependenciaDirectorPK=" + dependenciaDirectorPK + " ]";
     }
-    
+
 }

@@ -64,8 +64,9 @@ public class DependenciaDAOJPAImpl extends GenericDAOJPAImpl<Dependencia, Intege
         Integer idpk = 0;
         try {
             TypedQuery<DependenciaDirector> consulta = manager.createQuery(
-                    "SELECT D FROM DependenciaDirector D JOIN FETCH D.login where D.login.idLogin = ?1", DependenciaDirector.class);
+                    "SELECT D FROM DependenciaDirector D JOIN FETCH D.login where D.login.idLogin = ?1 and D.estado = ?2 order by D.fecha", DependenciaDirector.class);
             consulta.setParameter(1, login);
+            consulta.setParameter(2, "A");
             DependenciaDirector dependenciaDirector = null;
             dependenciaDirector = consulta.getSingleResult();
             return dependenciaDirector;
@@ -81,8 +82,9 @@ public class DependenciaDAOJPAImpl extends GenericDAOJPAImpl<Dependencia, Intege
         Integer idpk = 0;
         try {
             TypedQuery<DependenciaEmpleado> consulta = manager.createQuery(
-                    "SELECT D FROM DependenciaEmpleado D JOIN FETCH D.login where D.login.idLogin = ?1 order by D.fecha", DependenciaEmpleado.class);
+                    "SELECT D FROM DependenciaEmpleado D JOIN FETCH D.login where D.login.idLogin = ?1 and D.estado = ?2 order by D.fecha", DependenciaEmpleado.class);
             consulta.setParameter(1, login);
+            consulta.setParameter(2, "A");
             consulta.setMaxResults(1);
             DependenciaEmpleado dependenciaEmpleado = null;
             dependenciaEmpleado = consulta.getSingleResult();

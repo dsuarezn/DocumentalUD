@@ -48,6 +48,7 @@
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_TipoUsuario}"/></p:column>
                         <p:column colspan="50">
                             <p:selectOneMenu style="width: 400px" value="#{beanUsuario.tipoUsuario}">
+                                <p:ajax listener="#{beanUsuario.onTipoUsuarioChange()}" update="dependencias" />
                                 <f:selectItems value="#{beanUsuario.listTipoUsuarios}" var="tipo" itemLabel="#{tipo.tipoUsuario}" itemValue="#{tipo.idTipoUsuario}"/>
                             </p:selectOneMenu>
                         </p:column>    
@@ -57,7 +58,7 @@
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Dependencia}"/></p:column>
                         <p:column colspan="50">
-                            <p:selectOneMenu style="width: 400px" rendered="true" value="#{beanUsuario.currentDep}">
+                            <p:selectOneMenu style="width: 400px" id="dependencias" rendered="true" disabled="#{beanUsuario.desactivar}" value="#{beanUsuario.currentDep}">
                                 <f:selectItems value="#{beanUsuario.listDependencia}" var="dependencia" itemLabel="#{dependencia.nombre}" itemValue="#{dependencia.idDependencia}"/>
                             </p:selectOneMenu>
                         </p:column>   

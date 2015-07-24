@@ -8,10 +8,14 @@ import com.documental.bo.NivelAcceso;
 import com.documental.bo.Tarea;
 import com.documental.bo.TipoUsuario;
 import com.documental.servicios.ServicioDependencia;
+import com.documental.servicios.ServicioDependenciaDirector;
+import com.documental.servicios.ServicioDependenciaEmpleado;
 import com.documental.servicios.ServicioDirector;
 import com.documental.servicios.ServicioEmpleado;
 import com.documental.servicios.ServicioLogin;
 import com.documental.servicios.ServicioTipoUsuario;
+import com.documental.servicios.impl.ServicioDependenciaDirectorImpl;
+import com.documental.servicios.impl.ServicioDependenciaEmpleadoImpl;
 import com.documental.servicios.impl.ServicioDependenciaImpl;
 import com.documental.servicios.impl.ServicioDirectorImpl;
 import com.documental.servicios.impl.ServicioEmpleadoImpl;
@@ -56,13 +60,17 @@ public class LoginController {
     private ServicioDependencia servicioDependencia;
     private ServicioDirector servicioDirector;
     private ServicioEmpleado servicioEmpleado;
+    private ServicioDependenciaDirector servicioDependenciaDirector;
+    private ServicioDependenciaEmpleado servicioDependenciaEmpleado;
     private NivelAcceso nivelAcceso;
     private List<String> listaPermisosUsuario;
     private List<Login> listLogin = null;
     private List<Dependencia> listDependencia;
     private static String usuario;
     private String contrasena;
+    private final static String estado = "A";
     private Integer tipoUsuario;
+    private boolean desactivar = true;
     //Variables de sesion
     static ExternalContext ectx;
     static HttpServletRequest request;
@@ -86,6 +94,20 @@ public class LoginController {
         return servicioEmpleado;
     }
 
+    public ServicioDependenciaDirector getServicioDependenciaDirector() {
+        if (servicioDependenciaDirector == null) {
+            servicioDependenciaDirector = new ServicioDependenciaDirectorImpl();
+        }
+        return servicioDependenciaDirector;
+    }
+
+    public ServicioDependenciaEmpleado getServicioDependenciaEmpleado() {
+        if (servicioDependenciaEmpleado == null) {
+            servicioDependenciaEmpleado = new ServicioDependenciaEmpleadoImpl();
+        }
+        return servicioDependenciaEmpleado;
+    }
+
     public String getUsuario() {
         return usuario;
     }
@@ -100,6 +122,14 @@ public class LoginController {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public boolean isDesactivar() {
+        return desactivar;
+    }
+
+    public void setDesactivar(boolean desactivar) {
+        this.desactivar = desactivar;
     }
 
     public List<TipoUsuario> getListTipoUsuarios() {
@@ -258,6 +288,14 @@ public class LoginController {
         return null;
     }
 
+    public void onTipoUsuarioChange() {
+        if (tipoUsuario == 3 || tipoUsuario == 4) {
+            desactivar = false;
+        } else {
+            desactivar = true;
+        }
+    }
+
     public void cerrarSesion() throws IOException {
         System.out.println(".......");
         FacesContext context = FacesContext.getCurrentInstance();
@@ -304,17 +342,29 @@ public class LoginController {
 
     public void setDependencia(int id) {
         // salvar en directores o empleados
-        //director de Area
+        //director de Area                
         if (tipoUsuario == 3) {
             //Asginar Dependencia
+            DependenciaDirector dep = getServicioDependencia().buscarDependenciaDirector(currentC.getIdLogin());
+            if (dep != null) {
+                dep.setEstado("I");
+                getServicioDependenciaDirector().salvarDependenciaDirector(dep);
+            }
             DependenciaDirector director = new DependenciaDirector(currentDep, id);
+            director.setEstado(estado);
             director.setFecha(new Date());
             getServicioDirector().salvarDirector(director);
         }
         //Empleado    
         if (tipoUsuario == 4) {
             //Asignar Dependencia
+            DependenciaEmpleado dep = getServicioDependencia().buscarDependenciaEmpleado(currentC.getIdLogin());
+            if (dep != null) {
+                dep.setEstado("I");
+                getServicioDependenciaEmpleado().salvarDependenciaEmpleado(dep);
+            }
             DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
+            empleado.setEstado(estado);
             empleado.setFecha(new Date());
             getServicioEmpleado().salvarEmpleado(empleado);
         }
