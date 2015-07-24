@@ -34,7 +34,13 @@
                 <p:column sortBy="#{historico.documento.finalidad}" headerText="Finalidad">
                     <h:outputText value="#{historico.documento.finalidad}" />
                 </p:column>
-
+                <p:column id="button">
+                    <f:facet name="header">
+                    </f:facet>                                             
+                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(historico)}">
+                        <f:ajax render="@form"/>
+                    </p:commandButton> 
+                </p:column>
             </p:dataTable> 
             <br/>
         </h:form>

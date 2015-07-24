@@ -35,6 +35,14 @@
                 <p:column sortBy="#{historico.loginDestinatario.nombre}" headerText="Usuario Enviado">
                     <h:outputText value="#{historico.loginDestinatario.nombre}" />
                 </p:column>
+
+                <p:column id="button">
+                    <f:facet name="header">
+                    </f:facet>                                             
+                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(historico)}">
+                        <f:ajax render="@form"/>
+                    </p:commandButton> 
+                </p:column>
             </p:dataTable> 
             <br/>
         </h:form>

@@ -65,6 +65,11 @@ public class BandejaController {
     private ServicioComentario servicioComentario;
     private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
+    private boolean accionesDetalle = true;
+
+    public boolean isAccionesDetalle() {
+        return accionesDetalle;
+    }
 
     public String getUsuarioActual() {
         return usuarioActual;
@@ -203,12 +208,14 @@ public class BandejaController {
     public String prepareList() {
         usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
         listHistorico = getServicioHistorico().buscarDestinatarioActivo(usuario);
+        accionesDetalle = true;
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
     }
 
     public String prepareSalidaList() {
         usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
         listHistoricoSalida = getServicioHistorico().buscarDocumentosSalida(usuario);
+        accionesDetalle = false;
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaSalida";
 
     }
@@ -216,11 +223,13 @@ public class BandejaController {
     public String prepareCerradosList() {
         usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
         listHistoricoCerrados = getServicioHistorico().buscarDocumentosCerrados(usuario);
+        accionesDetalle = false;
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaCerrados";
     }
 
     public String volver() {
         listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
+        accionesDetalle = true;
         return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
     }
 
