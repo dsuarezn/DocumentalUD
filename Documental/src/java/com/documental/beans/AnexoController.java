@@ -298,8 +298,8 @@ public class AnexoController {
         String basepath=extContext.getInitParameter("anexosfolder");
         Date now = new Date();        
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd-HHmmss");        
-        if (!Files.exists(Paths.get(basepath+"//"+idDocumento+"//"))) {
-            File dir = new File(basepath+"//"+idDocumento+"//");
+        if (!Files.exists(Paths.get(basepath+File.separator+idDocumento+File.separator))) {
+            File dir = new File(basepath+File.separator+idDocumento+File.separator);
             dir.mkdirs();
         }             
         String nuevoNombre = format.format(now)+"-"+idDocumento+".pdf";        

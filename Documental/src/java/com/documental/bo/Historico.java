@@ -47,7 +47,7 @@ public class Historico implements Serializable {
     private String comentario;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @Basic(optional = false)
     @Column(name = "activo")
