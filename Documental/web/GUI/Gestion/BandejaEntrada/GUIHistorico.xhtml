@@ -39,7 +39,9 @@ and open the template in the editor.
 
                     
                     <p:column sortBy="#{historico.fecha}" filterBy="#{historico.fecha}" headerText="#{bundle.documental_GUIHistorico_Fecha}">
-                        <h:outputText value="#{historico.fecha}" />
+                        <h:outputText value="#{historico.fecha}" >
+                            <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' hh:mm a" />
+                        </h:outputText>
                     </p:column>
                     
                     <p:column sortBy="#{historico.comentario}" filterBy="#{historico.comentario}" headerText="#{bundle.documental_GUIHistorico_Comentario}">
