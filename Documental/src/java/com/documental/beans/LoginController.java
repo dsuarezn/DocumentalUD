@@ -237,21 +237,21 @@ public class LoginController {
         Login login = null;
         try {
             login = getServicio().obtenerLogin(usuario);
-        } catch (javax.persistence.NoResultException ex) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
-        }
-        contrasena = EncripcionUtil.Encriptar(contrasena);
-        if (contrasena.equals(login.getContrasena())) {
-            current = login;
-            crearSession();
-            if (!cargarPermisos()) {
-                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorNivelDeAcceso"));
+            contrasena = EncripcionUtil.Encriptar(contrasena);
+            if (contrasena.equals(login.getContrasena())) {
+                current = login;
+                crearSession();
+                if (!cargarPermisos()) {
+                    JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorNivelDeAcceso"));
+                    return null;
+                }
+                cargarNivelAcceso();
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Documental/faces/menuDocumental.xhtml");
                 return null;
+            } else {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
             }
-            cargarNivelAcceso();
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/Documental/faces/menuDocumental.xhtml");
-            return null;
-        } else {
+        } catch (Exception ex) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("Ilogin_ErrorCredenciales"));
         }
         //return "index_MenuPrincipal";

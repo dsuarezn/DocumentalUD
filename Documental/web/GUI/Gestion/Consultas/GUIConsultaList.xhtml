@@ -64,10 +64,16 @@
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Palabras_Clave}"/></p:column>
                         <p:column colspan="50">
-                            <p:inputText value="#{beanConsulta.selected.palabrasClave}"/>
+                            <p:inputText style="width: 400px" value="#{beanConsulta.selected.palabrasClave}"/>
                         </p:column>
-                    </p:row>
-
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Dependencia}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu id="dependencias" style="width: 400px" value="#{beanConsulta.loginDestinatario}">
+                                <f:selectItem itemLabel="" itemValue=""/>
+                                <f:selectItems value="#{beanConsulta.listDependencia}" var="dep" itemLabel="#{dep.nombre}" itemValue="#{dep.idDependencia}"/>
+                            </p:selectOneMenu> 
+                        </p:column>
+                    </p:row>                    
                 </p:panelGrid>
                 <br></br>
                 <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" 

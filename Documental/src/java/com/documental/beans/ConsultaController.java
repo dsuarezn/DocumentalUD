@@ -1,30 +1,33 @@
 package com.documental.beans;
 
+import com.documental.bo.Dependencia;
 import com.documental.bo.Documento;
 import com.documental.bo.Historico;
 import com.documental.bo.Login;
 import com.documental.bo.Tipo;
 import com.documental.enums.EstadosDocumentoEnum;
 import com.documental.enums.VisibilidadDocumentoEnum;
+import com.documental.servicios.ServicioDependencia;
 import com.documental.servicios.ServicioDocumento;
 import com.documental.servicios.ServicioLogin;
 import com.documental.servicios.ServicioTipo;
+import com.documental.servicios.impl.ServicioDependenciaImpl;
 import com.documental.servicios.impl.ServicioDocumentoImpl;
 import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.servicios.impl.ServicioTipoImpl;
 import com.documental.util.PaginationHelper;
 import java.util.List;
-import javax.faces.bean.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author DiegoM
  */
 @ManagedBean(name = "beanConsulta")
-@SessionScoped
+@RequestScoped
 public class ConsultaController {
 
     private Documento current;
@@ -34,8 +37,10 @@ public class ConsultaController {
     private ServicioDocumento servicio;
     private List<Documento> listDocumento = null;
     private List<Historico> listHistorico = null;
+    private List<Dependencia> listDependencia = null;
     private ServicioTipo servicioTipo;
     private ServicioLogin servicioLogin;
+    private ServicioDependencia servicioDependencia;
     private Integer idTipo;
     private Integer loginDestinatario;
 
@@ -74,6 +79,14 @@ public class ConsultaController {
         this.listHistorico = listHistorico;
     }
 
+    public List<Dependencia> getListDependencia() {
+        return getServicioDependencia().buscarDependenciasActivas();
+    }
+
+    public void setListDependencia(List<Dependencia> listDependencia) {
+        this.listDependencia = listDependencia;
+    }
+        
     public Documento getSelected() {
         if (current == null) {
             current = new Documento();
@@ -100,6 +113,13 @@ public class ConsultaController {
             servicioLogin = new ServicioLoginImpl();
         }
         return servicioLogin;
+    }
+    
+    public ServicioDependencia getServicioDependencia() {
+        if (servicioDependencia == null) {
+            servicioDependencia = new ServicioDependenciaImpl();
+        }
+        return servicioDependencia;
     }
 
     public List<Tipo> getListaTipos() {
@@ -140,7 +160,7 @@ public class ConsultaController {
     }
 
     public String prepareList() {
-
+        items = null;
         return "/GUI/Gestion/Consultas/GUIConsultaList";
     }
 
