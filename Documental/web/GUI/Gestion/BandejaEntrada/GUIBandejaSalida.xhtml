@@ -8,7 +8,7 @@
     <ui:define name="bodyJR">
         <h:form>
 
-            <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistorico}"
+            <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistoricoSalida}"
                          emptyMessage="No Se Han Filtrado Resultados"
                          paginator="true" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -32,28 +32,11 @@
                     <h:outputText value="#{historico.documento.asunto}" />
                 </p:column>
 
-                <p:column sortBy="#{historico.loginOrigen.nombre}" headerText="Usuario Anterior">
-                    <h:outputText value="#{historico.loginOrigen.nombre}" />
+                <p:column sortBy="#{historico.loginDestinatario.nombre}" headerText="Usuario Enviado">
+                    <h:outputText value="#{historico.loginDestinatario.nombre}" />
                 </p:column>
-
-                <p:column id="button">
-                    <f:facet name="header">
-                    </f:facet>                                             
-                    <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(historico)}">
-                        <f:ajax render="@form"/>
-                    </p:commandButton> 
-                </p:column>
-
-                <!--  <p:column id="button1">
-                      <f:facet name="header">
-                      </f:facet>                                             
-                      <p:commandButton id="redirigir" icon="cambio" value="&nbsp;Redirigir" action="#{beanBandeja.prepareRedirigir(historico)}">
-                          <f:ajax render="@form"/>
-                      </p:commandButton> 
-                  </p:column> -->
             </p:dataTable> 
             <br/>
-            <p:commandButton id="bRecargar" update="@([id$=documentosPU])" value="&nbsp;Recargar Bandeja"  action="#{beanBandeja.recargar()}"  icon="deshacer" />                
         </h:form>
     </ui:define>
 </ui:composition>

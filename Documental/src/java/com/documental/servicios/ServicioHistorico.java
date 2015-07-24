@@ -28,4 +28,8 @@ public interface ServicioHistorico {
 
     public List<Historico> consultarComentariosPorDocumento(Integer idDocumento);
     public Integer countComentariosPorDocumento(Integer idDocumento);
+
+    public List<Historico> buscarDocumentosSalida(int usuario);
+
+    public List<Historico> buscarDocumentosCerrados(int usuario);
 }

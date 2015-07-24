@@ -20,4 +20,8 @@ public interface HistoricoDAO extends GenericDAO<Historico, HistoricoPK>{
     public List<Historico> buscarHistoricoDocumento(int id);      
     public List<Historico> buscarComentariosDocumento(Integer id);        
     public Integer countComentariosPorDocumento(Integer idDocumento);
+
+    public List<Historico> buscarDocumentosSalida(int usuario);
+
+    public List<Historico> buscarDocumentosCerrados(int usuario);
 }
