@@ -101,7 +101,9 @@
                     </p:column>
 
                     <p:column sortBy="#{historico.documento.fechaCreacion}" filterBy="#{historico.documento.fechaCreacion}" headerText="Fecha de Creacion">
-                        <h:outputText value="#{historico.documento.fechaCreacion}" />
+                        <h:outputText value="#{historico.documento.fechaCreacion}" >
+                            <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' hh:mm a" />
+                        </h:outputText>
                     </p:column>                    
 
                 </p:dataTable>                                                                                         
