@@ -33,9 +33,7 @@
                     <h:form>
                         <p:panelMenu style="width:165px">
                             <p:submenu label="Radicacion">                                                                  
-                                <p:menuitem value="Entrada" icon="caracterizacion" rendered="#{beanUsuario.asPermission('pMenuRadicEntrada')}" action="#{beanRadicacion.prepareCreate()}" />                                  
-                                <p:menuitem value="Salida" icon="cambio"  />                                                              
-                                <p:menuitem value="Memorando" icon="documento"  />                                                               
+                                <p:menuitem value="Entrada" icon="caracterizacion" rendered="#{beanUsuario.asPermission('pMenuRadicEntrada')}" action="#{beanRadicacion.prepareCreate()}" />                                                                                                                              
                             </p:submenu>
                             <p:submenu label="Gestión">                                                                  
                                 <p:menuitem value="Bandeja de entrada" icon="caracterizacion" action="#{beanBandeja.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />    
