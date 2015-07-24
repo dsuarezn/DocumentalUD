@@ -5,11 +5,8 @@
  */
 package com.documental.bo;
 
-
-
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,12 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Login.findByApellido", query = "SELECT l FROM Login l WHERE l.apellido = :apellido"),
     @NamedQuery(name = "Login.findByEstado", query = "SELECT l FROM Login l WHERE l.estado = :estado"),
     @NamedQuery(name = "Login.findByCorreo", query = "SELECT l FROM Login l WHERE l.correo = :correo"),
-    @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia")
+    @NamedQuery(name = "Login.findDirectorByDependencia", query = "SELECT l FROM Login l, DependenciaDirector dd WHERE l.idLogin = dd.login.idLogin and dd.dependencia.idDependencia = :idDependencia order by dd.fecha DESC"),
+    @NamedQuery(name = "Login.findEmpleadosByDependencia", query = "SELECT l FROM Login l, DependenciaEmpleado de WHERE l.idLogin = de.login.idLogin and de.dependencia.idDependencia = :idDependencia")
 })
 public class Login implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loginid")
-    private List<Comentario> comentarioList;
-    
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -207,16 +202,5 @@ public class Login implements Serializable {
     public String toString() {
         return "com.documental.bo.Login[ idLogin=" + idLogin + " ]";
     }
-
-    @XmlTransient
-    public List<Comentario> getComentarioList() {
-        return comentarioList;
-    }
-
-    public void setComentarioList(List<Comentario> comentarioList) {
-        this.comentarioList = comentarioList;
-    }
-
-  
     
 }

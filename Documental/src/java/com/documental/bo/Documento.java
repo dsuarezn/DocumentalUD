@@ -5,11 +5,9 @@
  */
 package com.documental.bo;
 
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,8 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Documento.findByAsunto", query = "SELECT d FROM Documento d WHERE d.asunto = :asunto"),
     @NamedQuery(name = "Documento.findByFinalidad", query = "SELECT d FROM Documento d WHERE d.finalidad = :finalidad")})
 public class Documento implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoid")
-    private List<Comentario> comentarioList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,6 +75,8 @@ public class Documento implements Serializable {
     private String finalidad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
     private Collection<Anexo> anexoCollection;    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
+    private Collection<Historico> historicoCollection;
     @JoinColumn(name = "tipo_id", referencedColumnName = "id_tipo")
     @ManyToOne(optional = false)
     private Tipo tipoId;
@@ -200,6 +198,15 @@ public class Documento implements Serializable {
     public Tipo getTipoId() {
         return tipoId;
     }
+    
+    @XmlTransient
+    public Collection<Historico> getHistoricoCollection() {
+        return historicoCollection;
+    }
+
+    public void setHistoricoCollection(Collection<Historico> historicoCollection) {
+        this.historicoCollection = historicoCollection;
+    }
 
     public void setTipoId(Tipo tipoId) {
         this.tipoId = tipoId;
@@ -239,15 +246,6 @@ public class Documento implements Serializable {
     @Override
     public String toString() {
         return "com.documental.bo.Documento[ idDocumento=" + idDocumento + " ]";
-    }
-
-    @XmlTransient
-    public List<Comentario> getComentarioList() {
-        return comentarioList;
-    }
-
-    public void setComentarioList(List<Comentario> comentarioList) {
-        this.comentarioList = comentarioList;
     }
 
 }

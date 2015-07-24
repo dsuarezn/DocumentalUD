@@ -60,6 +60,7 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
         EntityManager manager = factoriaSession.createEntityManager();        
         Query query = manager.createNamedQuery("Login.findDirectorByDependencia",Login.class);		
         query.setParameter("idDependencia", idDependencia);
+        query.setMaxResults(1);
 	Login listauser = (Login) query.getSingleResult();
 	return listauser;        
     }
@@ -88,6 +89,16 @@ public class LoginDAOJPAImpl extends GenericDAOJPAImpl<Login, Integer> implement
             manager.close();
         }
         return login;
+    }
+
+    @Override
+    public List<Login> obtenerEmpleadosDependencia(Integer idDependencia) {
+        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+        EntityManager manager = factoriaSession.createEntityManager();
+        Query query = manager.createNamedQuery("Login.findEmpleadosByDependencia", Login.class);
+        query.setParameter("idDependencia", idDependencia);
+        List<Login> listaEmpleados = query.getResultList();
+        return listaEmpleados;
     }
 
 }

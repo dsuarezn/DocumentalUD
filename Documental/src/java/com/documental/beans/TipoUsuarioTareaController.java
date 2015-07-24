@@ -129,6 +129,7 @@ public class TipoUsuarioTareaController {
     }
     
     public void loadDualList() {
+        tareaTarget.clear();
         tareaSource = getServicio().buscarTodosTarea();
         tarea = new DualListModel<Tarea>(tareaSource, tareaTarget);
     }

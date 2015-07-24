@@ -6,6 +6,8 @@
 package com.documental.servicios.impl;
 
 import com.documental.bo.Dependencia;
+import com.documental.bo.DependenciaDirector;
+import com.documental.bo.DependenciaEmpleado;
 import com.documental.dao.DAOAbstractFactory;
 import com.documental.dao.DAOFactory;
 import com.documental.dao.DependenciaDAO;
@@ -64,5 +66,15 @@ public class ServicioDependenciaImpl implements ServicioDependencia {
     @Override
     public List<Dependencia> buscarDependenciasActivas(){
     return dependenciaDAO.buscarDependenciasActivas();
+    }
+    
+    @Override
+    public DependenciaDirector buscarDependenciaDirector(Integer login) {
+        return dependenciaDAO.buscarDependenciaDirector(login);
+    }
+
+    @Override
+    public DependenciaEmpleado buscarDependenciaEmpleado(Integer login) {
+        return dependenciaDAO.buscarDependenciaEmpleado(login);
     }
 }

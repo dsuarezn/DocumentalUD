@@ -38,7 +38,7 @@ public class DependenciaEmpleado implements Serializable {
     protected DependenciaEmpleadoPK dependenciaEmpleadoPK;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
     @JoinColumn(name = "dependencia_id", referencedColumnName = "id_dependencia", insertable = false, updatable = false)
     @ManyToOne(optional = false)

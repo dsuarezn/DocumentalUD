@@ -28,17 +28,17 @@
 
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Nombre}"/></p:column>
-                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.nombre}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pNombre}"></p:inputText></p:column> 
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.nombre}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pNombre}"></p:inputText></p:column> 
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Apellido}"/></p:column>
-                        <p:column colspan="50"><p:inputText id="pApellido" style="width: 400px" value="#{beanUsuario.selected.apellido}" required="true"  requiredMessage="#{bundle.documental_GUIUsuario_Messages_pApellido}"></p:inputText></p:column>                              
+                        <p:column colspan="50"><p:inputText id="pApellido" style="width: 400px" value="#{beanUsuario.selectedC.apellido}" required="true"  requiredMessage="#{bundle.documental_GUIUsuario_Messages_pApellido}"></p:inputText></p:column>                              
                     </p:row>      
 
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Correo}"/></p:column>
-                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.correo}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pCorreo}"></p:inputText></p:column> 
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.correo}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pCorreo}"></p:inputText></p:column> 
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Estado}"/></p:column>
                         <p:column colspan="50">
-                            <p:selectOneMenu value="#{beanUsuario.selected.estado}" style="width: 400px">
+                            <p:selectOneMenu value="#{beanUsuario.selectedC.estado}" style="width: 400px">
                                 <f:selectItem itemLabel="Activo" itemValue="A"/>
                                 <f:selectItem itemLabel="Inactivo" itemValue="I"/>
                             </p:selectOneMenu>
@@ -52,7 +52,7 @@
                             </p:selectOneMenu>
                         </p:column>    
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Login}"/></p:column>
-                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selected.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
+                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.usuario}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pLogin}"></p:inputText></p:column> 
                     </p:row>    
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Dependencia}"/></p:column>
@@ -62,7 +62,7 @@
                             </p:selectOneMenu>
                         </p:column> 
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIUsuario_Contrasena}"/></p:column>
-                        <p:column colspan="50"><p:inputText style="width: 400px" value="#{beanUsuario.selectedC.contrasena}" required="true" requiredMessage="#{bundle.documental_GUIUsuario_Messages_pContrasena}"></p:inputText></p:column> 
+                        <p:column colspan="50"><p:password style="width: 400px" value="#{beanUsuario.selectedC.contrasena}" redisplay="true" ></p:password></p:column> 
                     </p:row>  
                 </p:panelGrid>
                 <br></br>
