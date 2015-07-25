@@ -5,32 +5,32 @@
  */
 package com.documental.beans;
 
+import com.documental.bo.Anexo;
 import com.documental.bo.Comentario;
 import com.documental.bo.Dependencia;
 import com.documental.bo.Documento;
 import com.documental.bo.Historico;
 import com.documental.bo.HistoricoPK;
 import com.documental.bo.Login;
+import com.documental.servicios.ServicioAnexo;
 import com.documental.servicios.ServicioComentario;
 import com.documental.servicios.ServicioDependencia;
 import com.documental.servicios.ServicioDocumento;
 import com.documental.servicios.ServicioHistorico;
 import com.documental.servicios.ServicioLogin;
+import com.documental.servicios.impl.ServicioAnexoImpl;
 import com.documental.servicios.impl.ServicioComentarioImpl;
 import com.documental.servicios.impl.ServicioDependenciaImpl;
 import com.documental.servicios.impl.ServicioDocumentoImpl;
 import com.documental.servicios.impl.ServicioHistoricoImpl;
 import com.documental.servicios.impl.ServicioLoginImpl;
 import com.documental.util.JsfUtil;
-import com.documental.util.PaginationHelper;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -51,6 +51,7 @@ public class BandejaController {
     private List<Historico> listHistoricoCerrados = null;
     private List<Login> listaEmpleados = null;
     private List<Dependencia> listaDependencias = null;
+    private List<Anexo> listAnexos;
 
     private boolean ocultarDependencias = true;
     private Integer dependencia;
@@ -63,6 +64,7 @@ public class BandejaController {
     private ServicioLogin servicioLogin;
     private ServicioDependencia servicioDependencia;
     private ServicioComentario servicioComentario;
+    private ServicioAnexo servicioAnexo;
     private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
     private boolean accionesDetalle = true;
@@ -159,6 +161,14 @@ public class BandejaController {
         this.listaDependencias = listaDependencias;
     }
 
+    public List<Anexo> getListAnexos() {
+        return listAnexos;
+    }
+
+    public void setListAnexos(List<Anexo> listAnexos) {
+        this.listAnexos = listAnexos;
+    }
+        
     public BandejaController() {
     }
 
@@ -205,6 +215,13 @@ public class BandejaController {
         return servicioComentario;
     }
 
+    public ServicioAnexo getServicioAnexo() {
+        if (servicioAnexo == null) {
+            servicioAnexo = new ServicioAnexoImpl();
+        }
+        return servicioAnexo;
+    }
+
     public String prepareList() {
         usuario = getServicioLogin().obtenerLogin(usuarioActual).getIdLogin();
         listHistorico = getServicioHistorico().buscarDestinatarioActivo(usuario);
@@ -235,6 +252,10 @@ public class BandejaController {
 
     public void recargar() {
         this.prepareList();
+    }
+    
+    public void verAnexos(){
+        listAnexos = getServicioAnexo().consultarAnexosPorDocumento(current.getDocumento().getIdDocumento());
     }
 
     public void cerrarDocumento() {

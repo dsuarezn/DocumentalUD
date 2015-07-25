@@ -20,14 +20,13 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
+import javax.faces.bean.SessionScoped;
 /**
  *
  * @author DiegoM
  */
 @ManagedBean(name = "beanConsulta")
-@RequestScoped
+@SessionScoped
 public class ConsultaController {
 
     private Documento current;
