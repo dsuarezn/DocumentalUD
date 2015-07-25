@@ -65,7 +65,7 @@ public class Documento implements Serializable {
     private String palabrasClave;
     @Basic(optional = false)
     @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Basic(optional = false)
     @Column(name = "asunto")

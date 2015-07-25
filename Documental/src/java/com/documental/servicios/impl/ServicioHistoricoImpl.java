@@ -83,4 +83,14 @@ public class ServicioHistoricoImpl implements ServicioHistorico {
         return historicoDAO.insertar(historico);
     }
 
+    @Override
+    public List<Historico> buscarDocumentosSalida(int usuario) {
+         return historicoDAO.buscarDocumentosSalida(usuario);
+    }
+
+    @Override
+    public List<Historico> buscarDocumentosCerrados(int usuario) {
+        return historicoDAO.buscarDocumentosCerrados(usuario);
+    }
+
 }

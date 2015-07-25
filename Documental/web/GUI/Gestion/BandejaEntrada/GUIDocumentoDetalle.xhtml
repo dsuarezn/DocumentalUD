@@ -95,17 +95,18 @@
                     </p:row>                    
                 </p:panelGrid>
 
-                <p:panelGrid style="margin-top:10px" >
+                <p:panelGrid style="margin-top:10px" rendered="#{beanBandeja.accionesDetalle}">
                     <p:row>
                         <p:column>
                             <p:commandButton id="bCerrar"  value="&nbsp;Cerrar" oncomplete="PF('dlg1').show();" icon="ui-icon-close" immediate="true" />                                                                                   
-                            <p:commandButton  value="&nbsp;Ver historico" action="#{beanPorImplementar.verHistorico()}" icon="volver" immediate="true"/>                  
+                            <p:commandButton  value="&nbsp;Ver historico" action="#{beanHistorico.prepareList(beanBandeja.selected.documento.idDocumento)}" icon="volver" immediate="true"/>                  
                             <p:commandButton  value="&nbsp;Rediriguir" action="#{beanBandeja.prepareRedirigir()}" icon="volver" immediate="true"/>                  
-                            <p:commandButton  value="&nbsp;Agregar Anexo" action="#{beanAnexo.prepareCreate(beanBandeja.docTrabajo.idDocumento)}" icon="volver" immediate="true"/>                                              
-                            <p:commandButton  value="&nbsp;Volver" action="#{beanBandeja.volver()}" icon="volver" immediate="true"/>                                              
+                            <p:commandButton  value="&nbsp;Agregar Anexo" action="#{beanAnexo.prepareCreate(beanBandeja.selected.documento.idDocumento)}" icon="volver" immediate="true"/>                                              
+                            <p:commandButton  value="&nbsp;Volver" action="#{beanBandeja.volver()}" icon="volver" immediate="true"/>                                         
                         </p:column>
                     </p:row>
                 </p:panelGrid>
+                   
                 <!--Formulario para cerrar documento-->
                 <p:dialog header="Cerrar Documento" widgetVar="dlg1"  minHeight="30">   
                     <h:form id="frmCerrar">

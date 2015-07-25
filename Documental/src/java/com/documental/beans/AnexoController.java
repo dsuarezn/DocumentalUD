@@ -294,15 +294,17 @@ public class AnexoController {
     public String manejarFileUpload(Integer id,FileUploadEvent event){
         String idDocumento = id.toString();
         ExternalContext extContext=FacesContext.getCurrentInstance().getExternalContext();         
-        String basepath=extContext.getRealPath("//resources//anexos");        
+//        String basepath=extContext.getRealPath("//resources//anexos"); 
+        String basepath=extContext.getInitParameter("anexosfolder");
         Date now = new Date();        
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd-HHmmss");        
-        if (!Files.exists(Paths.get(basepath+"//"+idDocumento+"//"))) {
-            File dir = new File(basepath+"//"+idDocumento+"//");
+        if (!Files.exists(Paths.get(basepath+File.separator+idDocumento+File.separator))) {
+            File dir = new File(basepath+File.separator+idDocumento+File.separator);
             dir.mkdirs();
-        }        
+        }             
         String nuevoNombre = format.format(now)+"-"+idDocumento+".pdf";        
-        File result = new File(extContext.getRealPath("//resources//anexos//"+idDocumento+"//" + nuevoNombre));                
+//        File result = new File(extContext.getRealPath("//resources//anexos//"+idDocumento+"//" + nuevoNombre));                
+        File result = new File(extContext.getInitParameter("anexosfolder")+File.separator+idDocumento+ File.separator + nuevoNombre);                
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(result);
             byte[] buffer = new byte[BUFFER_SIZE];
