@@ -329,7 +329,7 @@ public class LoginController {
             //salvar primero el usuario para evitar errores de consistencia
             respuesta = getServicio().salvarLogin(currentC);
             if (respuesta.equals("Operación Exitosa")) {
-                setDependencia(id);
+                setDependenciaCrear(id);
                 currentC = null;
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIUsuario_Messages_pCreateUsuarioExitoso"));
             } else {
@@ -357,12 +357,31 @@ public class LoginController {
         }
         //Empleado    
         if (tipoUsuario == 4) {
-            //Asignar Dependencia
+            //Asignar Dependencia            
             DependenciaEmpleado dep = getServicioDependencia().buscarDependenciaEmpleado(currentC.getIdLogin());
             if (dep != null) {
                 dep.setEstado("I");
                 getServicioDependenciaEmpleado().salvarDependenciaEmpleado(dep);
             }
+            DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
+            empleado.setEstado(estado);
+            empleado.setFecha(new Date());
+            getServicioEmpleado().salvarEmpleado(empleado);
+        }
+    }
+    public void setDependenciaCrear(int id) {
+        // salvar en directores o empleados
+        //director de Area                
+        if (tipoUsuario == 3) {
+            //Asginar Dependencia            
+            DependenciaDirector director = new DependenciaDirector(currentDep, id);
+            director.setEstado(estado);
+            director.setFecha(new Date());
+            getServicioDirector().salvarDirector(director);
+        }
+        //Empleado    
+        if (tipoUsuario == 4) {
+            //Asignar Dependencia                        
             DependenciaEmpleado empleado = new DependenciaEmpleado(currentDep, id);
             empleado.setEstado(estado);
             empleado.setFecha(new Date());

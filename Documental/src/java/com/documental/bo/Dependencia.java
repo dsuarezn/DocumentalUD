@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Dependencia.findByIdDependencia", query = "SELECT d FROM Dependencia d WHERE d.idDependencia = :idDependencia"),
     @NamedQuery(name = "Dependencia.findByNombre", query = "SELECT d FROM Dependencia d WHERE d.nombre = :nombre"),
     @NamedQuery(name = "Dependencia.findByEstado", query = "SELECT d FROM Dependencia d WHERE d.estado = :estado"),
-    @NamedQuery(name = "Dependencia.findAllWithDirector", query = "SELECT d FROM Dependencia d, DependenciaDirector dd WHERE d.idDependencia = dd.dependencia.idDependencia")
+    @NamedQuery(name = "Dependencia.findAllWithDirector", query = "SELECT d FROM Dependencia d, DependenciaDirector dd WHERE d.idDependencia = dd.dependencia.idDependencia and dd.estado = 'A'")
 })
 public class Dependencia implements Serializable {
     private static final long serialVersionUID = 1L;

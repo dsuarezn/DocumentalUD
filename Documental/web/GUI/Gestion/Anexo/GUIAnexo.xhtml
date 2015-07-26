@@ -37,12 +37,8 @@
                 <h:commandButton value="Agregar nuevo anexo" action="#{beanAnexo.agregarAnexo()}"  immediate="true">
                     <f:ajax execute="@form" render="frmListaAnexos:archivosAnexo" />
                 </h:commandButton>                    
-            </h:form>
-            
-            
-            <h:form id="frmListaAnexos" enctype="multipart/form-data">        
-                
-                
+            </h:form>                        
+            <h:form id="frmListaAnexos" enctype="multipart/form-data">                                        
                 <p:dataTable id="archivosAnexo"  var="archivo" value="#{beanAnexo.items}"
                              emptyMessage="No Se Han Filtrado Resultados"                             
                              paginator="true" rows="15"                             
@@ -78,10 +74,10 @@
                     </p:column>
                 </p:dataTable> 
                
-                <h:commandButton  value="Guardar Anexos" action="#{beanAnexo.create()}" immediate="true" >
+                <h:commandButton  value="Guardar Anexos" action="#{beanAnexo.create()}">
                     <f:ajax execute="@form" render="frmListaAnexos:archivosAnexo" />
                 </h:commandButton>                                                  
-                <p:commandButton  value="&nbsp;Volver" action="#{beanAnexo.volver()}" icon="volver" immediate="true"/>                                                  
+               <!-- <p:commandButton  value="&nbsp;Volver" action="#{beanAnexo.volver()}" icon="volver" immediate="true"/>  -->                                                
                 
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>

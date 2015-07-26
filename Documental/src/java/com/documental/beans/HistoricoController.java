@@ -58,12 +58,13 @@ public class HistoricoController {
                 public DataModel createPageDataModel() {
                     
                     List<Historico> tempList = getServicio().consultarHistoricoPorDocumentId(getDocumentId());
-                    Collections.sort(tempList, new Comparator<Historico>() {
+                    /*Collections.sort(tempList, new Comparator<Historico>() {
                         public int compare(Historico h1, Historico h2) {
                             return h1.getFecha().compareTo(h2.getFecha());
+                            
                         }
                     });
-                    
+                    */
                     setListHistorico(tempList);
                     return new ListDataModel(getListHistorico());
                 }

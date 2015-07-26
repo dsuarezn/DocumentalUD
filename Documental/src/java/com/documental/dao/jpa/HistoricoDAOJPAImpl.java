@@ -27,6 +27,7 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
             String sql = "select * from historico where destinatario_id = ? and activo = true";
             Query q = manager.createNativeQuery(sql, Historico.class);
             q.setParameter(1, id);
+            q.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return q.getResultList();
         } catch (Exception e) {
             System.out.println("el error es: " + e.toString());

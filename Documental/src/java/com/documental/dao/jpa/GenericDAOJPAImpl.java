@@ -109,6 +109,7 @@ public class GenericDAOJPAImpl<T, Id extends Serializable> implements GenericDAO
             msg = "Operación Exitosa";
 
         } catch (PersistenceException e) {
+            System.out.println("el error es: "+e.toString());
             msg = "Operación Erronea";
             tx.rollback();
             throw e;

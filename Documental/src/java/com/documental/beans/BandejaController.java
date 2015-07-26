@@ -168,7 +168,7 @@ public class BandejaController {
     public void setListAnexos(List<Anexo> listAnexos) {
         this.listAnexos = listAnexos;
     }
-        
+
     public BandejaController() {
     }
 
@@ -253,8 +253,8 @@ public class BandejaController {
     public void recargar() {
         this.prepareList();
     }
-    
-    public void verAnexos(){
+
+    public void verAnexos() {
         listAnexos = getServicioAnexo().consultarAnexosPorDocumento(current.getDocumento().getIdDocumento());
     }
 
@@ -311,26 +311,26 @@ public class BandejaController {
     }
 
     public void redirigir() {
-        String respuesta;
+        String respuesta = null;
         getSelected().setLoginOrigen(current.getLoginDestinatario());
-        if (validate()) {
+       /* if (validate()) {
             if (dependencia != null) {
                 getSelected().setLoginDestinatario(servicioLogin.obtenerDirectorDependencia(dependencia));
             } else if (empleado != null) {
                 getSelected().setLoginDestinatario(new Login(empleado));
-            }
-        }
+            }            
+        }*/ 
+        getSelected().setLoginDestinatario(new Login(empleado));
         try {
-            getSelected().setHistoricoPK(new HistoricoPK(current.getDocumento().getIdDocumento(),
-                    current.getLoginOrigen().getIdLogin(),
-                    current.getLoginDestinatario().getIdLogin()));
-            getSelected().setFecha(new Date());
-            getSelected().setComentario(comentario);
-            respuesta = servicioHistorico.insertarHistorico(current);
-        } catch (Exception e) {
-            respuesta = "Operación Erronea";
-        }
-
+                getSelected().setHistoricoPK(new HistoricoPK(current.getDocumento().getIdDocumento(),
+                        current.getLoginOrigen().getIdLogin(),
+                        current.getLoginDestinatario().getIdLogin()));
+                getSelected().setFecha(new Date());
+                getSelected().setComentario(comentario);
+                respuesta = servicioHistorico.insertarHistorico(current);
+            } catch (Exception e) {
+                respuesta = "Operación Erronea";
+            }
         if (respuesta.equals("Operación Exitosa")) {
             comentario = "";
             historicoAuxiliar.setHistoricoPK(historicoAuxiliarPK);

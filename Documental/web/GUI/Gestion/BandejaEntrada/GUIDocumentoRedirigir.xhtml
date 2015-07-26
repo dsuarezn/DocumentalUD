@@ -49,14 +49,15 @@
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
-                    <p:row>
+                 <!--   <p:row>
                         <p:column colspan="50" style="font-weight: bold;"></p:column>
                         <p:column colspan="50" style="font-weight: bold;">
                             <p:selectOneMenu value="#{beanBandeja.dependencia}" style="width: 400px" disabled="#{beanBandeja.ocultarDependencias}">
+                                <f:selectItem itemValue="" itemLabel=""/>
                                 <f:selectItems value="#{beanBandeja.listaDependencias}" var="dep" itemLabel="#{dep.nombre}" itemValue="#{dep.idDependencia}"/>
                             </p:selectOneMenu>
                         </p:column>
-                    </p:row>
+                    </p:row>-->
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRedirigirDocumento_formulario_comentario}"/></p:column>
                         <p:column colspan="50" style="font-weight: bold;">

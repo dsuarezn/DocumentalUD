@@ -42,10 +42,10 @@
 
 
                             </p:submenu>
-                            <p:submenu label="Consulta">                                                                  
-                                <p:menuitem value="Consultas" action="#{beanConsulta.prepareList()}"  icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsRadicados')}" />
+                            <p:submenu label="Consulta" rendered="#{beanUsuario.asPermission('pMenuConsultas')}">                                                                  
+                                <p:menuitem value="Consultas" action="#{beanConsulta.prepareList()}"  icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsultas')}" />
                             </p:submenu>
-                            <p:submenu label="Administrador">
+                            <p:submenu label="Administrador" rendered="#{beanUsuario.asPermission('pMenuAdministrador')}">
                                 <p:submenu label="Permisos Usuario">                                    
                                     <p:menuitem value="Nivel Acceso" action="#{beanNivelAcceso.prepareList()}" icon="configurar" immediate="true" />                                
                                     <p:menuitem value="Tarea" action="#{beanTarea.prepareList()}" icon="configurar"  />                                
@@ -60,8 +60,7 @@
                                 </p:submenu>
                                 <p:menuitem value="Dependencias" action="#{beanDependencia.prepareList()}" icon="configurar" />
                             </p:submenu>
-                            <p:submenu label="Mi cuenta">                                                                  
-                                <p:menuitem value="Cambiar Contraseña" action="#{beanNivelAcceso.prepareList()}" icon="contrasena" rendered="#{beanUsuario.asPermission('pMenuGralContrasena')}" />                                  
+                            <p:submenu label="Mi cuenta">                                                                                                  
                                 <p:menuitem value="Cerrar Sesión" icon="cancelar" action="#{beanGeneral.prepareCerrarSesion()}" rendered="#{beanUsuario.asPermission('pMenuGralCancelar')}" />                                                                                               
                             </p:submenu>
                         </p:panelMenu>                        
