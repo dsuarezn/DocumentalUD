@@ -19,17 +19,12 @@ public interface ServicioHistorico {
     public String insertarHistorico(Historico historico);
     public Historico consultarHistoricoPorId(HistoricoPK Id);
     public List<Historico> consultarTodosHistoricos();
-    public List<Historico> consultarHistoricosPorDocumento(Integer documentoId);
     public void borrarHistorico(Historico historico);
     public List<Historico> buscarDestinatarioActivo(int id);
     
     public List<Historico> consultarHistoricoPorDocumentId(Integer IdDocumento);
     public int getCountForDocument(Integer IdDocumento);
 
-    public List<Historico> consultarComentariosPorDocumento(Integer idDocumento);
-    public Integer countComentariosPorDocumento(Integer idDocumento);
-
     public List<Historico> buscarDocumentosSalida(int usuario);
-
     public List<Historico> buscarDocumentosCerrados(int usuario);
 }

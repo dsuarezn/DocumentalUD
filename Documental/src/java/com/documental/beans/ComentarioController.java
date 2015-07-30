@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -227,10 +226,12 @@ public class ComentarioController {
       
       private List<ComentarioDTO> obtenerListadoComentariosRedireccion(){
           List<ComentarioDTO> listaDTO =  new ArrayList<ComentarioDTO>();
-          List<Historico> listaHistoricos = getServicioHistorico().consultarHistoricosPorDocumento(this.documentoId);          
+          List<Historico> listaHistoricos = getServicioHistorico().consultarHistoricoPorDocumentId(this.documentoId);          
+          
           for (Historico historico : listaHistoricos) {
               listaDTO.add(new ComentarioDTO(null,historico.getHistoricoPK().getDocumentoId(),historico.getComentario(),historico.getFecha(),historico.getLoginOrigen(),"Redireccion", false));
           }                  
+          
           return listaDTO;
       }
       
