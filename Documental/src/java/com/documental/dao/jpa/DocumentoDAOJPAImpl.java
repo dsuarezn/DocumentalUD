@@ -83,9 +83,7 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
         }
         
         query = query + " and H.fecha = (SELECT max(hi.fecha) from Historico hi where H.documento.idDocumento = hi.documento.idDocumento)";
-        
-        System.out.println("el query es: "+ query);
-
+                
         TypedQuery<Historico> consulta = manager.createQuery(query,
                 Historico.class);
 
@@ -93,26 +91,23 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
                 && historico.getDocumento().getTipoId().getIdTipo() != 0) {
             consulta.setParameter("pTipo",
                     historico.getDocumento().getTipoId().getIdTipo());
-            System.out.println("el valor de idTipo es: "+historico.getDocumento().getTipoId().getIdTipo());
+            
         }
         if (historico.getDocumento().getEstado() != null
                 && !historico.getDocumento().getEstado().equals("")) {
             consulta.setParameter("pEstado",
-                    historico.getDocumento().getEstado());
-            System.out.println("el valor de estado es: "+historico.getDocumento().getEstado());
+                    historico.getDocumento().getEstado());            
         }
  
         if (historico.getDocumento().getVisibilidad() != null
                 && !historico.getDocumento().getVisibilidad().equals("")) {
             consulta.setParameter("pVisibilidad",
-                    historico.getDocumento().getVisibilidad());
-            System.out.println("el valor de visibilidad es: "+historico.getDocumento().getVisibilidad());
+                    historico.getDocumento().getVisibilidad());            
         }
  
         if (historico.getDocumento().getPalabrasClave()!= null
                 && !historico.getDocumento().getPalabrasClave().equals("")) {
-            consulta.setParameter("pPalabras_clave","%" + historico.getDocumento().getPalabrasClave() + "%");
-            System.out.println("el valor de palabras_clave es: "+historico.getDocumento().getPalabrasClave());
+            consulta.setParameter("pPalabras_clave","%" + historico.getDocumento().getPalabrasClave() + "%");            
         }
         if (historico.getLoginDestinatario().getIdLogin() != 0) {
             consulta.setParameter("pDestinatario", historico.getLoginDestinatario().getIdLogin());

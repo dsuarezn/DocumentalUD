@@ -69,8 +69,7 @@
                     </p:row>                    
                 </p:panelGrid>
                 <br></br>
-                <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" 
-                                 value="&nbsp;Buscar"  action="#{beanConsulta.buscar()}"  icon="consultar" />                                                
+                <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" value="&nbsp;Buscar"  action="#{beanConsulta.buscar()}"  icon="consultar" />                                                
             </p:panel>
             <p:panel  footer="">            
                 <p:dataTable id="buscaDocumento" var="historico" value="#{beanConsulta.items}"
@@ -97,8 +96,15 @@
                         <h:outputText value="#{historico.documento.fechaCreacion}" >
                             <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' hh:mm a" />
                         </h:outputText>
-                    </p:column>                    
+                    </p:column>  
 
+                    <p:column id="button">
+                        <f:facet name="header">
+                        </f:facet>                                             
+                        <p:commandButton id="beditar" icon="editar" value="&nbsp;Detalles" action="#{beanConsulta.detalle(historico)}">
+                            <f:ajax render="@form"/>
+                        </p:commandButton> 
+                    </p:column>
                 </p:dataTable>                                                                                         
             </p:panel>  
         </h:form>
