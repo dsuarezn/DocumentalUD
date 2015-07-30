@@ -22,9 +22,8 @@ and open the template in the editor.
         </p:panel>        
         <p:panel header="" footer="">
             <h:form id="frmNiveles">
-                <p:dataTable id="nivelAcceso" var="historico" value="#{beanHistorico.items}"
+                <p:dataTable id="historicoPU" var="historico" value="#{beanHistorico.items}"
                              emptyMessage="No Se Han Filtrado Resultados"
-                             filteredValue="#{beanHistorico.listHistorico}"
                              paginator="true" rows="15"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15"  
@@ -51,6 +50,8 @@ and open the template in the editor.
                 </p:dataTable>          
             </h:form>            
             <p:commandButton  value="&nbsp;Volver" action="#{beanHistorico.volver()}" icon="volver" immediate="true"/>                                                  
+            <p:commandButton  value="&nbsp;Comentarios" action="#{beanComentario.prepareCreate(beanBandeja.selected.documento.idDocumento)}" icon="volver" immediate="true"/>                                                  
+
         </p:panel>        
     </ui:define>
 </ui:composition>
