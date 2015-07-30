@@ -58,15 +58,16 @@ public class HistoricoController {
                 public DataModel createPageDataModel() {
                     
                     List<Historico> tempList = getServicio().consultarHistoricoPorDocumentId(getDocumentId());
-                    /*Collections.sort(tempList, new Comparator<Historico>() {
+                    
+                    Collections.sort(tempList, new Comparator<Historico>() {
+                        @Override
                         public int compare(Historico h1, Historico h2) {
                             return h1.getFecha().compareTo(h2.getFecha());
-                            
                         }
                     });
-                    */
+                    
                     setListHistorico(tempList);
-                    return new ListDataModel(getListHistorico());
+                    return new ListDataModel(tempList);
                 }
 
             };
@@ -91,10 +92,12 @@ public class HistoricoController {
     }
 
     public String prepareList(Integer documentId){
-        this.documentId = documentId;        
-        pagination = null;
+        this.documentId = documentId;     
+
         items = null;      
+        pagination = null;
         listHistorico = null;
+        
         return "/GUI/Gestion/BandejaEntrada/GUIHistorico";
     }
     

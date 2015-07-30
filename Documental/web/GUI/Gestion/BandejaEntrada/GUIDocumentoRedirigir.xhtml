@@ -45,11 +45,12 @@
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRedirigirDocumento_formulario_destinatario}"/></p:column>
                         <p:column colspan="50" style="font-weight: bold;">
                             <p:selectOneMenu value="#{beanBandeja.empleado}" style="width: 400px">
+                                <f:selectItem itemValue="" itemLabel=""/>
                                 <f:selectItems value="#{beanBandeja.listaEmpleados}" var="emp" itemLabel="#{emp.nombre}" itemValue="#{emp.idLogin}"/>
                             </p:selectOneMenu>
                         </p:column>
                     </p:row>
-                 <!--   <p:row>
+                    <p:row>
                         <p:column colspan="50" style="font-weight: bold;"></p:column>
                         <p:column colspan="50" style="font-weight: bold;">
                             <p:selectOneMenu value="#{beanBandeja.dependencia}" style="width: 400px" disabled="#{beanBandeja.ocultarDependencias}">
@@ -57,7 +58,7 @@
                                 <f:selectItems value="#{beanBandeja.listaDependencias}" var="dep" itemLabel="#{dep.nombre}" itemValue="#{dep.idDependencia}"/>
                             </p:selectOneMenu>
                         </p:column>
-                    </p:row>-->
+                    </p:row>
                     <p:row>
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIRedirigirDocumento_formulario_comentario}"/></p:column>
                         <p:column colspan="50" style="font-weight: bold;">

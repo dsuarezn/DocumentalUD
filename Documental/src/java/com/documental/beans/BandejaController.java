@@ -330,15 +330,14 @@ public class BandejaController {
     public void redirigir() {
         String respuesta = null;
         getSelected().setLoginOrigen(current.getLoginDestinatario());
-       /* if (validate()) {
+        if (validate()) {
             if (dependencia != null) {
                 getSelected().setLoginDestinatario(servicioLogin.obtenerDirectorDependencia(dependencia));
             } else if (empleado != null) {
                 getSelected().setLoginDestinatario(new Login(empleado));
-            }            
-        }*/ 
-        getSelected().setLoginDestinatario(new Login(empleado));
-        try {
+            }
+            //getSelected().setLoginDestinatario(new Login(empleado));
+            try {
                 getSelected().setHistoricoPK(new HistoricoPK(current.getDocumento().getIdDocumento(),
                         current.getLoginOrigen().getIdLogin(),
                         current.getLoginDestinatario().getIdLogin()));
@@ -348,16 +347,17 @@ public class BandejaController {
             } catch (Exception e) {
                 respuesta = "Operación Erronea";
             }
-        if (respuesta.equals("Operación Exitosa")) {
-            comentario = "";
-            historicoAuxiliar.setHistoricoPK(historicoAuxiliarPK);
-            historicoAuxiliar.setFecha(fecha);
-            historicoAuxiliar.setComentario(comentarioAuxiliar);
-            historicoAuxiliar.setActivo(false);
-            getServicioHistorico().salvarHistorico(historicoAuxiliar);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoExitosa"));
-        } else {
-            JsfUtil.addErrorMessage("No es posible redirigir el documento a si mismo");
+            if (respuesta.equals("Operación Exitosa")) {
+                comentario = "";
+                historicoAuxiliar.setHistoricoPK(historicoAuxiliarPK);
+                historicoAuxiliar.setFecha(fecha);
+                historicoAuxiliar.setComentario(comentarioAuxiliar);
+                historicoAuxiliar.setActivo(false);
+                getServicioHistorico().salvarHistorico(historicoAuxiliar);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pCreacionHistoricoExitosa"));
+            } else {
+                JsfUtil.addErrorMessage("No es posible redirigir el documento a si mismo");
+            }
         }
     }
 
@@ -365,7 +365,7 @@ public class BandejaController {
         if ((dependencia == null || dependencia == 0) && (empleado == null || empleado == 0)) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioVacio"));
             return false;
-        } else if ((dependencia != null) && (empleado != null)) {
+        } else if ((dependencia != 0) && (empleado != 0)) {
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioMultiple"));
             return false;
         } else {

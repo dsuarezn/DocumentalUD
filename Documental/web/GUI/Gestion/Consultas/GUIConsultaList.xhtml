@@ -69,8 +69,7 @@
                     </p:row>                    
                 </p:panelGrid>
                 <br></br>
-                <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" 
-                                 value="&nbsp;Buscar"  action="#{beanConsulta.buscar()}"  icon="consultar" />                                                
+                <p:commandButton id="bNuevo" update="@([id$=buscaDocumento])" value="&nbsp;Buscar"  action="#{beanConsulta.buscar()}"  icon="consultar" />                                                
             </p:panel>
             <p:panel  footer="">            
                 <p:dataTable id="buscaDocumento" var="historico" value="#{beanConsulta.items}"
@@ -100,7 +99,7 @@
                     </p:column>                    
                     
                     <p:column headerText="Detalle documento">
-                        <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanConsulta.detalle(historico)}">
+                        <p:commandButton id="beditar" icon="editar" value="&nbsp;Detalles" action="#{beanConsulta.detalle(historico)}">
                             <f:ajax render="@form"/>
                         </p:commandButton> 
                     </p:column>  

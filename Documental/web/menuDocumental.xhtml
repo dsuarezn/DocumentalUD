@@ -32,15 +32,13 @@
                 <p:layoutUnit position="west" size="175" header="Sistema Documental" collapsible="true">
                     <h:form>
                         <p:panelMenu style="width:165px">
-                            <p:submenu label="Radicacion">                                                                  
+                            <p:submenu label="Radicacion" rendered="#{beanUsuario.asPermission('pMenuRadicacion')}" >                                                                  
                                 <p:menuitem value="Entrada" icon="caracterizacion" rendered="#{beanUsuario.asPermission('pMenuRadicEntrada')}" action="#{beanRadicacion.prepareCreate()}" />                                                                                                                               
                             </p:submenu>
-                            <p:submenu label="Gestión">                                                                  
+                            <p:submenu label="Gestión" rendered="#{beanUsuario.asPermission('pMenuGestion')}" >                                                                 
                                 <p:menuitem value="Bandeja de entrada" icon="caracterizacion" action="#{beanBandeja.prepareList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />
                                 <p:menuitem value="Bandeja de Salida" icon="caracterizacion" action="#{beanBandeja.prepareSalidaList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />  
                                 <p:menuitem value="Bandeja de Cerrados" icon="caracterizacion" action="#{beanBandeja.prepareCerradosList()}" rendered="#{beanUsuario.asPermission('pMenuGestBandeja')}" />  
-
-
                             </p:submenu>
                             <p:submenu label="Consulta" rendered="#{beanUsuario.asPermission('pMenuConsultas')}">                                                                  
                                 <p:menuitem value="Consultas" action="#{beanConsulta.prepareList()}"  icon="consultar" rendered="#{beanUsuario.asPermission('pMenuConsultas')}" />
