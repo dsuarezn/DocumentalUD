@@ -82,6 +82,8 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
             query = query + "and H.historicoPK.destinatarioId LIKE :pDestinatario ";
         }
         
+        query = query + " and H.fecha = (SELECT max(hi.fecha) from Historico hi where H.documento.idDocumento = hi.documento.idDocumento)";
+        
         System.out.println("el query es: "+ query);
 
         TypedQuery<Historico> consulta = manager.createQuery(query,
