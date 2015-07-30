@@ -62,6 +62,14 @@
                     </p:row>
 
                     <p:row>
+                        <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Archivados}"/></p:column>
+                        <p:column colspan="50">
+                            <p:selectOneMenu value="#{beanConsulta.tipoArchivado}" style="width: 400px">
+                                <f:selectItem itemValue="todos" itemLabel="-- TODOS --" />
+                                <f:selectItem itemValue="archivados" itemLabel="Archivados" />
+                                <f:selectItem itemValue="NoArchivados" itemLabel="No Archivados" />
+                            </p:selectOneMenu>
+                        </p:column>     
                         <p:column colspan="50" style="font-weight: bold;"><h:outputText value="#{bundle.documental_GUIDocumento_Consulta_Palabras_Clave}"/></p:column>
                         <p:column colspan="50">
                             <p:inputText style="width: 400px" value="#{beanConsulta.selected.palabrasClave}"/>
@@ -103,14 +111,7 @@
                             <f:ajax render="@form"/>
                         </p:commandButton> 
                     </p:column>  
-
-                    <p:column id="button">
-                        <f:facet name="header">
-                        </f:facet>                                             
-                        <p:commandButton id="beditar" icon="editar" value="&nbsp;Detalles" action="#{beanConsulta.detalle(historico)}">
-                            <f:ajax render="@form"/>
-                        </p:commandButton> 
-                    </p:column>
+                 
                 </p:dataTable>                                                                                         
             </p:panel>  
         </h:form>

@@ -326,6 +326,19 @@ public class BandejaController {
         accionesDetalle=true;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
+    
+    public void archivar(Historico historico) {
+        current = historico;        
+        current.setArchivado(true);
+        getServicioHistorico().salvarHistorico(current);
+        listHistoricoSalida = null;
+        listHistoricoSalida = getServicioHistorico().buscarDocumentosSalida(usuario); 
+        actualizarDatatableBandejaSalida();
+    }
+    
+     public void actualizarDatatableBandejaSalida(){
+        FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmBandejaSalida:documentosPU");
+    }
 
     public void redirigir() {
         String respuesta = null;

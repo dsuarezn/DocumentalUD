@@ -51,7 +51,10 @@ public class Historico implements Serializable {
     private Date fecha;
     @Basic(optional = false)
     @Column(name = "activo")
-    private boolean activo;    
+    private boolean activo; 
+    @Basic(optional = false)
+    @Column(name = "archivado")
+    private Boolean archivado; 
     @JoinColumn(name = "destinatario_id", referencedColumnName = "id_login", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Login loginDestinatario;
@@ -135,6 +138,16 @@ public class Historico implements Serializable {
     public void setDocumento(Documento documento) {
         this.documento = documento;
     }
+
+    public Boolean getArchivado() {
+        return archivado;
+    }
+
+    public void setArchivado(Boolean archivado) {
+        this.archivado = archivado;
+    }
+    
+    
 
     @Override
     public int hashCode() {

@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class ConsultaController {
      
+    private String tipoArchivado;
     private BandejaController controladorBandeja;
     private boolean accionesDetalle = true;
     private Documento current;
@@ -241,19 +242,44 @@ public class ConsultaController {
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
 
+    private void setArchivadoSelecionado(){
+        if("todos".equals(this.tipoArchivado)){
+                currentH.setArchivado(null);                
+            }
+            else if("archivados".equals(this.tipoArchivado)){
+                currentH.setArchivado(true);
+            }
+            else if("NoArchivados".equals(this.tipoArchivado)){
+                currentH.setArchivado(false);
+            }            
+    }
+    
     public void buscar() {
         try {
+            
             items = null;
             pagination = null;
             current.setTipoId(new Tipo(idTipo));
             getSelectedH().setLoginDestinatario(new Login(loginDestinatario));
             getSelectedH().setDocumento(current);
+            setArchivadoSelecionado();
             items = getPagination().createPageDataModel();
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("El error es: " + e.toString());
         }
     }
 
+    public String getTipoArchivado() {
+        return tipoArchivado;
+    }
+
+    public void setTipoArchivado(String tipoArchivado) {
+        this.tipoArchivado = tipoArchivado;
+    }
+    
+    
+    
     public boolean isAccionesDetalle() {
         return accionesDetalle;
     }

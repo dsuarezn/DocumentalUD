@@ -6,7 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">  
     <ui:define name="bodyJR">
-        <h:form>
+        <h:form id="frmBandejaSalida">
 
             <p:dataTable id="documentosPU" var="historico" value="#{beanBandeja.listHistoricoSalida}"
                          emptyMessage="No Se Han Filtrado Resultados"
@@ -40,6 +40,13 @@
                     <f:facet name="header">
                     </f:facet>                                             
                     <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanBandeja.detalle(historico)}">
+                        <f:ajax render="@form"/>
+                    </p:commandButton> 
+                </p:column>
+                <p:column id="archivarBoton">
+                    <f:facet name="header">
+                    </f:facet>                                             
+                    <p:commandButton id="archivar" icon="editar" value="&nbsp;Archivar" action="#{beanBandeja.archivar(historico)}">
                         <f:ajax render="@form"/>
                     </p:commandButton> 
                 </p:column>

@@ -81,6 +81,13 @@ public class DocumentoDAOJPAImpl extends GenericDAOJPAImpl<Documento, Integer> i
         if (historico.getLoginDestinatario().getIdLogin()!= 0){
             query = query + "and H.historicoPK.destinatarioId LIKE :pDestinatario ";
         }
+        if (historico.getArchivado()!= null){
+            if (historico.getArchivado().equals(Boolean.TRUE)){
+                query = query + "and H.archivado = true ";
+            }else if(historico.getArchivado().equals(Boolean.FALSE)){
+                query = query + "and H.archivado = false ";
+            }            
+        }
         
         query = query + " and H.fecha = (SELECT max(hi.fecha) from Historico hi where H.documento.idDocumento = hi.documento.idDocumento)";
                 

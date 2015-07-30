@@ -70,7 +70,7 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
         EntityManager manager = factoriaSession.createEntityManager();
         try {
-            String sql = "select * from historico where origen_id = ?";
+            String sql = "select * from historico where origen_id = ? and archivado = false";
             Query q = manager.createNativeQuery(sql, Historico.class);
             q.setParameter(1, id);
             return q.getResultList();
