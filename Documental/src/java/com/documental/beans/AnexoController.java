@@ -72,6 +72,9 @@ public class AnexoController {
     private List<AnexoDTO> listaDTO=null;
     private String adelante, volver; 
     private String RUTA_VISTA="/GUI/Gestion/Anexo/GUIAnexo";
+    
+    private String RUTA_DEFECTO="/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
+    
 
     private Login usuario;
     
@@ -248,10 +251,10 @@ public class AnexoController {
     }
     
     public String volver() {          
-        return (JsfUtil.IsBlank(volver)?"/":volver);
+        return (JsfUtil.IsBlank(volver)?RUTA_DEFECTO:volver);
     }
     public String adelante() {          
-        return (JsfUtil.IsBlank(adelante)?"/":adelante);
+        return (JsfUtil.IsBlank(adelante)?RUTA_DEFECTO:adelante);
     }
       
     public void actualizarDataTable(){

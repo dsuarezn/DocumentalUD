@@ -73,6 +73,12 @@ public class BandejaController {
         return accionesDetalle;
     }
 
+    public void setAccionesDetalle(boolean accionesDetalle) {
+        this.accionesDetalle = accionesDetalle;
+    }
+    
+    
+
     public String getUsuarioActual() {
         return usuarioActual;
     }
@@ -102,6 +108,16 @@ public class BandejaController {
     public String getComentario() {
         return comentario;
     }
+
+    public Historico getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Historico current) {
+        this.current = current;
+    }
+    
+    
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
@@ -307,6 +323,7 @@ public class BandejaController {
 
     public String detalle(Historico historico) {
         current = historico;
+        accionesDetalle=true;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
 

@@ -98,6 +98,12 @@
                             <f:convertDateTime pattern="dd 'de' MMMM 'de' yyyy 'a las' hh:mm a" />
                         </h:outputText>
                     </p:column>                    
+                    
+                    <p:column headerText="Detalle documento">
+                        <p:commandButton id="editar" icon="editar" value="&nbsp;Detalles" action="#{beanConsulta.detalle(historico)}">
+                            <f:ajax render="@form"/>
+                        </p:commandButton> 
+                    </p:column>  
 
                 </p:dataTable>                                                                                         
             </p:panel>  

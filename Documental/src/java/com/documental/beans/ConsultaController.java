@@ -21,6 +21,7 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 /**
  *
  * @author DiegoM
@@ -28,7 +29,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "beanConsulta")
 @SessionScoped
 public class ConsultaController {
-
+     
+    private BandejaController controladorBandeja;
+    private boolean accionesDetalle = true;
     private Documento current;
     private Historico currentH;
     private DataModel items = null;
@@ -180,6 +183,18 @@ public class ConsultaController {
         }
         return pagination;
     }
+    
+   
+    
+    
+    
+    public String detalle(Historico historico) {
+        currentH = historico;
+        accionesDetalle=true;
+        getBandejaController().setCurrent(currentH);
+        getBandejaController().setAccionesDetalle(true);        
+        return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
+    }
 
     public void buscar() {
         try {
@@ -193,5 +208,32 @@ public class ConsultaController {
             System.out.println("El error es: " + e.toString());
         }
     }
+
+    public boolean isAccionesDetalle() {
+        return accionesDetalle;
+    }
+
+    public void setAccionesDetalle(boolean accionesDetalle) {
+        this.accionesDetalle = accionesDetalle;
+    }
+
+    public Documento getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Documento current) {
+        this.current = current;
+    }
+    
+    private BandejaController getBandejaController() {
+        if (controladorBandeja == null) {
+//            controladorAnexo  = (AnexoController) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("beanAnexo");        
+//            controladorAnexo  = (AnexoController)FacesAccessor.getManagedBean("beanAnexo");
+            FacesContext context = FacesContext.getCurrentInstance();
+            controladorBandeja = (BandejaController) context.getApplication().evaluateExpressionGet(context, "#{beanBandeja}", BandejaController.class);
+        }
+        return controladorBandeja;
+    }
+    
 
 }
