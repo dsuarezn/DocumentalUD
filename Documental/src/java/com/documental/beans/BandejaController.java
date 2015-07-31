@@ -54,8 +54,8 @@ public class BandejaController {
     private List<Anexo> listAnexos;
 
     private boolean ocultarDependencias = true;
-    private Integer dependencia;
-    private Integer empleado;
+    private Integer dependencia = 0;
+    private Integer empleado = 0;
     private String comentario;
     private String comentarioAuxiliar;
     private Date fecha;
@@ -76,8 +76,6 @@ public class BandejaController {
     public void setAccionesDetalle(boolean accionesDetalle) {
         this.accionesDetalle = accionesDetalle;
     }
-    
-    
 
     public String getUsuarioActual() {
         return usuarioActual;
@@ -116,8 +114,6 @@ public class BandejaController {
     public void setCurrent(Historico current) {
         this.current = current;
     }
-    
-    
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
@@ -323,20 +319,20 @@ public class BandejaController {
 
     public String detalle(Historico historico) {
         current = historico;
-        accionesDetalle=true;
+        accionesDetalle = true;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
-    
+
     public void archivar(Historico historico) {
-        current = historico;        
+        current = historico;
         current.setArchivado(true);
         getServicioHistorico().salvarHistorico(current);
         listHistoricoSalida = null;
-        listHistoricoSalida = getServicioHistorico().buscarDocumentosSalida(usuario); 
+        listHistoricoSalida = getServicioHistorico().buscarDocumentosSalida(usuario);
         actualizarDatatableBandejaSalida();
     }
-    
-     public void actualizarDatatableBandejaSalida(){
+
+    public void actualizarDatatableBandejaSalida() {
         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmBandejaSalida:documentosPU");
     }
 
@@ -344,9 +340,9 @@ public class BandejaController {
         String respuesta = null;
         getSelected().setLoginOrigen(current.getLoginDestinatario());
         if (validate()) {
-            if (dependencia != null) {
+            if (dependencia != 0) {
                 getSelected().setLoginDestinatario(servicioLogin.obtenerDirectorDependencia(dependencia));
-            } else if (empleado != null) {
+            } else if (empleado != 0) {
                 getSelected().setLoginDestinatario(new Login(empleado));
             }
             //getSelected().setLoginDestinatario(new Login(empleado));
@@ -375,13 +371,17 @@ public class BandejaController {
     }
 
     public boolean validate() {
-        if ((dependencia == null || dependencia == 0) && (empleado == null || empleado == 0)) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioVacio"));
-            return false;
-        } else if ((dependencia != 0) && (empleado != 0)) {
-            JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioMultiple"));
-            return false;
-        } else {
+        try {
+            if ((dependencia == null || dependencia == 0) && (empleado == null || empleado == 0)) {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioVacio"));
+                return false;
+            } else if ((dependencia != 0) && (empleado != 0)) {
+                JsfUtil.addErrorMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRedirigirDocumento_Messages_pDestinatarioMultiple"));
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
             return true;
         }
     }
