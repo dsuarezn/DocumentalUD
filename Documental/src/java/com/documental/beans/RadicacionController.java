@@ -216,6 +216,7 @@ public class RadicacionController {
                 historico.setLoginOrigen(origen);
                 historico.setLoginDestinatario(directorDest);
                 historico.setHistoricoPK(historicoPK);
+                historico.setArchivado(false);
                 String respuesta = getServicioHistorico().salvarHistorico(historico);
                 if (respuesta.equals("Operación Exitosa")) {
                     JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("documental_GUIRadicar_Messages_pCreacionHistoricoExitosa"));
