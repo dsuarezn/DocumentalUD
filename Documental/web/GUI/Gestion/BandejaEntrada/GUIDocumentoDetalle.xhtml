@@ -99,9 +99,9 @@
                     <p:row>
                         <p:column>
                             <p:commandButton id="bCerrar"  value="&nbsp;Cerrar" oncomplete="PF('dlg1').show();" icon="ui-icon-close" immediate="true" />                                                                                   
-                            <p:commandButton  value="&nbsp;Ver historico" action="#{beanHistorico.prepareList(beanBandeja.selected.documento.idDocumento)}" icon="volver" immediate="true"/>                  
-                            <p:commandButton  value="&nbsp;Rediriguir" action="#{beanBandeja.prepareRedirigir()}" icon="volver" immediate="true"/>                  
-                            <p:commandButton  value="&nbsp;Ver Anexos" action="#{beanAnexo.prepareCreate(beanBandeja.selected.documento.idDocumento)}"  icon="fa fa-fw fa-file-pdf-o" immediate="true"/>                                              
+                            <p:commandButton  value="&nbsp;Ver historico" action="#{beanHistorico.prepareList(beanBandeja.selected.documento.idDocumento)}" icon="tareas" immediate="true"/>                  
+                            <p:commandButton  value="&nbsp;Rediriguir" action="#{beanBandeja.prepareRedirigir()}" icon="cambio" immediate="true"/>                  
+                            <p:commandButton  value="&nbsp;Ver Anexos" action="#{beanAnexo.prepareCreate(beanBandeja.selected.documento.idDocumento)}"  icon="documento" immediate="true"/>                                              
                             <p:commandButton  value="&nbsp;Volver" action="#{beanBandeja.volver()}" icon="volver" immediate="true"/>                                         
                         </p:column>
                     </p:row>

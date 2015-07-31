@@ -239,7 +239,7 @@ public class ConsultaController {
         setListComentario(getServicioComentario().obtenerComentariosDocumento(currentH.getDocumento().getIdDocumento()));
         getBandejaController().setCurrent(currentH);
         getBandejaController().setAccionesDetalle(true);        
-        return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
+        return "/GUI/Gestion/Consultas/GUIConsultaDetalle";
     }
 
     private void setArchivadoSelecionado(){
