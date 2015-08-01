@@ -69,7 +69,9 @@ public class BandejaController {
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
     private boolean accionesDetalle = true;
 
-    public boolean isAccionesDetalle() {
+     private String lastPageURI;
+
+     public boolean isAccionesDetalle() {
         return accionesDetalle;
     }
 
@@ -259,7 +261,8 @@ public class BandejaController {
     public String volver() {
         listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
         accionesDetalle = true;
-        return "/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_";
+        
+        return (JsfUtil.IsBlank(getLastPageURI())?"/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_":getLastPageURI());
     }
 
     public void recargar() {
@@ -318,6 +321,11 @@ public class BandejaController {
     }
 
     public String detalle(Historico historico) {
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        setLastPageURI(facesContext.getViewRoot().getViewId());            
+
+
         current = historico;
         accionesDetalle = true;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
@@ -386,4 +394,15 @@ public class BandejaController {
         }
     }
 
+        public String getLastPageURI() {
+
+        return lastPageURI;
+
+    }
+
+    public void setLastPageURI(String lastPageURI) {
+
+        this.lastPageURI = lastPageURI;
+
+    }
 }
