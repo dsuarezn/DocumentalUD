@@ -34,26 +34,25 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
             return null;
         }
     }
-    
+
     @Override
     public List<Historico> buscarHistoricoDocumento(int id) {
-        
+
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
         EntityManager manager = factoriaSession.createEntityManager();
         try {
             String sql = "select * from historico where documento_id = ?";
             Query q = manager.createNativeQuery(sql, Historico.class);
             q.setParameter(1, id);
-            q.setHint("javax.persistence.cache.storeMode", "REFRESH"); 
+            q.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return q.getResultList();
         } catch (Exception e) {
             System.out.println("el error es: " + e.toString());
             return null;
         }
-        
+
     }
 
-    
     @Override
     public Integer countHistoricosPorDocumento(Integer idDocumento) {
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
@@ -64,7 +63,6 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
         return listaHistoricos.size();
     }
 
-    
     @Override
     public List<Historico> buscarDocumentosSalida(int id) {
         EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
@@ -73,7 +71,7 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
             String sql = "select * from historico where origen_id = ? and archivado = false";
             Query q = manager.createNativeQuery(sql, Historico.class);
             q.setParameter(1, id);
-            q.setHint("javax.persistence.cache.storeMode", "REFRESH"); 
+            q.setHint("javax.persistence.cache.storeMode", "REFRESH");
             return q.getResultList();
         } catch (Exception e) {
             System.out.println("el error es: " + e.toString());
@@ -88,6 +86,7 @@ public class HistoricoDAOJPAImpl extends GenericDAOJPAImpl<Historico, HistoricoP
         EntityManager em = factoriaSession.createEntityManager();
         Query consulta = em.createNamedQuery("Historico.findByCerrado");
         consulta.setParameter("destinatarioId", id);
+        consulta.setHint("javax.persistence.cache.storeMode", "REFRESH");
         List<Historico> listaHistoricos = consulta.getResultList();
         return listaHistoricos;
     }
