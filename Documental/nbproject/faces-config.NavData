@@ -3,29 +3,39 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="GUI/Administrador/TipoUsuarioTarea/GUITipoUsuarioTareaCrear.xhtml" x="900" y="300" zoom="true"/>
-        <Node id="GUI/Administrador/Usuarios/GUIUsuarioDesactivar.xhtml" x="150" y="150" zoom="true"/>
-        <Node id="GUI/Administrador/TipoUsuario/GUITipoUsuarioCrear.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="GUI/Administrador/Usuarios/GUIUsuarioDesactivar.xhtml" x="45" y="199" zoom="true"/>
+        <Node id="GUI/Gestion/Consultas/GUIConsultaList.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIBandejaSalida.xhtml" x="650" y="750" zoom="true"/>
         <Node id="GUI/Gestion/BandejaEntrada/GUIBandejaEntradaList.xhtml" x="150" y="600" zoom="true"/>
-        <Node id="GUI/Gestion/BandejaEntrada/GUIBandejaEntrada.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="GUI/Administrador/TipoUsuario/GUITipoUsuarioCrear.xhtml" x="650" y="150" zoom="true"/>
         <Node id="GUI/Administrador/TipoUsuario/GUITipoUsuarioEditar.xhtml" x="150" y="900" zoom="true"/>
         <Node id="GUI/Administrador/NivelAcceso/GUINivelAccesoList.xhtml" x="30" y="239" zoom="true"/>
-        <Node id="GUI/Administrador/Dependencia/GUIDependenciaList.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="GUI/Administrador/Dependencia/GUIDependenciaList.xhtml" x="928" y="86" zoom="true"/>
         <Node id="GUI/Administrador/Tarea/GUITareaList.xhtml" x="1400" y="300" zoom="true"/>
-        <Node id="menuDocumental.xhtml" x="226" y="419" zoom="true"/>
+        <Node id="menuDocumental.xhtml" x="113" y="509" zoom="true"/>
         <Node id="GUI/Administrador/Usuarios/GUIUsuarioCrear.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIDocumentoRedirigir.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="GUI/Administrador/Dependencia/GUIDependenciaCrear.xhtml" x="650" y="600" zoom="true"/>
         <Node id="GUI/Administrador/Tarea/GUITareaCrear.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="GUI/Administrador/Dependencia/GUIDependenciaEditar.xhtml" x="150" y="450" zoom="true"/>
         <Node id="GUI/Administrador/TipoUsuarioTarea/GUITipoUsuarioTareaEditar.xhtml" x="400" y="600" zoom="true"/>
         <Node id="GUI/Administrador/Usuarios/GUIUsuarioList.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIHistorico.xhtml" x="1385" y="501" zoom="true"/>
         <Node id="GUI/Administrador/Tarea/GUITareaEditar.xhtml" x="900" y="450" zoom="true"/>
         <Node id="GUI/General/GUIGralCerrarSesion.xhtml" x="400" y="750" zoom="true"/>
         <Node id="index.xhtml" x="423" y="521" zoom="true"/>
+        <Node id="GUI/Gestion/Comentarios/GUIComentariosList.xhtml" x="1900" y="195" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_.xhtml" x="1720" y="388" zoom="true"/>
+        <Node id="GUI/Gestion/Consultas/GUIConsultaDetalle.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIBandejaCerrados.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="GUI/Gestion/Anexo/GUIAnexo.xhtml" x="900" y="750" zoom="true"/>
         <Node id="GUI/Administrador/NivelAcceso/GUINivelAccesoCrear.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="GUI/Administrador/NivelAcceso/GUINivelAccesoEditar.xhtml" x="277" y="325" zoom="true"/>
-        <Node id="GUI/Administrador/TipoUsuarioTarea/GUITipoUsuarioTareaList.xhtml" x="1650" y="150" zoom="true"/>
-        <Node id="GUI/Radicador/GUIRadicar.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="GUI/Administrador/NivelAcceso/GUINivelAccesoEditar.xhtml" x="127" y="352" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIAnexo.xhtml" x="413" y="62" zoom="true"/>
+        <Node id="GUI/Administrador/TipoUsuarioTarea/GUITipoUsuarioTareaList.xhtml" x="1734" y="59" zoom="true"/>
+        <Node id="GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle.xhtml" x="659" y="-24" zoom="true"/>
         <Node id="GUI/Administrador/Usuarios/GUIUsuarioEditar.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="GUI/Radicador/GUIRadicar.xhtml" x="1311" y="390" zoom="true"/>
         <Node id="GUI/Administrador/TipoUsuario/GUITipoUsuarioList.xhtml" x="900" y="600" zoom="true"/>
         <Node id="GUI/Administrador/Usuarios/GUIUsuarioListEdit.xhtml" x="650" y="450" zoom="true"/>
     </Scope>

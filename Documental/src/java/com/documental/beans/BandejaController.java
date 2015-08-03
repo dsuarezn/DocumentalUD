@@ -262,7 +262,8 @@ public class BandejaController {
         listHistorico = getServicioHistorico().buscarDestinatarioActivo(getUsuario());
         accionesDetalle = true;
         
-        return (JsfUtil.IsBlank(getLastPageURI())?"/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_":getLastPageURI());
+        //return (JsfUtil.IsBlank(getLastPageURI())?"/GUI/Gestion/BandejaEntrada/GUIBandejaEntrada_":getLastPageURI());
+        return "Anexo_DetalleDocumento";
     }
 
     public void recargar() {
