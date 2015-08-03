@@ -321,6 +321,18 @@ public class BandejaController {
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoRedirigir";
     }
 
+    
+     public String detalleSalida(Historico historico) {
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        setLastPageURI(facesContext.getViewRoot().getViewId());            
+
+
+        current = historico;
+        accionesDetalle = false;
+        return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
+    }
+    
     public String detalle(Historico historico) {
         
         FacesContext facesContext = FacesContext.getCurrentInstance();

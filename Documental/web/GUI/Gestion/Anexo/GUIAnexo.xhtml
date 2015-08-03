@@ -56,7 +56,7 @@
                         <h:inputText  style="width:180px" id="nombreArchivo" value="#{archivo.nombreArchivo}" required="true" readonly="true"/>                        
                     </p:column> 
                     <p:column headerText="Comentario">                                                    
-                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" readonly="#{archivo.persistido == true and archivo.permitido}" >
+                        <h:inputTextarea id="comentario"  value="#{archivo.descripccion}" required="true" >
                              <f:ajax execute="@form" render="RadicarFormulario:archivosAnexo" />
                         </h:inputTextarea>
                     </p:column>
