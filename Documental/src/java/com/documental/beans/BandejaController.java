@@ -327,7 +327,7 @@ public class BandejaController {
 
 
         current = historico;
-        accionesDetalle = true;
+        accionesDetalle = false;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
 
