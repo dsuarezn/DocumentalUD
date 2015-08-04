@@ -68,6 +68,25 @@ public class BandejaController {
     private String usuarioActual = ((HttpServletRequest) FacesContext.getCurrentInstance().
             getExternalContext().getRequest()).getSession().getAttribute("user").toString();
     private boolean accionesDetalle = true;
+    private Login usuarioActualLogin;
+    private boolean accionesDetalleRedireccion = false;
+
+    public boolean isAccionesDetalleRedireccion() {
+        usuarioActualLogin = getServicioLogin().obtenerLogin(usuarioActual);
+        if(usuarioActualLogin.getTipoUsuario().getIdTipoUsuario()==3){
+            return true;
+        }
+        else{
+            return false;
+        }        
+    }
+
+    public void setAccionesDetalleRedireccion(boolean accionesDetalleRedireccion) {
+        this.accionesDetalleRedireccion = accionesDetalleRedireccion;
+    }
+    
+    
+    
 
      private String lastPageURI;
 
@@ -322,23 +341,17 @@ public class BandejaController {
     }
 
     
-     public String detalleSalida(Historico historico) {
-        
+     public String detalleSalida(Historico historico) {        
         FacesContext facesContext = FacesContext.getCurrentInstance();
         setLastPageURI(facesContext.getViewRoot().getViewId());            
-
-
         current = historico;
         accionesDetalle = false;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
     }
     
-    public String detalle(Historico historico) {
-        
+    public String detalle(Historico historico) {        
         FacesContext facesContext = FacesContext.getCurrentInstance();
         setLastPageURI(facesContext.getViewRoot().getViewId());            
-
-
         current = historico;
         accionesDetalle = true;
         return "/GUI/Gestion/BandejaEntrada/GUIDocumentoDetalle";
